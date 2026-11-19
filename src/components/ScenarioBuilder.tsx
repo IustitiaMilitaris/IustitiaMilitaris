@@ -1,6 +1,6 @@
 import customLabels from '../i18n/customScenarios.json';
 import { CustomScenarioActions } from './CustomScenarioActions';
-import { saveCustomScenario, isBuiltInScenario } from '../data/scenarios';
+import { saveCustomScenario, ScenarioApiError, isBuiltInScenario } from '../data/scenarios';
 import { AnimatedDetails, Collapsible } from './Collapsible';
 import studioLabels from '../i18n/builderStudio.json';
 import { freshNode, freshVariant, reachableNodes, nextScenarioId, knownScenarioIds } from '../utils/builderStudio';
@@ -52,11 +52,24 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
   const custom = customLabels[lang];
   const [saving,setSaving] = useState(false);
   const [saveNotice,setSaveNotice] = useState('');
+  const [saveError,setSaveError] = useState(false);
   const persist = async (launch = false) => {
-    if(isBuiltInScenario(scenario.id)){setSaveNotice(custom.copy);return;}
-    setSaving(true);setSaveNotice('');
-    try { await saveCustomScenario(scenario);setDirty(false);setSaveNotice(custom.saved);if(launch)location.assign(`/classroom/host/new?scenario=${scenario.id}`); }
-    catch {setSaveNotice(custom.failed);}finally{setSaving(false);}
+    let draft=structuredClone(scenario);
+    if(isBuiltInScenario(draft.id)){
+      const id=nextScenarioId(knownScenarioIds(allScenarios));
+      if(!id){setSaveNotice(studio.noCaseId);setSaveError(true);return;}
+      draft.id=id;setScenarioState(draft);
+    }
+    delete (draft as unknown as Record<string,unknown>).builtIn;
+    setSaving(true);setSaveNotice('');setSaveError(false);
+    try { await saveCustomScenario(draft);setDirty(false);setSaveNotice(custom.saved);if(launch)location.assign(`/classroom/host/new?scenario=${draft.id}`); }
+    catch(error) {
+      setSaveError(true);
+      if(error instanceof ScenarioApiError){
+        const messages=custom as Record<string,string>;
+        setSaveNotice([`${messages[error.code] || error.code} (HTTP ${error.status})`,...error.details.map(detail=>`${detail.field}: ${messages[detail.code] || detail.code}${detail.expected!==undefined&&!/[\u0400-\u04ff]/u.test(JSON.stringify(detail.expected))?' · '+JSON.stringify(detail.expected):''}`)].join('\n'));
+      }else setSaveNotice(custom.network);
+    }finally{setSaving(false);}
   };
   const [preview, setPreview] = useState(false);
   const [dirty, setDirty] = useState(false);
@@ -72,7 +85,7 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
   >('general');
 
   const [scenario, setScenarioState] = useState<Scenario>(
-    (() => { const source = allScenarios.find(s => s.id === window.location.pathname.split('/')[2]); return source ? copyCase(source) : undefined; })() || {
+    (() => { const source = allScenarios.find(s => s.id === window.location.pathname.split('/')[2]); return source ? { ...copyCase(source), id:isBuiltInScenario(source.id) ? nextScenarioId(knownScenarioIds(allScenarios)) || '' : source.id } : undefined; })() || {
       id: nextScenarioId(knownScenarioIds(allScenarios)) || '',
       nazva: ui(lang, 'm53'),
       versiia: '1.0',
@@ -369,17 +382,18 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
           <p className="text-xs text-steel-300 mt-1">{t.builder.subtitle}</p>
         </div>
         <div className="studio-toolbar w-full">
-          <div className="grid sm:grid-cols-2 gap-2 mb-2"><button className="action-primary" disabled={saving} onClick={()=>persist()}>{saving?custom.busy:custom.save}</button><button className="action" disabled={saving} onClick={()=>persist(true)}>{custom.launch}</button></div>
-          {saveNotice&&<p role="status" className="notice">{saveNotice}</p>}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <button onClick={runValidation} className="im-secondary action"><ShieldCheck size={16}/>{t.builder.validateBtn}</button>
-            <button onClick={handleTestInSimulator} className="im-primary action"><Play size={16}/>{t.builder.testNowBtn}</button>
+          <div className="builder-main-actions grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <button className="im-primary action-primary" disabled={saving} onClick={()=>persist()}>{saving?custom.busy:custom.save}</button>
+            <button className="im-secondary action" disabled={saving} onClick={handleTestInSimulator}><Play size={16}/>{custom.solo}</button>
+            <button className="im-secondary action" disabled={saving} onClick={()=>persist(true)}>{custom.group}</button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
-            <label className="im-secondary action cursor-pointer"><Upload size={16}/>{t.builder.importJsonBtn}<input type="file" accept=".json" onChange={handleImportJson} className="hidden"/></label>
-            <button onClick={handleDownloadJson} className="im-secondary action"><Download size={16}/>{t.builder.exportJsonBtn}</button>
+          <div className="builder-utilities grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+            <button onClick={runValidation} className="im-secondary action"><ShieldCheck size={16}/>{custom.validate}</button>
+            <label className="im-secondary action cursor-pointer"><Upload size={16}/>{custom.import}<input type="file" accept=".json" onChange={handleImportJson} className="hidden"/></label>
+            <button onClick={handleDownloadJson} className="im-secondary action"><Download size={16}/>{custom.export}</button>
             <button onClick={handleExportScorm} className="im-secondary action"><Download size={16}/>SCORM 1.2</button>
           </div>
+          {saveNotice&&<p role={saveError?'alert':'status'} className="notice whitespace-pre-line mt-3 w-full">{saveNotice}</p>}
         </div>
       </div>
       <section className="steel-panel p-4 space-y-3" aria-label={studio.quick}>
