@@ -1,3 +1,6 @@
+import { mostDividedStages } from '../utils/groupSummary';
+import { TacticalTracker } from './TacticalTracker';
+import { DecisionPathSvg } from './DecisionPathSvg';
 import { CustomScenarioActions } from './CustomScenarioActions';
 import { Layers } from 'lucide-react';
 import { ScenarioIllustration } from './ScenarioIllustration';
@@ -12,7 +15,6 @@ import { CaseMetadata } from './CaseMetadata';
 import {
   Dossier,
   ValueConflict,
-  StageStepper,
   Consequence
 } from './BriefingDesign';
 import designLabels from '../i18n/design.json';
@@ -301,6 +303,11 @@ export function GroupSession({
       })}
     </div>
   );
+  const trackerScores = {dobrochesnist:0,efektyvnist:0,dovira:0};
+  for(const step of [...(room?.history || []), ...(room?.phase === 'feedback' && variant ? [{nodeId:node!.id,selectedVariantId:variant.id}] : [])]) {
+    const scores=scenario?.vuzly.find(n=>n.id===step.nodeId)?.varianty.find(v=>v.id===step.selectedVariantId)?.baly;
+    if(scores)for(const axis of ['dobrochesnist','efektyvnist','dovira'] as const)trackerScores[axis]+=scores[axis];
+  }
   const scenarioCards = () => (
     <div
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
@@ -413,7 +420,7 @@ export function GroupSession({
           </div>
         </>
       )}
-      {room && !(host && room.phase === 'briefing') && <ClassroomTimer room={room} offset={clockOffset} lang={lang} />}
+      {room && (room.phase === 'finished' || (!host && room.phase === 'briefing')) && <ClassroomTimer room={room} offset={clockOffset} lang={lang} />}
       {room && scenario && node && (
         <>
           <header className="room-status-header surface flex flex-col items-center justify-center gap-4 text-center">
@@ -506,40 +513,11 @@ export function GroupSession({
               <h2 className="im-title font-serif text-xl font-bold">
                 {t.summary}
               </h2>
-              <div className="w-full space-y-5">
-                <div className="surface-muted space-y-3">
-                  <h3 className="im-section-title font-semibold">{t.path}</h3>
-                  <ol className="flex flex-wrap gap-2">
-                    {room.history.map((h, i) => (
-                      <li className="badge font-mono" key={i}>
-                        {choiceLabel(
-                          scenario,
-                          h.nodeId,
-                          h.selectedVariantId,
-                          lang
-                        )}{' '}
-                        —{' '}
-                        {
-                          scenario.vuzly
-                            .find((n) => n.id === h.nodeId)
-                            ?.varianty.find((v) => v.id === h.selectedVariantId)
-                            ?.tekst
-                        }
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
+              <DecisionPathSvg scenario={scenario} steps={room.history.map(h=>({nodeId:h.nodeId,variantId:h.selectedVariantId}))} votesByNode={Object.fromEntries(room.history.map(h=>[h.nodeId,h.votes]))} />
               <p className="notice">
                 {t.mostDivided}:{' '}
-                {room.history
-                  .filter(
-                    (h) =>
-                      h.discussionIndex ===
-                      Math.max(...room.history.map((h) => h.discussionIndex))
-                  )
-                  .map((h) => stageLabel(scenario, h.nodeId, lang))
-                  .join(', ')}
+                {mostDividedStages(room.history).map(h=>stageLabel(scenario,h.nodeId,lang)).join(', ') || (lang==='uk'?'Недостатньо голосів для оцінки розбіжності':'Not enough votes to assess disagreement')}
+
               </p>
               <DecisionProfile
                 scenario={scenario}
@@ -631,23 +609,12 @@ export function GroupSession({
                   )}
                 </article>
               ) : (
-                <>
+                <div className="group-play-layout grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-4 items-start">
+                  <div className="min-w-0 space-y-4">
                   <article
                     className="surface space-y-4 animate-fadeIn"
                     key={node.id}
                   >
-                    <div className="stage-badge-row flex justify-center w-full"><span className="badge font-mono text-center">
-                      {stageLabel(scenario, node.id, lang)}
-                    </span></div>
-                    <h2 className="im-title font-serif text-xl font-bold text-white">
-                      {node.zapytannia}
-                    </h2>
-                    <StageStepper
-                      scenario={scenario}
-                      nodeId={node.id}
-                      completed={room.history.length}
-                      lang={lang}
-                    />
                     <Dossier
                       scenario={scenario}
                       lang={lang}
@@ -656,12 +623,8 @@ export function GroupSession({
                     >
                       {node.tekst || scenario.sytuatsiia}
                     </Dossier>
-                    <div className="cids-action-row flex justify-center w-full"><button
-                      className="action justify-center text-center"
-                      onClick={() => setCidsOpen(true)}
-                    >
-                      {translations[lang].step.cidsHelperBtn}
-                    </button></div>
+                    <h2 className="im-title font-serif text-xl font-bold text-white">{node.zapytannia}</h2>
+
                   </article>
                   {room.phase === 'voting' && (
                     <div className="surface space-y-5">
@@ -801,7 +764,9 @@ export function GroupSession({
                       )}
                     </article>
                   )}
-                </>
+                  </div>
+                  <TacticalTracker lang={lang} stage={room.history.length+1} total={room.history.length+depth(node.id)} detail={<>{scenario.diiovi_osoby.find(r=>r.hravets)?.rol}<br />{t.participants}: {room.participantsCount}</>} scores={trackerScores} onCids={()=>setCidsOpen(true)} clock={<ClassroomTimer room={room} offset={clockOffset} lang={lang} embedded />} />
+                </div>
               )}
             </>
           )}

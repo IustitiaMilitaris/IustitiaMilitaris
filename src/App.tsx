@@ -166,15 +166,15 @@ export const App: React.FC = () => {
               className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center gap-2 text-xs text-steel-300"
             >
               <button
-                className="hover:text-status-success"
+                className="text-steel-400 hover:text-steel-300"
                 onClick={() => navigate('/')}
               >
                 {designLabels[lang].catalog}
               </button>
               <span aria-hidden="true">/</span>
-              <span aria-current="page">
+              <span aria-current="page" className="breadcrumb-current text-justice-gold">
                 {currentView === 'solo'
-                  ? caseLabel(scenarioId || '', lang)
+                  ? `${caseLabel(scenarioId || '', lang)}: ${activeScenario ? localizeScenario(activeScenario,lang).nazva : ''}`
                   : currentView === 'auth'
                     ? designLabels[lang].account
                     : currentView === 'builder'

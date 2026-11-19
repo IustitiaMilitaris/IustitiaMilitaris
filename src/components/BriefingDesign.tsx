@@ -18,11 +18,10 @@ export function Dossier({
   index?: number;
   children: React.ReactNode;
 }) {
-  const t = labels[lang],
-    role = scenario.diiovi_osoby.find((r) => r.hravets);
+  const role = scenario.diiovi_osoby.find((r) => r.hravets);
   return (
     <section className="dossier hud-crosshair space-y-3" data-testid="dossier">
-      <div className="flex flex-wrap items-center justify-center gap-2 w-full text-center">
+      {nodeId ? <StageStepper scenario={scenario} nodeId={nodeId} completed={index - 1} lang={lang} /> : <div className="flex flex-wrap items-center justify-center gap-2 w-full text-center">
         <span className="badge font-mono">
           {caseLabel(scenario.id, lang)} ·{' '}
           {nodeId
@@ -34,8 +33,8 @@ export function Dossier({
             {translations[lang].briefing.playerBadge}: {role.rol}
           </span>
         )}
-      </div>
-      <div className="leading-relaxed">{typeof children === 'string' ? <HighlightedText text={children} /> : children}</div>
+      </div>}
+      <div className="leading-relaxed">{typeof children === 'string' ? <HighlightedText text={nodeId && /^(Етап|Stage)\s*\d+/u.test(children) ? children.split('\n').slice(1).join('\n').trim() : children} /> : children}</div>
     </section>
   );
 }
@@ -86,6 +85,9 @@ export function StageStepper({
       : 0;
   }
   const total = Math.min(30, completed + depth(nodeId));
+  const node = scenario.vuzly.find(n => n.id === nodeId);
+  const heading = node?.tekst?.split('\n')[0] || '';
+  const title = /^(Етап|Stage)\s*\d+\s*[·.:–—-]/u.test(heading) ? heading.replace(/^(Етап|Stage)\s*\d+\s*[·.:–—-]\s*/u, '') : node?.zapytannia || '';
   return (
     <ol
       className="progress-chain flex items-center gap-1.5 sm:gap-2 overflow-x-auto py-1"
@@ -99,8 +101,8 @@ export function StageStepper({
           className={`progress-chain-step flex items-center shrink-0 ${i > completed ? 'select-none' : ''}`}
         >
           {i > 0 && <span aria-hidden="true" className="w-2 sm:w-3 h-px bg-steel-700 mr-1.5 sm:mr-2 shrink-0" />}
-          <span className={`progress-chip inline-flex items-center justify-center whitespace-nowrap px-2.5 py-1 rounded-sm border font-mono text-xs ${i === completed ? 'border-justice-gold bg-justice-gold/10 text-justice-gold font-bold' : i < completed ? 'border-steel-700 bg-obsidian-850 text-steel-400' : 'opacity-[.35] blur-[0.4px] bg-obsidian-900/60 border-steel-700/50 text-steel-400'}`}>
-            <span className="sm:hidden">{i < completed ? `✓ ${i + 1}` : i === completed ? `◉ ${i + 1}` : i + 1}</span><span className="hidden sm:inline">{i < completed ? `✓ ${i + 1}` : i === completed ? `${i + 1} · ${t.current}` : i + 1}</span>
+          <span className={`progress-chip ${i === completed ? 'is-current' : ''} inline-flex items-center justify-center px-2.5 py-1 rounded-sm border font-mono text-xs ${i === completed ? 'border-justice-gold bg-justice-gold/10 text-justice-gold font-bold' : i < completed ? 'border-tactical-ice/60 bg-tactical-ice/10 text-tactical-ice font-semibold' : 'opacity-[.35] blur-[0.4px] bg-obsidian-900/60 border-steel-700/50 text-steel-400'}`}>
+            {i === completed ? `${i + 1} · ${title}` : i + 1}
           </span>
         </li>
       ))}
