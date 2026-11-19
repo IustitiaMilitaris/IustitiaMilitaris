@@ -16,7 +16,7 @@
 | Інтеграція та масштабування | [docs/integration-map.md](docs/integration-map.md) |
 | Розрахунок економії часу | [docs/time-savings.md](docs/time-savings.md) |
 | Зловживання та запобіжники | [docs/abuse-and-safeguards.md](docs/abuse-and-safeguards.md) |
-| Як ми використали ШІ | [docs/ai-usage-note.md](docs/ai-usage-note.md) |
+| Як ми використали ШІ | [docs/ai.md](docs/ai.md) |
 | Артефакти процесу команди | [docs/process/README.md](docs/process/README.md) |
 | Відео демонстрації | [Посилання на відео демонстрації (до 3 хв) — буде додано перед фінальною подачею] |
 | Макети Figma / Notion | [Посилання на макети — буде додано командою за наявності] |
