@@ -5,3 +5,6 @@ dist/
 server/data/
 
 test-results/
+
+.env.*
+!.env.example
