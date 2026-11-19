@@ -25,8 +25,20 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  await p.evaluate(()=>document.fonts.ready);
  const geometry=await p.evaluate(()=>{const root=document.querySelector('.host-lobby').getBoundingClientRect();return {root:{x:root.x,w:root.width},items:[document.querySelector('.host-connection > img'),document.querySelector('[data-testid="lobby-start"]'),document.querySelector('.connection-details button')].map(e=>{const r=e.getBoundingClientRect();return r.x+r.width/2;})};});
  assert.ok(geometry.root.w<=896);
- geometry.items.forEach(x=>assert.ok(Math.abs(x-width/2)<2));
+ if(width===375) geometry.items.forEach(x=>assert.ok(Math.abs(x-width/2)<2));
  await p.waitForFunction(expected=>getComputedStyle(document.querySelector('.lobby-timer-option[aria-pressed="true"]')).color===expected,theme==='light'?'rgb(143, 109, 36)':'rgb(200, 164, 86)');
+ if(width===1280){
+ await p.context().grantPermissions(['clipboard-read','clipboard-write']);
+ const copy=p.locator('.connection-copy');await copy.click();
+ await p.waitForFunction(()=>/Copied|Скопійовано/.test(document.querySelector('.connection-copy').textContent));
+ assert.match(await copy.textContent(),/Copied|Скопійовано/);
+ assert.match(await p.evaluate(()=>navigator.clipboard.readText()),/classroom\/join/);
+ for(const projector of [false,true]){
+ if(projector)await p.getByRole('button',{name:require('../src/i18n/group.json')[lang].projector,exact:true}).click();
+ const aligned=await p.evaluate(()=>{const nav=document.querySelector('#breadcrumbs'),card=document.querySelector('.projector-session > header');return Math.abs(nav.getBoundingClientRect().left+parseFloat(getComputedStyle(nav).paddingLeft)-card.getBoundingClientRect().left);});assert.ok(aligned<2);
+ }
+ await p.keyboard.press('Escape');
+ }
  const styleCheck=await p.evaluate(()=>{const options=document.querySelector('[data-testid="lobby-timer-options"]').getBoundingClientRect(),start=document.querySelector('[data-testid="lobby-start"]').getBoundingClientRect(),active=document.querySelector('.lobby-timer-option[aria-pressed="true"]'),css=getComputedStyle(active);return {left:Math.abs(options.left-start.left),right:Math.abs(options.right-start.right),color:css.color,border:css.borderTopColor,bg:css.backgroundColor};});
  assert.ok(styleCheck.left<1&&styleCheck.right<1);
  assert.equal(styleCheck.color,theme==='light'?'rgb(143, 109, 36)':'rgb(200, 164, 86)');

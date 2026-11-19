@@ -557,7 +557,6 @@
   animation: fadeIn 200ms ease-out 200ms both;
 }
 body[data-projector='true'] .site-header,
-body[data-projector='true'] #breadcrumbs,
 body[data-projector='true'] #site-footer {
   display: none;
 }
@@ -918,3 +917,21 @@ details > summary::-webkit-details-marker { display:none; }
 .lobby-timer-option[aria-pressed="true"] { background: rgb(var(--justice-gold) / .1); border-color: rgb(var(--justice-gold)); color: rgb(var(--justice-gold)); font-weight: 700; box-shadow: inset 0 1px 0 rgb(var(--justice-gold) / .15); }
 :root[data-theme='light'] .lobby-timer-option[aria-pressed="true"] { background: rgb(143 109 36 / .1); border-color: #8f6d24; color: #8f6d24; }
 @media (prefers-reduced-motion: reduce) { .lobby-timer-option { transition: none; } }
+
+main:has(.host-lobby) #breadcrumbs { max-width: 56rem; margin-inline: auto; }
+main:has(.solo-shell.max-w-4xl) #breadcrumbs { max-width: 56rem; }
+.host-lobby .host-connection, .host-connection { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 24px; }
+.host-lobby .connection-details, .connection-details { width: auto; min-width: 0; flex: 0 1 auto; text-align: center; }
+@media (min-width: 640px) {
+ .host-lobby .host-connection, .host-connection { flex-direction: row; gap: 40px; }
+ .host-lobby .connection-details, .connection-details { text-align: left; }
+}
+body[data-projector='true'] .projector-session { width: 100%; max-width: 1600px !important; margin-inline: auto; padding: 40px 24px 32px; }
+body[data-projector='true'] #breadcrumbs { display: flex; max-width: 1600px; padding-inline: 24px; }
+body[data-projector='true'] .projector-session.host-lobby > header.surface h1 { font-size: 1.875rem; }
+body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1rem; line-height: 1.625; }
+@media (min-width: 640px) {
+ body[data-projector='true'] .projector-session, body[data-projector='true'] #breadcrumbs { padding-inline: 48px; }
+ body[data-projector='true'] .projector-session.host-lobby > header.surface h1 { font-size: 2.25rem; }
+ body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1.125rem; }
+}
