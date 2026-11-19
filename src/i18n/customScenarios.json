@@ -1,0 +1,4 @@
+{
+ "uk":{"save":"Зберегти до каталогу","launch":"Створити групове заняття","saved":"Сценарій збережено до каталогу","failed":"Не вдалося виконати дію. Перевірте дані та з’єднання із сервером.","custom":"З конструктора","edit":"Редагувати","delete":"Видалити","confirm":"Видалити сценарій?","warning":"Файл буде видалено з каталогу. Уже створені заняття продовжать роботу.","cancel":"Скасувати","copy":"Створіть копію вбудованої задачі перед збереженням","savedCases":"Збережені задачі","busy":"Збереження…"},
+ "en":{"save":"Save to catalog","launch":"Host group session","saved":"Scenario saved to the catalog","failed":"The action failed. Check the scenario and server connection.","custom":"Custom","edit":"Edit","delete":"Delete","confirm":"Delete scenario?","warning":"The file will be removed from the catalog. Existing sessions will continue.","cancel":"Cancel","copy":"Create a copy of the built-in case before saving","savedCases":"Saved scenarios","busy":"Saving…"}
+}

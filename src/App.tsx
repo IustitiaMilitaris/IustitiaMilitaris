@@ -4,9 +4,9 @@ import { caseLabel } from './i18n/display';
 import designLabels from './i18n/design.json';
 import accountLabels from './i18n/accounts.json';
 import { localizeScenario } from './i18n/content';
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useSyncExternalStore, lazy, Suspense } from 'react';
 import { Scenario } from './types';
-import { allScenarios, teamScenarios } from './data/scenarios';
+import { catalogReady, catalogRevision, subscribeCatalog, refreshCustomScenarios, allScenarios, teamScenarios } from './data/scenarios';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ScenarioCatalog } from './components/ScenarioCatalog';
@@ -25,6 +25,8 @@ const ScenarioBuilder = lazy(() => import('./components/ScenarioBuilder').then(m
 const NormsLibrary = lazy(() => import('./components/NormsLibrary').then(module => ({ default: module.NormsLibrary })));
 
 export const App: React.FC = () => {
+  useSyncExternalStore(subscribeCatalog, catalogRevision);
+  useEffect(() => { void refreshCustomScenarios(); }, []);
   const [pathname, setPathname] = useState(window.location.pathname);
   const navigate = (path: string) => {
     window.history.pushState({}, '', path);
@@ -135,6 +137,7 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  if (!catalogReady) return <div role="status" className="page-shell">{polish[lang].loading}</div>;
   return (
     <LanguageContext.Provider value={lang}>
       <div className="min-h-screen flex flex-col bg-obsidian-950 text-steel-100 selection:bg-status-success selection:text-white">

@@ -2,7 +2,7 @@ import { installStats } from './stats.js';
 import { parseJson, constantEqual } from './security.js';
 import { promisify } from 'node:util';
 import { readdirSync, readFileSync } from 'node:fs';
-const scenarioNodes = new Map(
+const defaultScenarioNodes = new Map(
   readdirSync(new URL('../stsenarii/', import.meta.url))
     .filter((f) => f.endsWith('.json'))
     .map((f) => {
@@ -22,7 +22,8 @@ import { mkdir, readFile, writeFile, rename, chmod } from 'node:fs/promises';
 import path from 'node:path';
 const hashPassword = promisify(scrypt);
 
-export async function installAccounts(app, directory) {
+export async function installAccounts(app, directory, scenarioNodesOverride) {
+  const scenarioNodes = scenarioNodesOverride || defaultScenarioNodes;
   await mkdir(directory, { recursive: true, mode: 0o700 });
   const file = path.join(directory, 'store.json');
   let store;

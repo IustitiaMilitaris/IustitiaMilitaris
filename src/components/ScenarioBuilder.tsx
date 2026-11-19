@@ -1,3 +1,6 @@
+import customLabels from '../i18n/customScenarios.json';
+import { CustomScenarioActions } from './CustomScenarioActions';
+import { saveCustomScenario, isBuiltInScenario } from '../data/scenarios';
 import { AnimatedDetails, Collapsible } from './Collapsible';
 import studioLabels from '../i18n/builderStudio.json';
 import { freshNode, freshVariant, reachableNodes, nextScenarioId, knownScenarioIds } from '../utils/builderStudio';
@@ -46,6 +49,15 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
 }) => {
   const t = translations[lang];
   const studio = studioLabels[lang];
+  const custom = customLabels[lang];
+  const [saving,setSaving] = useState(false);
+  const [saveNotice,setSaveNotice] = useState('');
+  const persist = async (launch = false) => {
+    if(isBuiltInScenario(scenario.id)){setSaveNotice(custom.copy);return;}
+    setSaving(true);setSaveNotice('');
+    try { await saveCustomScenario(scenario);setDirty(false);setSaveNotice(custom.saved);if(launch)location.assign(`/classroom/host/new?scenario=${scenario.id}`); }
+    catch {setSaveNotice(custom.failed);}finally{setSaving(false);}
+  };
   const [preview, setPreview] = useState(false);
   const [dirty, setDirty] = useState(false);
   const copyCase = (source: Scenario): Scenario => {
@@ -357,6 +369,8 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
           <p className="text-xs text-steel-300 mt-1">{t.builder.subtitle}</p>
         </div>
         <div className="studio-toolbar w-full">
+          <div className="grid sm:grid-cols-2 gap-2 mb-2"><button className="action-primary" disabled={saving} onClick={()=>persist()}>{saving?custom.busy:custom.save}</button><button className="action" disabled={saving} onClick={()=>persist(true)}>{custom.launch}</button></div>
+          {saveNotice&&<p role="status" className="notice">{saveNotice}</p>}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <button onClick={runValidation} className="im-secondary action"><ShieldCheck size={16}/>{t.builder.validateBtn}</button>
             <button onClick={handleTestInSimulator} className="im-primary action"><Play size={16}/>{t.builder.testNowBtn}</button>
@@ -376,6 +390,7 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
           <button className="im-secondary action" aria-expanded={preview} onClick={()=>setPreview(!preview)}>{studio.preview}</button>
         </div>
       </section>
+      <section className="surface space-y-3"><h2>{custom.savedCases}</h2>{allScenarios.filter(s=>!isBuiltInScenario(s.id)).map(s=><div key={s.id} className="flex flex-wrap items-center gap-3"><span>{caseLabel(s.id,lang)} · {s.nazva}</span><CustomScenarioActions id={s.id} lang={lang} /></div>)}</section>
       <Collapsible isOpen={preview}><section className="studio-preview steel-panel p-5 space-y-3" aria-label={studio.preview}>
         <button className="im-secondary action" onClick={()=>setPreview(false)}>{studio.close}</button>
         <div className="scenario-card max-w-md mx-auto steel-panel p-5 space-y-3"><span className="badge">{caseLabel(scenario.id,lang)}</span><h3 className="scenario-card-title font-serif text-xl">{scenario.nazva}</h3><ScenarioDescription text={scenario.sytuatsiia} lang={lang} truncate={scenario.id !== 'S02' && !(scenario.id === 'S01' && lang === 'en')}/><CaseMetadata scenario={scenario} lang={lang}/><button className="im-secondary action w-full" onClick={handleTestInSimulator}>{t.catalog.startSolo}</button></div>

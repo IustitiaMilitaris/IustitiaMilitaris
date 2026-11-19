@@ -1,16 +1,8 @@
 import { constantEqual, sameOrigin, parseJson } from './security.js';
 import { randomBytes, randomInt } from 'node:crypto';
-import { readFileSync, readdirSync } from 'node:fs';
 import { WebSocketServer } from 'ws';
-export function installClassroom(server, directory) {
-  const scenarios = new Map(
-    readdirSync(directory)
-      .filter((f) => f.endsWith('.json'))
-      .map((f) => {
-        const s = JSON.parse(readFileSync(`${directory}/${f}`, 'utf8'));
-        return [s.id, s];
-      })
-  );
+export function installClassroom(server, repository) {
+  const scenarios = repository.scenarios;
   const rooms = new Map();
   const wss = new WebSocketServer({ server, path: '/ws', maxPayload: 16 * 1024, verifyClient: info => sameOrigin(info.req) && wss.clients.size < 1000 });
   const send = (ws, data) => {
@@ -22,6 +14,7 @@ export function installClassroom(server, directory) {
     timerStartedAt: room.timerStartedAt,
     timerFinishedAt: room.timerFinishedAt,
     serverNow: Date.now(),
+    scenario: room.scenario,
     code: room.code,
     scenarioId: room.scenarioId,
     currentNodeId: room.currentNodeId,
@@ -73,7 +66,7 @@ export function installClassroom(server, directory) {
     ws.on('error', () => {});
     let joined;
     let messages = 0, windowStart = Date.now();
-    ws.on('message', (raw) => {
+    ws.on('message', async (raw) => {
       try {
         if (Date.now() - windowStart > 1000) { windowStart = Date.now(); messages = 0; }
         if (++messages > 120) { ws.close(1008, 'rateLimit'); return; }
@@ -89,8 +82,9 @@ export function installClassroom(server, directory) {
         if (data.type === 'SET_TIMER_MODE' && !['none','10m','15m'].includes(data.timerMode)) throw Error('invalidMessage');
         if (data.type === 'CREATE_ROOM' && data.timerMode !== undefined && !['none', '10m', '15m'].includes(data.timerMode)) throw Error('invalidMessage');
         if (data.type === 'CREATE_ROOM') {
-          if (joined || !scenarios.has(data.scenarioId) || rooms.size >= 100)
-            return;
+          await repository.refresh();
+          if (joined || rooms.size >= 100) return;
+          if (!scenarios.has(data.scenarioId)) { send(ws,{type:'ERROR',error:'roomMissing'}); return; }
           let code;
           do {
             code = String(randomInt(100000, 1000000));
@@ -101,6 +95,7 @@ export function installClassroom(server, directory) {
             timerStartedAt: null,
             timerFinishedAt: null,
             code,
+            scenario: structuredClone(scenarios.get(data.scenarioId)),
             scenarioId: data.scenarioId,
             currentNodeId: scenarios.get(data.scenarioId).pochatkovyi_vuzol,
             phase: 'briefing',
@@ -151,9 +146,7 @@ export function installClassroom(server, directory) {
         }
         if (!joined || !rooms.has(joined.code)) return;
         const room = joined;
-        const node = scenarios
-          .get(room.scenarioId)
-          .vuzly.find((n) => n.id === room.currentNodeId);
+        const node = room.scenario.vuzly.find((n) => n.id === room.currentNodeId);
         if (data.type === 'SUBMIT_VOTE') {
           if (
             ws.role !== 'student' ||

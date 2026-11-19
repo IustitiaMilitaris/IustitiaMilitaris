@@ -1,3 +1,4 @@
+import { installCustomScenarios } from './custom-scenarios.js';
 import { securityHeaders, rateLimit, sameOrigin, parseJson } from './security.js';
 import { installClassroom } from './classroom.js';
 import os from 'node:os';
@@ -20,11 +21,11 @@ app.use('/api', rateLimit(600, 60000), (req, res, next) => {
   next();
 });
 app.use(['/api/auth/login', '/api/auth/register'], (req, res, next) => req.method === 'POST' ? authLimit(req, res, next) : next());
+app.use('/api/scenarios/custom', express.json({ limit: '256kb', verify: (req,res,buffer) => { parseJson(buffer.toString('utf8')); } }));
 app.use(express.json({ limit: '64kb', verify: (req, res, buffer) => { parseJson(buffer.toString('utf8')); } }));
-await installAccounts(
-  app,
-  process.env.DATA_DIR || path.join(__dirname, 'data')
-);
+const dataDirectory = process.env.DATA_DIR || path.join(__dirname, 'data');
+const repository = await installCustomScenarios(app, dataDirectory);
+await installAccounts(app, dataDirectory, repository.scenarios);
 const server = http.createServer(app);
 server.headersTimeout = 15000;
 server.requestTimeout = 30000;
@@ -32,7 +33,7 @@ server.keepAliveTimeout = 5000;
 
 const PORT = process.env.PORT || 3000;
 
-const rooms = installClassroom(server, path.join(__dirname, '..', 'stsenarii'));
+const rooms = installClassroom(server, repository);
 
 // Serve frontend build from dist
 const distPath = path.join(__dirname, '..', 'dist');
