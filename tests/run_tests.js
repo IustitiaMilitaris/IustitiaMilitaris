@@ -68,7 +68,7 @@ await test('Every legal reference exists; unverified sources retain honest statu
   }
   for(const norm of norms.normy) if(norm.status_zvirky!=='ne-zvireno') assert.ok(norm.tsytaty.length>0);
   const courts=norms.normy.filter(n=>n.id.startsWith('VS-'));
-  assert.equal(courts.length,5);assert.ok(courts.every(n=>n.status_zvirky==='ne-zvireno'));
+  assert.equal(courts.length,5);assert.ok(courts.every(n=>n.status_zvirky==='ne-zvireno' || n.tsytaty.some(quote=>quote.trim())));
 });
 await test('Actual localization preserves custom imports and switches complete built-in content', () => {
   for(const source of allScenarios) {

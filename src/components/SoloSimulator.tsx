@@ -22,6 +22,8 @@ import {
   ArrowRight,
   RotateCcw,
   Shield,
+  Zap,
+  HeartHandshake,
   HelpCircle,
   ChevronDown,
   ChevronUp,
@@ -403,8 +405,8 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
           </div>
         </div>
       )}
-      <div className={phase === 'decision' || phase === 'feedback' ? 'play-layout grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-6 items-start' : ''}>
-      <div className="min-w-0 max-w-3xl w-full">
+      <div className={phase === 'decision' || phase === 'feedback' ? 'play-layout grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-4 items-start' : ''}>
+      <div className="min-w-0 w-full">
       {phase === 'decision' && currentNode && (
         <div
           key={`${scenario.id}:${phase}:${currentNodeId}`}
@@ -539,7 +541,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
               explanation={selectedVariant.chomu_taki_baly}
               lang={lang}
             />
-            <div className="p-4 rounded-sm bg-obsidian-950 border-l-4 border-justice-gold text-xs sm:text-sm text-steel-100 leading-relaxed">
+            <div lang={lang} className="feedback-prose p-4 rounded-sm bg-obsidian-950 border-l-4 border-justice-gold text-xs sm:text-sm text-steel-100 leading-relaxed">
               <strong className="text-justice-gold block mb-1">
                 {t.feedback.analysisTitle}
               </strong>
@@ -570,14 +572,18 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
       )}
       </div>
       {(phase === 'decision' || phase === 'feedback') && <aside className="tactical-tracker steel-panel p-4 space-y-4 lg:sticky lg:top-20 min-w-0" aria-label={copy.tracker}>
-        <h2 className="font-mono text-xs uppercase text-justice-gold">{copy.tracker}</h2>
-        <div data-testid="scenario-timer" className={`font-mono text-xl transition-colors ${timer.mode>0&&timer.mode*60-timer.elapsedSeconds<120?'text-status-warning':'text-steel-100'}`}>{formatElapsed(timer.mode?Math.max(0,timer.mode*60-timer.elapsedSeconds):timer.elapsedSeconds)}</div>
+        <h2 className="font-mono text-xs uppercase text-justice-gold text-center">{copy.tracker}</h2>
+        <div data-testid="scenario-timer" className={`tracker-clock text-center font-mono text-3xl sm:text-4xl font-bold tracking-wider transition-colors ${timer.mode>0&&timer.mode*60-timer.elapsedSeconds<120?'text-status-warning':'tracker-clock-normal'}`}>{formatElapsed(timer.mode?Math.max(0,timer.mode*60-timer.elapsedSeconds):timer.elapsedSeconds)}</div>
         {timer.mode>0&&timer.elapsedSeconds>=timer.mode*60&&<p role="status" className="text-xs text-status-warning">{product.expired}</p>}
-        <p>{copy.stage} {pathway.filter(p => p.nodeId !== currentNodeId).length + 1} {copy.of} {scenarioStageCount(scenario)}</p>
+        <p className="text-center">{copy.stage} {pathway.filter(p => p.nodeId !== currentNodeId).length + 1} / {scenarioStageCount(scenario)}</p>
         <p className="text-sm text-steel-300">{scenario.diiovi_osoby.find(r => r.hravets)?.rol}</p>
-        <dl className="space-y-2">{(['dobrochesnist','efektyvnist','dovira'] as const).map(axis => <div key={axis} className="flex justify-between gap-2 text-sm"><dt>{t.dimensions[axis]}</dt><dd className="font-mono">{cumulativeScores[axis] > 0 ? '+' : ''}{cumulativeScores[axis]}</dd></div>)}</dl>
+        <dl className="tracker-axes space-y-2">{(['dobrochesnist','efektyvnist','dovira'] as const).map(axis => {
+          const Icon = axis === 'dobrochesnist' ? Shield : axis === 'efektyvnist' ? Zap : HeartHandshake;
+          const score = cumulativeScores[axis];
+          return <div key={axis} className="rounded-sm border border-steel-700/70 bg-obsidian-900/75 px-3 py-2 flex items-center justify-between gap-2 text-sm"><dt className="flex items-center gap-2"><Icon className="w-4 h-4 shrink-0" aria-hidden="true" />{t.dimensions[axis]}</dt><dd className={`font-mono font-bold px-1.5 py-0.5 rounded-sm ${score > 0 ? 'text-status-success' : score < -1 ? 'text-status-danger' : score < 0 ? 'text-status-warning' : 'text-steel-400'}`}>{score > 0 ? '+' : ''}{score}</dd></div>;
+        })}</dl>
         <div className="cids-action-row flex justify-center w-full"><button className="action w-full justify-center text-center" onClick={() => setIsCidsOpen(true)}>{t.step.cidsHelperBtn}</button></div>
-        <p className="hidden lg:block text-xs text-steel-300">{copy.keys}</p>
+        <p className="tracker-keys hidden lg:block text-steel-300 text-center whitespace-nowrap">{copy.keys}</p>
       </aside>}
       </div>
       {phase === 'reflection' && (

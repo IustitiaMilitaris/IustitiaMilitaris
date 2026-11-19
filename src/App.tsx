@@ -154,13 +154,13 @@ export const App: React.FC = () => {
           lang={lang}
           setLang={setLang}
         />
-        <main className="flex-1 relative z-10"><Suspense fallback={<div className="page-shell" role="status"><div className="steel-panel p-4 font-mono text-sm text-tactical-ice">{polish[lang].loading}</div></div>}>
+        <main lang={lang} className="flex-1 relative z-10"><Suspense fallback={<div className="page-shell" role="status"><div className="steel-panel p-4 font-mono text-sm text-tactical-ice">{polish[lang].loading}</div></div>}>
           <PageMotion pathname={pathname} lang={lang}>
           {pathname !== '/' && (
             <nav
               id="breadcrumbs"
               aria-label={designLabels[lang].breadcrumbs}
-              className="max-w-6xl mx-auto px-4 sm:px-6 pt-4 flex flex-wrap items-center gap-2 text-xs text-steel-300"
+              className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center gap-2 text-xs text-steel-300"
             >
               <button
                 className="hover:text-status-success"

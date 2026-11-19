@@ -782,7 +782,7 @@ export function GroupSession({
                         explanation={inspectedVariant.chomu_taki_baly}
                         lang={lang}
                       />
-                      <p className="leading-relaxed text-steel-300">
+                      <p lang={lang} className="feedback-prose leading-relaxed text-steel-300">
                         {inspectedVariant.zvorotnyi_zviazok}
                       </p>
 <NormChips ids={inspectedVariant.normy} lang={lang} onSelect={setNorm} />
