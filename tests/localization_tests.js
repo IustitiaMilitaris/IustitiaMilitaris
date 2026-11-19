@@ -72,3 +72,24 @@ for (const name of ['accounts', 'group', 'themes', 'design', 'brand', 'caseBadge
   assert.ok(!/\p{Script=Cyrillic}/u.test(JSON.stringify(dictionary.en)));
 }
 console.log('PASS: local account and classroom UI language parity');
+
+for (const file of fs.readdirSync(new URL('../stsenarii/', import.meta.url)).filter(f=>f.endsWith('.json'))) {
+  const bytes=fs.readFileSync(new URL('../stsenarii/'+file,import.meta.url));
+  assert.notEqual(bytes.subarray(0,3).toString('hex'),'efbbbf');
+  const scenario=JSON.parse(bytes.toString('utf8'));
+  const translated=overlays[scenario.id];
+  assert.equal(scenario.perevirka_zmistu.fakhivets_dzpk,'не проведено');
+  assert.doesNotMatch(JSON.stringify(scenario),/docs\/cases-source\.pdf/);
+  assert.deepEqual(translated.normy.map(n=>n.id),scenario.normy.map(n=>n.id));
+  for(const [i,node] of scenario.vuzly.entries()) {
+    if(scenario.id==='S02') {
+      assert.match(node.tekst,/^Етап [1-8] · [^\n]+\n\n\S/);
+      assert.match(translated.vuzly[i].tekst,/^Stage [1-8] · [^\n]+\n\n\S/);
+    }
+    for(const [j,variant] of node.varianty.entries()) {
+      assert.deepEqual(translated.vuzly[i].varianty[j].normy,variant.normy);
+      if(scenario.id==='S01')assert.ok(!variant.normy.includes('KZPP-201'));
+    }
+  }
+}
+console.log('PASS edited case encoding, stage headings and translated norm references');

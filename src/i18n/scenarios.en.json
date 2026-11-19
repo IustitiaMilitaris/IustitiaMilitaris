@@ -11,12 +11,12 @@
       "Military higher education cadets"
     ],
     "tryvalist_khv": 50,
-    "kontekst": "The legal department of an institution participating in an international technical assistance project. A partner has offered the institution ten places on a four-day training programme in London; two are allocated to the legal department. Equal access to development, relevance to the programme, integrity in official contacts and practical use of learning must be considered together.",
+    "kontekst": "The institution's legal department participates in an international technical assistance project. The partner has offered the institution ten places on a four-day training programme in London; two are allocated to the legal department. Equal access to development, relevance to the programme, integrity in professional contacts and practical use of the learning must be balanced.",
     "diiovi_osoby": [
       {
         "id": "R1",
         "rol": "Selection officer",
-        "opys": "Selects two legal department representatives and is responsible for clear criteria and practical outcomes from the trip.",
+        "opys": "Selects two legal department representatives and is responsible for the criteria and practical results of the trip.",
         "hravets": true
       },
       {
@@ -32,7 +32,7 @@
       {
         "id": "R4",
         "rol": "International law specialist",
-        "opys": "Recently joined the department, speaks good English and is interested in international law. Has limited practical experience."
+        "opys": "Recently joined the department, has a good command of English and is interested in international law. She has limited practical experience so far."
       },
       {
         "id": "R5",
@@ -42,10 +42,10 @@
       {
         "id": "R6",
         "rol": "Head of the institution",
-        "opys": "Approves official decisions and expects measurable results from the resources spent."
+        "opys": "Approves official decisions and expects an account of the resources spent."
       }
     ],
-    "sytuatsiia": "The institution has ten places on a four-day training programme in London. You must select two representatives from the legal department. The programme is not yet final. Participation offers opportunities for development, international contacts and career progression. Three staff members are interested: an experienced litigation lawyer, a responsible internal procedures specialist and a young international law specialist who speaks good English but has little practical experience.",
+    "sytuatsiia": "The institution has ten places on a four-day training programme in London. You must select two legal department representatives. The programme is not yet final. Participation offers opportunities for development, international contacts and career progression. There are three candidates: an experienced litigation lawyer, a dependable internal procedures specialist and a young international law specialist with good English but little practical experience.",
     "tsinnosti_v_konflikti": [
       {
         "tsinnist_a": "Equal opportunities",
@@ -67,7 +67,7 @@
     "vuzly": [
       {
         "id": "V1",
-        "tekst": "Stage 1 · Allocating two places\n\nThe institution has ten places on a four-day training programme in London. You must select two representatives from the legal department. The programme is not yet final. Participation offers opportunities for development, international contacts and career progression. Three staff members are interested: an experienced litigation lawyer, a responsible internal procedures specialist and a young international law specialist who speaks good English but has little practical experience.",
+        "tekst": "Stage 1 · Allocating two places\n\nThe institution has ten places on a four-day training programme in London. You must select two legal department representatives. The programme is not yet final. Participation offers opportunities for development, international contacts and career progression. There are three candidates: an experienced litigation lawyer, a dependable internal procedures specialist and a young international law specialist with good English but little practical experience.",
         "zapytannia": "Whom will you select for the training trip?",
         "varianty": [
           {
@@ -83,11 +83,10 @@
               "dovira": -1
             },
             "chomu_taki_baly": "Integrity (0): without criteria, neither bias nor equal selection can be confirmed. Effectiveness (+1): experience allows a delegation to be formed quickly, but programme relevance has not been checked. Trust (−1): the colleague not selected cannot see clear reasons.",
-            "zvorotnyi_zviazok": "Seniority as a guide, with a transparency risk. Experience is useful, but it is not yet clear whether these particular skills match the programme. A one-off refusal of training does not itself prove workplace bullying. Systematic unjustified restrictions require assessment under Labour Code Articles 2-1 and 2-2; bullying requires statutory elements to be established, not merely disagreement with selection.",
+            "zvorotnyi_zviazok": "Seniority as a guide, with a risk of opacity. Experience is useful, but it is not yet clear whether these particular competencies match the programme. A single refusal of training does not in itself establish mobbing. Systematic, unjustified restrictions require assessment under Articles 2-1 and 2-2 of the Labour Code; mobbing requires the statutory elements to be established, rather than mere disagreement with the selection.",
             "normy": [
               "KZPP-2-1",
               "KZPP-2-2",
-              "KZPP-201",
               "VS-761-42072-23"
             ],
             "nastupnyi_vuzol": "V2"
@@ -108,8 +107,7 @@
             "zvorotnyi_zviazok": "A management balance without a sufficient procedure. Combining experience and language skills may be useful. However, the internal procedures specialist is entitled to a clear explanation of why his expertise was less relevant.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V3"
           },
@@ -129,8 +127,7 @@
             "zvorotnyi_zviazok": "Developing the team at the risk of losing relevant experience. Training needs matter but must not automatically outweigh programme relevance and the ability to represent the institution. There is no basis to declare this choice unlawful without examining the criteria and applicable provisions.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V4"
           },
@@ -150,8 +147,7 @@
             "zvorotnyi_zviazok": "A transparent procedure that takes time. Define professional competence, relevance to the programme, language proficiency and ability to apply the results. Consistent criteria and documented results reduce personal preferences, but the assessments themselves must still be checked against the purpose.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V5"
           }
@@ -160,7 +156,7 @@
       {
         "id": "V2",
         "tekst": "Stage 2 · Selection based on experience\n\nAfter you select the experienced lawyer and the internal procedures specialist, the deputy head invites you to talk: \"The experienced lawyer has attended similar events several times. Perhaps we should give the international law specialist this opportunity? She speaks English and has potential.\" The supervisor's suggestion alone is not an objective criterion.",
-        "zapytannia": "How will you respond, and whom will you nominate for the training trip?",
+        "zapytannia": "How will you respond, and whom will you select for the training trip?",
         "varianty": [
           {
             "id": "A2",
@@ -178,8 +174,7 @@
             "zvorotnyi_zviazok": "Consistency with a qualification. Stability is justified only if the original selection was properly substantiated. Referring to a decision already made does not remedy the lack of criteria.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -199,8 +194,7 @@
             "zvorotnyi_zviazok": "A review needs common grounds. Competence and development potential can complement each other. Do not replace a candidate solely because of the deputy's wishes; assess all candidates under the same rules.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -220,8 +214,7 @@
             "zvorotnyi_zviazok": "Rotating opportunities with a risk of substituting criteria. Previous training participation may be considered under announced staff development rules. However, a younger colleague's development needs or the deputy's wishes do not replace checking all candidates' skills and programme relevance.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -241,8 +234,7 @@
             "zvorotnyi_zviazok": "Clarifying the procedure. Define the task, criteria and deadlines in advance. Assessment changes are justified by specific shortcomings or new information rather than a preferred name on the list.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           }
@@ -250,14 +242,14 @@
       },
       {
         "id": "V3",
-        "tekst": "Stage 2 · Experience and development potential\n\nAfter you select the experienced lawyer and the international law specialist, the internal procedures specialist asks for an explanation of the criteria. It emerges that he developed internal anti-corruption documents, and part of the programme concerns precisely this topic. The selected candidates are motivated, but unclear criteria create a risk of conflict. The PDF identifies no separate special provision for this branch; general equality safeguards must be applied with regard to the employees' status.",
-        "zapytannia": "How will you respond, and whom will you nominate for the training trip?",
+        "tekst": "Stage 2 · Experience and development prospects\n\nAfter the experienced lawyer and international law specialist are selected, the internal procedures specialist asks for the criteria to be explained. It emerges that he developed internal anti-corruption documents and part of the programme covers this very topic. The selected candidates are motivated, but the absence of clear criteria creates a risk of conflict.",
+        "zapytannia": "How will you respond, and whom will you select for the training trip?",
         "varianty": [
           {
             "id": "A3",
             "tekst": "Reconsider the internal procedures specialist in light of his anti-corruption experience.",
             "naslidky": {
-              "odrazu": "The delegation can be aligned more closely with the programme; colleagues already selected may object.",
+              "odrazu": "There is an opportunity to align the delegation more closely with the programme; colleagues already selected may object to changing the selection.",
               "vidkladeni": "The decision is better substantiated if everyone is checked equally, but without explanations it will seem ad hoc."
             },
             "baly": {
@@ -269,8 +261,7 @@
             "zvorotnyi_zviazok": "Relevant new facts. Consider anti-corruption experience alongside the other criteria for all three candidates. Discovering a new competence does not create an automatic entitlement to a place.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -290,8 +281,7 @@
             "zvorotnyi_zviazok": "Stability does not replace checking. Avoiding inconsistency makes sense if relevant skills have already been considered. Material new information should not be ignored merely to keep the list unchanged.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -311,8 +301,7 @@
             "zvorotnyi_zviazok": "A balance of skills needs checking. New information about work on anti-corruption documents may change the assessment of a candidate. However, replacing the experienced lawyer simply to support less experienced colleagues leaves the same subjectivity risk. Explain the weight of each criterion for all three.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -332,8 +321,7 @@
             "zvorotnyi_zviazok": "A consistent approach to review. Explain which new information calls for assessment, and do not tailor the task to a particular candidate.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           }
@@ -341,8 +329,8 @@
       },
       {
         "id": "V4",
-        "tekst": "Stage 2 · Development for less experienced colleagues\n\nAfter you select the internal procedures specialist and the international law specialist, the head asks why the experienced lawyer was excluded. The colleagues welcome the development opportunity, but overlooking relevant experience may weaken the institution's representation and senior staff's trust. Development needs must not automatically outweigh suitability for the task. The PDF identifies no separate special provision for this branch.",
-        "zapytannia": "How will you respond, and whom will you nominate for the training trip?",
+        "tekst": "Stage 2 · Developing less experienced colleagues\n\nAfter the internal procedures specialist and international law specialist are selected, the manager asks why the experienced lawyer was not chosen. Colleagues welcome the development opportunity, but overlooking relevant experience may weaken the institution's representation and senior staff members' trust. Development needs should not automatically outweigh suitability for the tasks.",
+        "zapytannia": "How will you respond, and whom will you select for the training trip?",
         "varianty": [
           {
             "id": "A4",
@@ -360,8 +348,7 @@
             "zvorotnyi_zviazok": "A common assessment of competence. Development needs and experience must be evaluated against the purpose of the trip. Announce criteria and the procedure before reassessment and explain why the original decision is being reviewed.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -381,8 +368,7 @@
             "zvorotnyi_zviazok": "Waiting without a procedure. Clarifying the programme is necessary, but a pause does not itself establish equal criteria. Set a deadline for receiving information to avoid losing both places or leaving candidates uncertain.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           }
@@ -409,8 +395,7 @@
             "zvorotnyi_zviazok": "Following announced criteria. If criteria were set in advance, applied consistently to all candidates and results are documented, there is no reason to change them merely because one participant is dissatisfied.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -430,8 +415,7 @@
             "zvorotnyi_zviazok": "A procedural risk if criteria are changed to favour a particular candidate. Criteria may be reviewed if they do not serve the training purpose or were formulated incorrectly. If criteria change, all candidates must be reassessed under the same rules.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -440,7 +424,7 @@
             "tekst": "Arrange an additional interview with the same questions for all candidates.",
             "naslidky": {
               "odrazu": "All candidates have an equal opportunity to demonstrate knowledge. Results become more complete. Selection takes additional time.",
-              "vidkladeni": "The institution gains a more comprehensive assessment process. Future selections improve. The risk of undervaluing practical skills falls."
+              "vidkladeni": "The institution gains a more comprehensive assessment mechanism. Future selection improves. The risk of undervaluing practical skills decreases."
             },
             "baly": {
               "dobrochesnist": 1,
@@ -451,8 +435,7 @@
             "zvorotnyi_zviazok": "A management compromise. An additional interview can test practical skills inadequately assessed initially. However, questions, assessment criteria and the interview procedure must be defined in advance.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           },
@@ -472,8 +455,7 @@
             "zvorotnyi_zviazok": "A substantiated approach where the facts are checked. This supports impartiality and allows assessment errors to be checked. It is particularly important that a panel conducts the review rather than a person directly interested in the results.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V6"
           }
@@ -481,14 +463,14 @@
       },
       {
         "id": "V6",
-        "tekst": "Stage 3 · The programme changes the situation\n\nThese events follow any branch of the second stage. You receive the final programme. It covers international anti-corruption cooperation, transparency in defence procurement, preventing and managing conflicts of interest, and implementing integrity standards in the security and defence sector. Reviewing professional profiles, you realise that the experienced lawyer has the most legal experience but specialises mainly in litigation. The internal procedures specialist helped develop internal anti-corruption documents. The international law specialist has relevant international law training and speaks good English. The deputy head asks again: \"We have almost settled the delegation. But should we consider who will actually bring the most value to the institution on return?\" Your decision:",
+        "tekst": "Stage 3 · The trip's subject matter changes the situation\n\nYou receive the final training programme. It covers international anti-corruption cooperation; transparency in defence procurement; preventing and managing conflicts of interest; and implementing integrity standards in the security and defence sector. Reviewing the candidates' professional profiles, you realise that the experienced lawyer has the greatest legal experience but mainly specialises in litigation. The internal procedures specialist helped develop internal anti-corruption documents. The international law specialist has training in international law and a good command of English. The deputy manager approaches you again: 'We have almost settled on the delegation. But should we consider who can actually bring the greatest benefit to the institution after returning?' Your decision:",
         "zapytannia": "What will you decide in light of the final programme?",
         "varianty": [
           {
             "id": "A6",
             "tekst": "Keep the delegation unchanged. Programme relevance should already have been assessed, and repeated changes undermine trust in the procedure.",
             "naslidky": {
-              "odrazu": "The delegation remains unchanged. Another review of results is avoided. New professional needs may remain unaddressed.",
+              "odrazu": "The delegation remains unchanged. Another review of the selection is avoided. New professional needs may remain unaddressed.",
               "vidkladeni": "Without a genuine check, international training becomes less effective. Matching staff skills to official tasks may become a formality. The institution risks missing expected outcomes."
             },
             "baly": {
@@ -500,8 +482,7 @@
             "zvorotnyi_zviazok": "Procedural stability with a risk of formalism. Consistency and stability matter. If programme relevance was properly assessed, there is no reason for repeated changes. Stability must not be used to preserve a clearly ineffective decision.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V7"
           },
@@ -521,8 +502,7 @@
             "zvorotnyi_zviazok": "A substantiated approach where the facts are checked. The new information directly concerns the training purpose. The current delegation must therefore be checked against institutional needs.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V7"
           },
@@ -542,8 +522,7 @@
             "zvorotnyi_zviazok": "A management compromise. This is a useful approach because it makes the most of each participant's strengths. However, it must not replace objective selection. First determine who should participate, then allocate tasks.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V7"
           },
@@ -563,8 +542,7 @@
             "zvorotnyi_zviazok": "A management compromise. Documenting reasons improves transparency and helps show that institutional needs informed the delegation. However, written reasons do not replace sound assessment. A document alone does not remedy a biased selection.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "KZPP-201"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V7"
           }
@@ -671,7 +649,7 @@
       },
       {
         "id": "V8",
-        "tekst": "Stage 5 · Return and responsibility for results\n\nThe two selected representatives have returned. They involve departmental colleagues in processing the materials; the third candidate does not receive an extra place. The head expects a report and specific proposals for applying the knowledge. A problem emerges: participants and colleagues involved assess the outcomes differently. The experienced lawyer values professional contacts most. The internal procedures specialist has prepared proposals to improve anti-corruption procedures. The international law specialist wants to train colleagues but lacks sufficient practical experience. The head says: \"We spent public funds. I want a real result, not just a trip report.\" What will you decide?",
+        "tekst": "Stage 5 · Returning and taking responsibility for results\n\nThe two selected representatives have returned. They involve departmental colleagues in processing the materials; the third candidate receives no additional place. The institution's manager expects a report and specific proposals for applying the learning. However, the participants and colleagues involved assess the results differently. The experienced lawyer considers professional contacts the most valuable outcome. The internal procedures specialist has prepared proposals to improve anti-corruption procedures. The international law specialist wants to train other staff but lacks sufficient practical experience. The manager says: 'We spent public funds. I want to see a real result, not just a trip report.' What will you decide?",
         "zapytannia": "How will you secure practical learning outcomes?",
         "varianty": [
           {
@@ -689,7 +667,6 @@
             "chomu_taki_baly": "Integrity (+1): one safeguard is supported, but further action is needed. Effectiveness (+0): the immediate result is limited and depends on further action. The institution receives an overview of the trip's outcomes. Participants organise what they learned. Management can assess the value of training. Trust (+1): Without follow-up, the report may remain a formality. Knowledge may not be applied. Training expenditure may fail to deliver expected results.",
             "zvorotnyi_zviazok": "Reporting requires follow-up. A joint report summarises knowledge, records key outcomes and identifies potential uses. It must not be a mere formality: it should contain specific proposals and explain how the knowledge can be used in the institution's work.",
             "normy": [
-              "KZPP-201",
               "ZPK-38"
             ],
             "nastupnyi_vuzol": "V9"
@@ -709,7 +686,6 @@
             "chomu_taki_baly": "Integrity (+1): one safeguard is supported, but further action is needed. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. Each participant has individual responsibility. Work is allocated by expertise. Task duplication becomes less likely. Trust (+1): The institution receives concrete analytical and practical materials. Individual accountability increases. Applying professional learning becomes routine.",
             "zvorotnyi_zviazok": "A substantiated approach where the facts are checked. This uses each participant's strengths. Possible allocation: the experienced lawyer analyses the legal aspects of international recommendations and consistency with Ukrainian law; the internal procedures specialist proposes improvements to internal anti-corruption procedures; the international law specialist processes and translates international materials and organises overseas experience. Tasks must have specific outputs and deadlines.",
             "normy": [
-              "KZPP-201",
               "ZPK-38"
             ],
             "nastupnyi_vuzol": "V9"
@@ -729,7 +705,6 @@
             "chomu_taki_baly": "Integrity (+1): one safeguard is supported, but further action is needed. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. Other staff gain access to new knowledge. Awareness of international anti-corruption standards grows. Experience is shared. Trust (+2): Overall staff competence improves. A professional learning culture develops. However, without practical implementation, a training event may not produce real change.",
             "zvorotnyi_zviazok": "A management compromise. Internal training spreads learning among institutional staff. Each participant's competence must be considered: the international law specialist can present international experience and training materials, the internal procedures specialist practical anti-corruption procedures, and the experienced lawyer legal aspects of applying recommendations.",
             "normy": [
-              "KZPP-201",
               "ZPK-38"
             ],
             "nastupnyi_vuzol": "V9"
@@ -749,7 +724,6 @@
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. Management receives a concrete mechanism for applying learning outcomes. Responsibilities are assigned. Measurable implementation indicators become available. Trust (+2): The institution can improve its internal anti-corruption mechanisms. Public and other resources are used more effectively. Monitoring implementation of international recommendations becomes routine. Learning outcomes contribute to institutional change.",
             "zvorotnyi_zviazok": "A comprehensive management response. This is the most results-oriented option because it turns knowledge into concrete management action. The plan should set out: 1. Recommendations to implement. 2. Responsible staff. 3. Deadlines. 4. Resources needed. 5. Expected outcomes. 6. Monitoring and evaluation arrangements. Internal staff training and a joint report should also be included.",
             "normy": [
-              "KZPP-201",
               "ZPK-38"
             ],
             "nastupnyi_vuzol": "V9"
@@ -778,7 +752,6 @@
             "normy": [
               "KZPP-2-1",
               "KZPP-2-2",
-              "KZPP-201",
               "ZPK-1",
               "ZPK-23",
               "ZPK-28",
@@ -805,7 +778,6 @@
             "normy": [
               "KZPP-2-1",
               "KZPP-2-2",
-              "KZPP-201",
               "ZPK-1",
               "ZPK-23",
               "ZPK-28",
@@ -819,7 +791,7 @@
             "id": "C9",
             "tekst": "Focus on actual trip outcomes and showing that the money was used productively.",
             "naslidky": {
-              "odrazu": "Audit receives no full answer about selection. Management's personal preferences remain unexamined. Implementation shortcomings remain unaddressed.",
+              "odrazu": "The audit does not receive a complete response on the selection procedure. The question of management's personal preferences remains unresolved.",
               "vidkladeni": "Management mistakes may routinely be hidden behind formally positive results. Violations become more likely to recur. Trust in internal control weakens. Questions of liability for improper use of public funds may arise."
             },
             "baly": {
@@ -828,11 +800,10 @@
               "dovira": -2
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. Audit receives no full answer about selection. Management's personal preferences remain unexamined. Implementation shortcomings remain unaddressed. Trust (-2): Management mistakes may routinely be hidden behind formally positive results. Violations become more likely to recur. Trust in internal control weakens. Questions of liability for improper use of public funds may arise.",
-            "zvorotnyi_zviazok": "A procedural risk. The value of training does not remove the need to examine the legality of selection and implementation. Focusing on positive results leaves possible violations or shortcomings unaddressed.",
+            "zvorotnyi_zviazok": "Procedural risk: the benefits of the training trip do not remove the need to examine the lawfulness of selection and implementation of recommendations. You are effectively trying to focus on positive outcomes without responding to possible breaches or shortcomings.",
             "normy": [
               "KZPP-2-1",
               "KZPP-2-2",
-              "KZPP-201",
               "ZPK-1",
               "ZPK-23",
               "ZPK-28",
@@ -855,11 +826,10 @@
               "dovira": 2
             },
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. The review may identify shortcomings or violations. Your management decisions may be criticised. Management receives objective information. Trust (+2): The institution can address systemic weaknesses. Trust in internal control grows. Corruption risks are less likely to recur. An open response to misconduct develops regardless of those involved's position or status.",
-            "zvorotnyi_zviazok": "A comprehensive management response. This is a consistent expression of integrity: possible shortcomings are neither concealed nor assessed solely by the decision-maker. Independent review should cover objective criteria; equal conditions; possible management interference; private interests; gift restrictions; proper use of funds; and actual implementation. Remedy established shortcomings and notify competent authorities where statutory grounds exist. A possible outcome from the PDF: if review confirms selection shortcomings but finds no evidence of undue benefits, procedural failings must still be addressed. The institution may approve new selection rules, assign responsibility for recommendations and introduce monitoring of international project outcomes.",
+            "zvorotnyi_zviazok": "A comprehensive management response. This is the most consistent expression of integrity. You do not try to conceal possible shortcomings or assess your own actions without independent scrutiny. The independent review should cover objective selection criteria; equal conditions for candidates; possible management interference; private interests; compliance with gift restrictions; appropriate spending; and actual implementation of recommendations. Established shortcomings should be remedied, and the competent authorities notified where statutory grounds exist.",
             "normy": [
               "KZPP-2-1",
               "KZPP-2-2",
-              "KZPP-201",
               "ZPK-1",
               "ZPK-23",
               "ZPK-28",
@@ -875,23 +845,19 @@
     "normy": [
       {
         "id": "KZPP-2-1",
-        "yak_zastosovuietsia": "Equal employment rights and non-discrimination in access to professional development; selection differences must rest on objective requirements rather than automatic advantages based on age or length of service. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Equal employment rights and prohibition of discrimination in access to professional development; selection differences must rest on objective requirements rather than automatic preferences based on age or seniority."
       },
       {
         "id": "KZPP-2-2",
-        "yak_zastosovuietsia": "Checking possible signs of workplace bullying, including systematic restrictions on training and career progression. Disagreement with a single decision does not, by itself, establish bullying. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
-      },
-      {
-        "id": "KZPP-201",
-        "yak_zastosovuietsia": "Vocational training and professional development: aligning staff needs with institutional tasks and practical use of learning outcomes. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Examination of possible mobbing, including systematic restrictions on training and career development. Disagreement with a single decision does not itself establish mobbing."
       },
       {
         "id": "VS-761-42072-23",
-        "yak_zastosovuietsia": "The PDF cites the Supreme Court decision of 25 February 2026 in case No. 761/42072/23 concerning workplace bullying and discrimination against an employee of JSC NNEGC Energoatom. According to the document's account, dismissal of the claim was upheld because the alleged conduct had not been proved. The learning issue: refusing one trip does not by itself prove workplace bullying; systematic conduct, duration, intent and other statutory elements must be examined. Systematic unjustified limits on access to training may warrant checks for discrimination or bullying. The reference, the URL's correspondence to the stated date and the summary of the court's findings are unconfirmed and require manual verification. Library reference: https://youcontrol.com.ua/catalog/court-document/122935566/ This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "The Supreme Court ruling of 25 February 2026 in case No. 761/42072/23 concerns mobbing and discrimination against an employee of JSC NNEGC Energoatom. According to the source document, dismissal of the claim was upheld because the alleged conduct was not proved. The learning question is that a single refusal of a trip does not itself prove mobbing; systematic conduct, duration, intent and other statutory elements must be examined. Systematic unjustified restrictions on access to training may require examination for discrimination or mobbing. The particulars, correspondence of the URL to the stated date and content of the court's conclusions have not been confirmed; manual verification is required. Directory link: https://youcontrol.com.ua/catalog/court-document/122935566/."
       },
       {
         "id": "ZPK-1",
-        "yak_zastosovuietsia": "Private interests, potential and actual conflicts of interest, undue benefits and the criteria for whistleblower status. Personal and family relationships must be considered alongside specific powers and their influence on decisions."
+        "yak_zastosovuietsia": "Private interest, potential and actual conflicts of interest, undue benefit and whistleblower status criteria. Personal ties must be considered against specific powers and their influence on a decision."
       },
       {
         "id": "ZPK-23",
@@ -899,7 +865,7 @@
       },
       {
         "id": "ZPK-24",
-        "yak_zastosovuietsia": "Action on an offer of an undue benefit or gift: refusal, identifying the person where possible, recording the facts and statutory reporting. Gift-value thresholds do not justify benefits in exchange for silence."
+        "yak_zastosovuietsia": "Response to an offer of undue benefit or a gift: refusal, identification of the person where possible, recording the circumstances and statutory reporting. Permissible gift-value thresholds do not justify exchanging a benefit for silence."
       },
       {
         "id": "ZPK-28",
@@ -911,14 +877,14 @@
       },
       {
         "id": "ZPK-38",
-        "yak_zastosovuietsia": "Professional and ethical performance of duties in HR and management decisions; the precise wording and applicability of the provision require verification. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Professional and ethical performance of duties in personnel and management decisions; the exact provision and its applicability require verification."
       },
       {
         "id": "ZPK-53-2",
         "yak_zastosovuietsia": "Statutory channels for reporting possible corruption and the procedure for handling reports. External channels must not be equated with unconditional disclosure of all official materials."
       }
     ],
-    "zastosovnist": "The Labour Code applies to employment relationships within its statutory scope. Special rules on professional development and official travel must be checked separately for military personnel and certain categories of public service. Anti-corruption duties depend on the individual's status. A lack of criteria or an acquaintance at the partner organisation does not by itself prove workplace bullying or an actual conflict of interest.",
+    "zastosovnist": "The Labour Code applies to employment relations within statutory limits. Special rules on professional development and official travel must be checked separately for military personnel and certain categories of public servants. Anti-corruption duties depend on the person's status. Missing criteria or acquaintance with a partner do not themselves prove mobbing or an actual conflict of interest.",
     "porady": [
       "Announce criteria before assessment and explain each justified revision using the same rules for everyone.",
       "Check the official purpose of additional meetings, private interests and gift rules before meetings take place.",
@@ -934,7 +900,7 @@
     ],
     "dzherelo_vypadku": {
       "typ": "fictional",
-      "opys": "Case No. 1, \"Fairness in Allocating Opportunities\", from docs/cases-source.pdf supplied by the team. A learning adaptation, not an account of established events or real people. Fictional names were replaced with roles. Struck-out duplicates and quiz verdicts were replaced with analytical discussion without changing the substance of the legal arguments. At the second stage of the first case, the continuations were edited into separate branches for each initial choice. In the \"If you chose C\" branch, removing the struck-out text left only one option; waiting for the programme without a shared assessment was added editorially to meet the schema minimum of two options. The contradiction between all three returning and only two places being available was resolved: the third colleague helps process the materials rather than travelling."
+      "opys": "Case No. 1, \"Fairness in Allocating Opportunities\", from the team's original educational material. A learning adaptation, not an account of established events or real people. Fictional names were replaced with roles. Struck-out duplicates and quiz verdicts were replaced with analytical discussion without changing the substance of the legal arguments. At the second stage of the first case, the continuations were edited into separate branches for each initial choice. In the \"If you chose C\" branch, removing the struck-out text left only one option; waiting for the programme without a shared assessment was added editorially to meet the schema minimum of two options. The contradiction between all three returning and only two places being available was resolved: the third colleague helps process the materials rather than travelling."
     },
     "perevirka_zmistu": {
       "fakhivets_dzpk": "pending",
@@ -945,14 +911,14 @@
     "shi": {
       "vykorystano": true,
       "instrument": "OpenAI Codex",
-      "shcho_zrobleno": "Transferring the PDF material into a JSON graph, replacing names with roles, editing quiz verdicts into analytical discussion, matching references to the legal library and defining three separate learning scales. Struck-out duplicates and quiz verdicts were replaced with analytical discussion without changing the substance of the legal arguments. At the second stage of the first case, the continuations were edited into separate branches for each initial choice. In the \"If you chose C\" branch, removing the struck-out text left only one option; waiting for the programme without a shared assessment was added editorially to meet the schema minimum of two options. The contradiction between all three returning and only two places being available was resolved: the third colleague helps process the materials rather than travelling.",
-      "perevirka_liudynoiu": "No human review or specialist assessment has been conducted following this adaptation. Programmatic validation of the structure and graph does not verify legal content. The runtime engine operates deterministically, without AI."
+      "shcho_zrobleno": "Transferring the team's original educational material into a JSON graph, replacing names with roles, editing quiz verdicts into analytical discussion, matching references to the legal library and defining three separate learning scales. Struck-out duplicates and quiz verdicts were replaced with analytical discussion without changing the substance of the legal arguments. At the second stage of the first case, the continuations were edited into separate branches for each initial choice. In the \"If you chose C\" branch, removing the struck-out text left only one option; waiting for the programme without a shared assessment was added editorially to meet the schema minimum of two options. The contradiction between all three returning and only two places being available was resolved: the third colleague helps process the materials rather than travelling.",
+      "perevirka_liudynoiu": "The texts have been proofread and edited by the team. Expert review by an anti-corruption integrity officer (DZPK) has not been conducted. Automated structure and graph checks do not verify legal content. The runtime engine is deterministic and uses no AI."
     }
   },
   "S02": {
     "id": "S02",
     "nazva": "The Untouchable Candidate",
-    "versiia": "1.0",
+    "versiia": "1.1",
     "data_stvorennia": "2026-11-17",
     "tema": "kadrovi-rishennia",
     "audytoriia": [
@@ -1033,7 +999,7 @@
               "dovira": -2
             },
             "chomu_taki_baly": "Integrity (-2): the decision risks concealment or biased use of powers. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. You retain the general's favour and avoid a direct conflict with management. Trust (-2): There is a risk of damage to professional reputation, disciplinary or other statutory liability, and a practice of HR decisions depending on personal arrangements.",
-            "zvorotnyi_zviazok": "A supervisor may exercise management powers within their competence, but that does not permit demands to breach the established selection procedure. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "The manager may exercise management powers within their competence, but this does not entitle them to demand a breach of the established selection procedure.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1064,7 +1030,7 @@
               "dovira": 2
             },
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. The general may be dissatisfied, official pressure may increase or personal relations with management may worsen. Trust (+2): The integrity of selection, professional reputation and trust in the Ministry of Defence's HR system are preserved.",
-            "zvorotnyi_zviazok": "Under civil service principles, HR decisions should rest on professional competence, personal qualities and candidates' achievements. The general's personal wishes cannot replace objective assessment. All three candidates must receive equal conditions. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Under the principles of public service, personnel decisions must rest on candidates' professional competencies, personal qualities and achievements. The general's personal preferences cannot replace objective assessment. You must ensure equal conditions for all three candidates.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1095,7 +1061,7 @@
               "dovira": -1
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (-2): the response is diverted from material facts or blocked. You gain more time and temporarily avoid giving the general a direct answer. Trust (-1): The problem remains unresolved; delaying the competition can create organisational difficulties and cast doubt on the objectivity of your actions.",
-            "zvorotnyi_zviazok": "Postponement alone does not resolve improper influence. Without lawful grounds, delay may violate candidates' rights and statutory deadlines. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Postponement alone does not resolve improper influence. Without lawful grounds, delaying the procedure may breach candidates' rights and statutory deadlines.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1126,7 +1092,7 @@
               "dovira": -1
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. The general may see your position as a compromise, while the candidate receives another chance to demonstrate knowledge. Trust (-1): Giving this candidate extra opportunities selectively may result in unequal treatment of others and challenges to competition results.",
-            "zvorotnyi_zviazok": "Further assessment may be permissible only if the procedure allows it and it applies equally to candidates in comparable circumstances. Agreeing to support a particular person already creates a risk of bias. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Additional assessment is permissible only if provided for by the competition procedure and applied equally to candidates in comparable circumstances. An agreement to support a particular person already creates a risk of bias.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1148,7 +1114,7 @@
       },
       {
         "id": "V2",
-        "tekst": "Stage 2 · Personal ties: \"She is just an old acquaintance\"\n\nThe next day, while preparing documents, information emerges about the supervisor's personal relationship with the candidate. It requires checking regardless of your previous answer.\n\nYou establish that the supervisor-backed candidate is a longstanding close acquaintance of the general. They have met outside work repeatedly, maintain personal contact, and he has helped her professional development. He nevertheless insists that his decision is purely professional and that he has no personal interest.",
+        "tekst": "Stage 2 · Personal ties: 'Just an old acquaintance'\n\nThe next day, while documents are being prepared, information emerges about the manager's personal relationship with the candidate. It needs further examination regardless of your earlier response. On clarifying the circumstances, you discover that the manager-backed candidate is a longstanding close acquaintance of the general. They have repeatedly met outside work, maintain personal contact, and the general has supported her professional development. However, the general insists the decision is purely professional and involves no personal interest.",
         "zapytannia": "Are these circumstances sufficient to establish a conflict of interest?",
         "varianty": [
           {
@@ -1231,7 +1197,7 @@
       },
       {
         "id": "V3",
-        "tekst": "Stage 3 · Conflict of interest: \"I can be objective myself\"\n\nThe supervisor has not reported a possible conflict and continues approving documents and influencing the competition.\n\nThe general learns that you are examining his personal relationship with the candidate he supports. He says he can assess her objectively and sees no need to report a conflict. Meanwhile, he continues participating in approval of competition results.",
+        "tekst": "Stage 3 · Conflict of interest: 'I can be objective myself'\n\nThe manager has not reported a possible conflict of interest and continues approving documents and influencing the competition. The general learns that you are examining the personal relationship with the manager-backed candidate. He explains that he can assess her objectively and therefore sees no need to report a conflict of interest. Meanwhile, he continues taking part in approving the competition results.",
         "zapytannia": "How should the general act when a conflict of interest exists?",
         "varianty": [
           {
@@ -1287,7 +1253,7 @@
               "dovira": 2
             },
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. The general temporarily loses influence over a specific HR decision, but the procedure becomes more objective. Trust (+2): Anti-corruption law is observed, the risk of challenges to competition results falls and trust in recruitment is preserved.",
-            "zvorotnyi_zviazok": "Article 28 of Ukraine's Law on Prevention of Corruption requires an actual or potential conflict to be reported through the statutory procedure. Management measures must follow reporting. Depending on the circumstances, these may include excluding the general from deciding on the candidate he supports.",
+            "zvorotnyi_zviazok": "Under Article 28 of Ukraine's Law on Prevention of Corruption, a person must report an actual or potential conflict of interest in the statutory manner. Measures must then be taken to manage it. Depending on the circumstances, this may require excluding the general from the decision concerning the manager-backed candidate.",
             "normy": [
               "ZPK-28",
               "ZPK-29"
@@ -1318,7 +1284,7 @@
       },
       {
         "id": "V4",
-        "tekst": "Stage 4 · Interference with the panel: \"Just adjust the scores a little\"\n\nA panel member reports that the supervisor called and asked for a higher score for his preferred candidate. Her international law interview answer was incomplete.\n\nDuring interviews, the general calls panel members and recommends higher scores for the candidate he supports. He argues that her communication skills will let her represent the Ministry of Defence effectively in international engagement. One member follows his recommendation and awards a higher score despite incomplete international law answers. You discover this while checking competition documentation.",
+        "tekst": "Stage 4 · Interference with the selection panel: 'Just adjust the scores a little'\n\nA panel member reports that the manager called asking for the supported candidate's score to be raised. Her interview answer on international law was incomplete. During interviews, the general calls selection panel members and recommends awarding the manager-backed candidate higher scores. He argues that she has good communication skills and can effectively represent the Ministry of Defence in international cooperation. One panel member agrees and awards her a higher score despite incomplete answers on international law. You discover this while checking the competition documents.",
         "zapytannia": "What will you do next?",
         "varianty": [
           {
@@ -1334,7 +1300,7 @@
               "dovira": -2
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. You avoid conflict with panel members and the general; the competition continues without delay. Trust (-2): The violation remains uncorrected and results may be challenged. This also sets a dangerous precedent of panel dependence on outside influence.",
-            "zvorotnyi_zviazok": "A decision being made by a panel does not remove its members' duty to use objective assessment criteria. If external pressure influenced scores, the lawfulness of assessment must be checked. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "A decision being made by a selection panel does not release its members from the duty to follow objective assessment criteria. If outside pressure influenced the scores, the lawfulness of that assessment must be examined.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1356,7 +1322,7 @@
               "dovira": 2
             },
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. Checking may delay the competition's completion and displease management. Trust (+2): The competition procedure is made lawful, challenges become less likely and conditions for fair selection are established.",
-            "zvorotnyi_zviazok": "The general's intervention may indicate improper influence, and unjustifiably inflated scores may breach objectivity and integrity principles. Check the documentation, establish how scores were awarded and ensure consistent criteria for everyone. Avoid a premature conclusion of criminal conduct: all relevant legal elements must be established. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "The general's interference may indicate improper influence on the competition, and unjustified score inflation may breach objectivity and integrity principles. You must examine the competition documents, establish how scores were awarded and ensure equal assessment criteria for all candidates. Avoid prematurely concluding that a crime occurred: all relevant legal elements must first be established.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1378,7 +1344,7 @@
               "dovira": -1
             },
             "chomu_taki_baly": "Integrity (-2): the decision risks concealment or biased use of powers. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. The competition ends faster and the candidate has an opportunity to win. Trust (-1): An employee lacking necessary knowledge may fail to perform official duties. This creates risks for international engagement and institutional effectiveness.",
-            "zvorotnyi_zviazok": "Communication can be an important professional skill, but it does not justify biased assessment. If international law knowledge is required for the post, it must be properly assessed. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Communication skills can be an important professional competency, but they do not justify biased assessment. If international law knowledge is a necessary job requirement, it must be assessed properly.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1400,7 +1366,7 @@
               "dovira": -2
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (-2): the response is diverted from material facts or blocked. You may escalate conflict with management without sufficiently established facts. Trust (-2): Premature accusations may obstruct checks and undermine the justification for your actions.",
-            "zvorotnyi_zviazok": "Interference in a competition may be a violation but cannot automatically be declared a crime. Establish the influence involved, the general's powers, the relevant purpose and other legally significant circumstances. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Interference with the competition may be a breach, but cannot automatically be treated as a crime. The nature of the influence, the general's powers, the relevant purpose and other legally significant circumstances must be established.",
             "normy": [
               "DS-4",
               "DS-22",
@@ -1413,7 +1379,7 @@
       },
       {
         "id": "V5",
-        "tekst": "Stage 5 · Gender equality: \"We should support women in defence\"\n\nDuring discussion, a panel member proposes supporting the candidate to increase women's representation in leadership.\n\nDiscussing results, a member argues that the supervisor-backed candidate should be supported because more women should hold security and defence leadership posts. He stresses that women's representation is an important element of gender equality. Meanwhile, her professional international law knowledge remains below the post's established requirements.",
+        "tekst": "Stage 5 · Gender equality: 'Women in defence need support'\n\nDuring discussion, a panel member proposes supporting the candidate to increase women's representation in leadership. While discussing the competition results, a panel member argues that the manager-backed candidate deserves support because there should be more women in leadership structures in the security and defence sector. They emphasise that supporting women's representation is an important part of gender equality. However, the candidate's professional knowledge of international law remains below the job requirements.",
         "zapytannia": "Which approach should you take when assessing candidates?",
         "varianty": [
           {
@@ -1500,7 +1466,7 @@
       },
       {
         "id": "V6",
-        "tekst": "Stage 6 · Personal interest: \"Think about your own career\"\n\nAfter the meeting, the supervisor turns the discussion to your promotion and links it to changing scores.\n\nThe general says he can help your career if you change the assessment results in favour of the candidate he supports. He also hints that refusing may cost you a desired post. You face a difficult choice: preserve professional independence or accept for the sake of your career.",
+        "tekst": "Stage 6 · Personal interest: 'Think about your own career'\n\nAfter the meeting, the manager turns to your promotion and links it to changing the scores. The general says he can help your career if you agree to change the assessment results in favour of the manager-backed candidate. He also hints that refusal could cost you the opportunity to obtain your desired position. You face a difficult choice: retain professional independence or accept the offer for your own career.",
         "zapytannia": "Which anti-corruption provision directly concerns this situation?",
         "varianty": [
           {
@@ -1586,7 +1552,7 @@
       },
       {
         "id": "V7",
-        "tekst": "Stage 7 · Consequences of interference: \"The decision is already made\"\n\nAfter the competition, the supervisor-backed candidate nevertheless receives the post. Checks reveal altered scores and report substantial harm. Its extent, causation and every element of a possible offence must be examined.\n\nThe candidate is appointed after the competition. Internal review establishes that some assessment results were deliberately altered and that the appointment contradicted objective selection results. The state institution suffered substantial harm. You must consider whether officials' actions may show signs of a criminal offence.",
+        "tekst": "Stage 7 · Consequences of interference: 'The decision is made'\n\nA review identifies altered scores and reports significant harm. Its extent, causal connection and all elements of a possible offence must be examined. Following the competition, the manager-backed candidate receives the position. An internal review establishes that certain assessment results were deliberately altered and her appointment contradicted the objective selection results. These actions caused significant harm to the state institution. You must determine whether officials' actions may contain elements of a criminal offence.",
         "zapytannia": "Which criminal law provision should be examined first?",
         "varianty": [
           {
@@ -1602,7 +1568,7 @@
               "dovira": 1
             },
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. Checking and establishing the circumstances may take additional time but permits legal assessment of those involved's actions. Trust (+1): Holding guilty persons accountable where all lawful grounds exist supports restored legality, protection of state interests and prevention of similar future violations.",
-            "zvorotnyi_zviazok": "Criminal Code Article 364 addresses an official's intentional use of authority or position against the interests of the service to obtain an undue benefit for themselves or another person, causing substantial harm to legally protected rights, freedoms and interests. Examine whether the person has the required special status; used official powers against service interests; acted intentionally and with the statutory purpose; caused substantial harm; and whether causation links the actions and harm. Altering competition results does not automatically establish an Article 364 offence. Every required element must be proved. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Article 364 of Ukraine's Criminal Code provides liability for an official's intentional use of authority or official position contrary to service interests to obtain an undue benefit for themselves or another person, where this causes significant harm to legally protected rights, freedoms and interests. Examine whether the person is a qualifying subject of this offence; used official powers contrary to service interests; acted intentionally and with the statutory purpose; caused significant harm; and whether a causal link exists between the official's actions and that harm. Changing competition results does not automatically constitute an Article 364 offence. All mandatory elements must be proved.",
             "normy": [
               "KK-364",
               "VS-761-12291-16-k"
@@ -1622,7 +1588,7 @@
               "dovira": -1
             },
             "chomu_taki_baly": "Integrity (+0): intent alone does not resolve legality. Effectiveness (-2): the response is diverted from material facts or blocked. A provision unrelated to the established circumstances will be chosen. Trust (-1): Misclassification may obstruct proper investigation and accountability of those responsible.",
-            "zvorotnyi_zviazok": "Article 185 concerns covert taking of another's property. This situation concerns abuse of official powers rather than covert acquisition of property. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Article 185 of Ukraine's Criminal Code concerns secretly stealing another person's property. This situation concerns abuse of official powers rather than secret appropriation of property.",
             "normy": [
               "KK-364",
               "VS-761-12291-16-k",
@@ -1643,7 +1609,7 @@
               "dovira": -2
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (-2): the response is diverted from material facts or blocked. Legal assessment will use a provision unrelated to the case. Trust (-2): This may obstruct identification of the actual misconduct and responsible persons.",
-            "zvorotnyi_zviazok": "Article 125 concerns intentional infliction of minor bodily injury. There is no information here about bodily injury to anyone. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Article 125 of Ukraine's Criminal Code concerns intentional minor bodily injury. There is no information here about anyone suffering bodily injury.",
             "normy": [
               "KK-364",
               "VS-761-12291-16-k",
@@ -1664,7 +1630,7 @@
               "dovira": -1
             },
             "chomu_taki_baly": "Integrity (+0): intent alone does not resolve legality. Effectiveness (-1): further checks or review take time and resources. A provision will be chosen without properly considering the official actions involved. Trust (-1): Misclassification may lead to errors in legal assessment and investigation.",
-            "zvorotnyi_zviazok": "Article 190 concerns obtaining another's property or property rights by deception or abuse of trust. The main assessment here concerns improper use of official powers during recruitment. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Article 190 of Ukraine's Criminal Code concerns obtaining another person's property or property rights through deception or abuse of trust. Here, the central issue for legal assessment is improper use of official powers during personnel selection.",
             "normy": [
               "KK-364",
               "VS-761-12291-16-k",
@@ -1676,7 +1642,7 @@
       },
       {
         "id": "V8",
-        "tekst": "Stage 8 · Concealment: \"This correspondence never existed\"\n\nCorrespondence emerges that may confirm pressure on the panel. The supervisor demands its deletion and silence about the competition.\n\nDuring earlier stages you retained electronic correspondence in which the general asked for changed results and success for his preferred candidate. After the competition, he demands deletion, no report to the designated unit and prevention of disclosure. You recognise that the retained materials may be important to establishing the misconduct.",
+        "tekst": "Stage 8 · Concealment: 'This correspondence never existed'\n\nCorrespondence emerges that may confirm pressure on the selection panel. The manager demands its deletion and silence about the competition. During earlier stages, you retained electronic correspondence in which the general requested altered results and victory for the manager-backed candidate. After the competition, the general demands that you delete these messages, withhold the situation from the authorised unit and prevent disclosure. You understand that the retained materials may be important in establishing the circumstances of the breach.",
         "zapytannia": "How should you act in this situation?",
         "varianty": [
           {
@@ -1785,19 +1751,19 @@
     "normy": [
       {
         "id": "DS-4",
-        "yak_zastosovuietsia": "Civil service principles and a professional, impartial approach to selection; a supervisor's wishes do not replace established requirements. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Public service principles and a professional, impartial approach to selection; the manager's preferences do not replace established requirements."
       },
       {
         "id": "DS-22",
-        "yak_zastosovuietsia": "Compliance with the competition procedure and consistent assessment conditions; applicability depends on the type of post and the recruitment rules in force. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Compliance with the competition procedure and equal assessment conditions; applicability depends on the type of position and current recruitment rules."
       },
       {
         "id": "KONST-38",
-        "yak_zastosovuietsia": "Part two: equal access to the civil service; personal relationships do not justify an unfounded preference. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Part two: equal access to public service; personal relationships do not justify an unwarranted advantage."
       },
       {
         "id": "KONST-60",
-        "yak_zastosovuietsia": "Refusal to carry out manifestly criminal instructions or orders. A procedurally questionable instruction is not automatically manifestly criminal; its nature must be assessed from its content and circumstances. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Refusal to execute manifestly criminal instructions and orders. Not every procedurally questionable instruction is automatically manifestly criminal; its substance and circumstances must be assessed."
       },
       {
         "id": "ZPK-1",
@@ -1809,15 +1775,15 @@
       },
       {
         "id": "ZPK-38",
-        "yak_zastosovuietsia": "Professional and ethical performance of duties in HR and management decisions; the precise wording and applicability of the provision require verification. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Professional and ethical performance of duties in personnel and management decisions; the exact provision and its applicability require verification."
       },
       {
         "id": "ZPK-53",
-        "yak_zastosovuietsia": "State protection guarantees for whistleblowers where statutory conditions are met. Protection does not depend on a conviction already having been delivered. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Statutory state protection for whistleblowers meeting the legal conditions. Protection does not depend on a conviction already having been delivered."
       },
       {
         "id": "ZPK-53-1",
-        "yak_zastosovuietsia": "Internal reporting channels, including anonymous reporting, and the institution's duty to provide them. This provision falls within Articles 53–53-4 cited in the PDF; the channel and method must be chosen under the rules in force."
+        "yak_zastosovuietsia": "Internal reporting channels, including anonymous reporting, and the institution's duty to operate them. Reporting procedures are determined by current legislation."
       },
       {
         "id": "ZPK-53-2",
@@ -1825,7 +1791,7 @@
       },
       {
         "id": "ZPK-53-3",
-        "yak_zastosovuietsia": "Explaining statutory whistleblower rights and guarantees, taking account of the criteria for that status and proper handling of the report. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Explanation of statutory whistleblower rights and safeguards, taking account of status criteria and proper handling of the report."
       },
       {
         "id": "ZPK-53-4",
@@ -1833,7 +1799,7 @@
       },
       {
         "id": "VS-826-5931-16",
-        "yak_zastosovuietsia": "The PDF cites the Supreme Court decision of 1 February 2021 in case No. 826/5931/16 as an example of the need to examine allegations of conflicts of interest among selection panel members and circumstances requiring recusal or self-recusal. The reference and summary of findings have not been checked against the primary source; do not treat them as a verified legal holding. Library reference: https://iplex.com.ua/doc.php?regnum=94602438 This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Case law highlights the need to examine allegations of conflicts of interest among selection panel members and circumstances of recusal or self-recusal."
       },
       {
         "id": "ZPK-29",
@@ -1845,15 +1811,15 @@
       },
       {
         "id": "VS-9901-72-19",
-        "yak_zastosovuietsia": "The PDF cites the Grand Chamber of the Supreme Court decision of 9 February 2022 in case No. 9901/72/19 concerning the lawfulness of a competition procedure. The material stresses objective criteria and review of panel decisions, without asserting that the court separately established a conflict of interest. The reference and summary of the legal position require verification; a procedural violation alone does not prove a criminal offence. Library reference: https://iplex.com.ua/doc.php?regnum=104076194 This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Assessing the lawfulness of a competition requires objective criteria and scrutiny of the panel's decisions. A procedural breach alone does not prove a criminal offence."
       },
       {
         "id": "KONST-24",
-        "yak_zastosovuietsia": "Equal rights and non-discriminatory access to a competition; gender does not replace assessment against professional requirements. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Equal rights and non-discriminatory access to the competition; gender does not replace assessment of professional requirements."
       },
       {
         "id": "EQUAL-17",
-        "yak_zastosovuietsia": "Equal rights and opportunities for women and men in employment and career progression, maintaining professional requirements and avoiding discriminatory exclusion. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Equal rights and opportunities for women and men in employment and career progression, without removing professional requirements or discriminatory exclusion."
       },
       {
         "id": "ZPK-23",
@@ -1861,31 +1827,31 @@
       },
       {
         "id": "ZPK-45",
-        "yak_zastosovuietsia": "Filing declarations is a separate duty. Relying on it alone does not address pressure on candidate assessment. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Asset declaration is a separate duty. Referring to it alone does not address pressure on candidate assessment."
       },
       {
         "id": "KK-364",
-        "yak_zastosovuietsia": "Assessment of abuse of authority or official position requires examination of every element of the offence, including the offender's required status, intent, specific purpose, substantial harm and causation. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Assessing abuse of authority or official position requires examination of all offence elements, including the subject, intent, specific purpose, significant harm and causation."
       },
       {
         "id": "VS-761-12291-16-k",
-        "yak_zastosovuietsia": "The PDF cites the Criminal Cassation Court within the Supreme Court decision of 19 April 2021 in case No. 761/12291/16-k, proceedings No. 51-4161km20, describing abuse of official position during competitive selection. The material stresses proving the required status of the offender, intent, the statutory purpose, substantial harm and causation for assessment under Criminal Code Article 364. Altering scores alone is insufficient. The source gives no direct decision URL; the reference and summary have not been verified. Library reference: https://reyestr.court.gov.ua/ This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Assessing abuse of official position during competitive selection requires proof of a qualifying subject, intent, statutory purpose, significant harm and causation. Altering scores alone is insufficient."
       },
       {
         "id": "KK-185",
-        "yak_zastosovuietsia": "A comparison of legal classifications: interference in a competition is not, by itself, the covert taking of property. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "An alternative for comparing legal classifications: interference with a competition is not itself secret theft of property."
       },
       {
         "id": "KK-125",
-        "yak_zastosovuietsia": "A comparison of legal classifications: the competition case contains no information about intentional minor bodily injury. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "An alternative for comparing legal classifications: this competition case contains no information about intentional minor bodily injury."
       },
       {
         "id": "KK-190",
-        "yak_zastosovuietsia": "A comparison of legal classifications: improper use of HR powers cannot be replaced with a finding of obtaining property by deception without supporting facts. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "An alternative for comparing legal classifications: assessment of improper use of personnel powers cannot be replaced with a conclusion of obtaining property through deception without supporting facts."
       },
       {
         "id": "KONST-19",
-        "yak_zastosovuietsia": "Limits on officials' powers: responding, cancelling a competition, suspending an employee or changing a contract require proper authority and procedure. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Limits on officials' powers: responding, cancelling a competition, suspending an employee or changing a contract require appropriate competence and procedure."
       }
     ],
     "zastosovnist": "The case models selection for a post subject to civil service rules and anti-corruption restrictions. Do not apply the competition procedure to all military posts without checking; special and temporary recruitment rules require verification. Criminal assessment depends on all elements of an offence, and whistleblower safeguards depend on the statutory conditions for that status.",
@@ -1904,19 +1870,19 @@
     ],
     "dzherelo_vypadku": {
       "typ": "fictional",
-      "opys": "Case No. 2, \"The Untouchable Candidate\", from docs/cases-source.pdf supplied by the team. A learning adaptation, not an account of established events or real people. Fictional names were replaced with roles. All stages and four options at each were retained; transitions describe new external events and do not attribute a previous choice to the player."
+      "opys": "An educational adaptation of Case 2, 'The Untouchable Candidate', rather than an account of established events or real people. Fictional names have been replaced with roles. All stages and four options at each stage have been retained."
     },
     "perevirka_zmistu": {
       "fakhivets_dzpk": "pending",
       "khto": null,
       "data": null,
-      "prymitka": "No specialist legal review has been conducted. The creation date records when the case was transferred, not verification of legislative versions. See normy.json for each provision's verification status. The court references and summaries of findings in the PDF require checking against primary sources."
+      "prymitka": "Expert legal review of the material has not been conducted. The creation date records preparation of the educational case, not confirmation that the cited legislation is current."
     },
     "shi": {
       "vykorystano": true,
       "instrument": "OpenAI Codex",
-      "shcho_zrobleno": "Transferring the PDF material into a JSON graph, replacing names with roles, editing quiz verdicts into analytical discussion, matching references to the legal library and defining three separate learning scales. The situations, legal arguments and both time horizons of consequences were retained from the document; the outcome of action by competent authorities is not predetermined.",
-      "perevirka_liudynoiu": "No human review or specialist assessment has been conducted following this adaptation. Programmatic validation of the structure and graph does not verify legal content. The runtime engine operates deterministically, without AI."
+      "shcho_zrobleno": "Processing educational material, anonymising participants, converting test questions into analytical discussion and defining three separate learning scales. Situations, legal arguments and both consequence horizons have been retained; outcomes of competent authorities' actions are not predetermined.",
+      "perevirka_liudynoiu": "The texts have been proofread and edited by the team. Expert review by an anti-corruption integrity officer (DZPK) has not been conducted. Automated structure and graph checks do not verify legal content. The runtime engine is deterministic and uses no AI."
     }
   },
   "S03": {
@@ -1970,7 +1936,7 @@
       {
         "tsinnist_a": "Uninterrupted food provision",
         "tsinnist_b": "Responding to possible misconduct",
-        "poiasnennia": "Protecting supplies requires a coordinated lawful plan rather than concealing shortages."
+        "poiasnennia": "Safeguarding food supply requires a coordinated lawful plan rather than concealing shortages."
       },
       {
         "tsinnist_a": "A quick conclusion",
@@ -2047,7 +2013,7 @@
           },
           {
             "id": "D1",
-            "tekst": "Arrange for the supplier to replace the missing food without documentation.",
+            "tekst": "Agree with the supplier to return the missing goods without documenting the arrangement.",
             "naslidky": {
               "odrazu": "The shortage may formally disappear, but documents remain inaccurate.",
               "vidkladeni": "Such an arrangement may help conceal misconduct and create a risk of your own liability."
@@ -2118,7 +2084,7 @@
             "id": "C2",
             "tekst": "Establish whether family ties create a private interest for the commander and whether it affects objective or impartial official decisions.",
             "naslidky": {
-              "odrazu": "The commander's powers, decisions about checks and refusal to respond must be examined.",
+              "odrazu": "The commander's powers, decisions concerning the review and circumstances of the refusal must be examined.",
               "vidkladeni": "This enables proper identification of an actual or potential conflict and appropriate measures to manage it."
             },
             "baly": {
@@ -2301,14 +2267,14 @@
             "tekst": "It may be an offer of an undue benefit because the property is linked to a demand not to perform official duties.",
             "naslidky": {
               "odrazu": "You must refuse the offer and document its circumstances.",
-              "vidkladeni": "A proper response can prevent concealment and enable legal assessment of the supplier's actions."
+              "vidkladeni": "An appropriate response can prevent concealment of breaches and ensure proper legal assessment of the supplier's actions."
             },
             "baly": {
               "dobrochesnist": 2,
               "efektyvnist": -1,
               "dovira": 1
             },
-            "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. You must refuse the offer and document its circumstances. Trust (+1): A proper response can prevent concealment and enable legal assessment of the supplier's actions.",
+            "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and lawful procedure. Effectiveness (-1): additional checks or reconsideration take time and resources. You must refuse the offer and record its circumstances. Trust (+1): an appropriate response can prevent concealment of breaches and ensure proper legal assessment of the supplier's actions.",
             "zvorotnyi_zviazok": "An undue benefit can be property, advantages or other benefits, not just money. Here, food is offered as consideration for ending the checks.",
             "normy": [
               "ZPK-1",
@@ -2322,14 +2288,14 @@
             "tekst": "It has no legal significance because no money was directly offered.",
             "naslidky": {
               "odrazu": "You may ignore a potentially corrupt offer.",
-              "vidkladeni": "The supplier may continue influencing officials through non-monetary offers."
+              "vidkladeni": "The supplier may continue trying to influence officials through similar offers."
             },
             "baly": {
               "dobrochesnist": -2,
               "efektyvnist": 1,
               "dovira": -1
             },
-            "chomu_taki_baly": "Integrity (-2): the decision risks concealment or biased use of powers. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. You may ignore a potentially corrupt offer. Trust (-1): The supplier may continue influencing officials through non-monetary offers.",
+            "chomu_taki_baly": "Integrity (-2): the decision creates a risk of concealment or biased use of powers. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. You may ignore a potentially corrupt offer. Trust (-1): the supplier may continue trying to influence officials through similar offers.",
             "zvorotnyi_zviazok": "Undue benefits are not confined to money. Transferring food can also be a property benefit.",
             "normy": [
               "ZPK-1",
@@ -2524,7 +2490,7 @@
       },
       {
         "id": "V7",
-        "tekst": "Stage 7 · Documentary evidence of discrepancies\n\nDocuments and explanations reveal discrepancies of UAH 180,000. Officials' correspondence includes \"align the figures\". Authorship, context and significance still require assessment.\n\nYou now have documents supporting recurring food shortages as well as an employee's explanation. Total discrepancies amount to UAH 180,000. Correspondence between the logistics chief and supplier representative says: \"align the figures so everything matches\". This may indicate deliberate false entries, but you cannot automatically declare a particular person guilty of a criminal offence.\n\nIn its judgment of 14 January 2025 in case No. 335/10825/16 (proceedings No. 51-4643km23, register No. 124968308), the Criminal Cassation Court of the Supreme Court quashed the acquittal and ordered a new trial in the court of first instance, stressing proper assessment and admissibility of evidence. The references and outcome summary were updated using the team's editorial correction of 18 November 2026. Status remains \"not verified\": the team must complete a final manual check of the full judgment and wording; no verbatim quotation has been confirmed.",
+        "tekst": "Stage 7 · Documentary confirmation of discrepancies\n\nExamination of documents and explanations reveals discrepancies of UAH 180,000. Officials' correspondence includes a message to 'adjust the figures'. Authorship, context and significance still need assessment.\n\nYou now have documents confirming systematic food shortages as well as the employee's explanation. Total discrepancies amount to UAH 180,000. Correspondence between the logistics chief and supplier's representative includes: 'adjust the figures so everything matches'. These circumstances may indicate deliberate false entries in documents, but you cannot automatically declare a particular person guilty of a criminal offence.\n\nOn 14 January 2025, in case No. 335/10825/16 (proceedings No. 51-4643km23, court register 124968308), the Supreme Court's Criminal Cassation Court quashed the acquittal and ordered a new trial at first instance, emphasising proper assessment and admissibility of evidence.",
         "zapytannia": "Which conclusion is best substantiated legally?",
         "varianty": [
           {
@@ -2540,7 +2506,7 @@
               "dovira": -2
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (+0): the immediate result is limited and depends on further action. A premature conclusion may lead to unsubstantiated accusations. Trust (-2): This may weaken the checks' objectivity and obstruct further establishment of facts.",
-            "zvorotnyi_zviazok": "Correspondence is important information, but its content must be assessed alongside other evidence. Establish message authors, communication context and connections with actual deliveries. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "The correspondence is important information, but its content must be checked alongside other evidence. Establish the authors, communication context and connection with actual deliveries.",
             "normy": [
               "VS-335-10825-16",
               "KK-191",
@@ -2562,7 +2528,7 @@
               "dovira": -2
             },
             "chomu_taki_baly": "Integrity (-2): the decision risks concealment or biased use of powers. Effectiveness (-1): further checks or review take time and resources. You exceed your powers and replace competent authorities' legal assessment. Trust (-2): This may violate the person's rights and undermine the lawfulness of your conclusions.",
-            "zvorotnyi_zviazok": "Determining criminal guilt is a court's function. It must also be established whether the logistics chief was involved in taking property rather than merely preparing documents. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Determining guilt of a criminal offence is the court's responsibility. It must also be established whether the logistics chief was actually involved in misappropriating property rather than merely processing documents.",
             "normy": [
               "VS-335-10825-16",
               "KK-191",
@@ -2584,7 +2550,7 @@
               "dovira": 1
             },
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. You preserve documents, record findings and prepare materials for an appropriate response. Trust (+1): Competent authorities can establish who was involved, the nature of their actions and grounds for legal liability.",
-            "zvorotnyi_zviazok": "Recurring shortages, full-receipt documents and suspicious correspondence together warrant further checks. Final legal classification nevertheless depends on established facts. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Systematic shortages, documents recording full delivery and suspicious correspondence together provide grounds for further examination. Final legal classification nevertheless depends on the facts established.",
             "normy": [
               "VS-335-10825-16",
               "KK-191",
@@ -2606,7 +2572,7 @@
               "dovira": -1
             },
             "chomu_taki_baly": "Integrity (-1): the approach leaves a significant procedural risk. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. The misconduct receives no proper response. Trust (-1): False documentation may continue, creating budget and military food supply risks.",
-            "zvorotnyi_zviazok": "Even later delivery of some food does not remove the need to check primary documents' accuracy, delivery deadlines and possible appropriation of property. The court decision cited in the PDF is discussion material; its reference and account of the legal position have not yet been checked against the primary source.",
+            "zvorotnyi_zviazok": "Even if some food was delivered later, the accuracy of original documents, delivery deadlines and possible misappropriation must still be examined.",
             "normy": [
               "VS-335-10825-16",
               "KK-191",
@@ -2637,7 +2603,6 @@
             "chomu_taki_baly": "Integrity (+0): intent alone does not resolve legality. Effectiveness (-2): the response is diverted from material facts or blocked. Food provision for personnel may be disrupted. Trust (-1): Unjustified interruption may create further organisational and legal problems.",
             "zvorotnyi_zviazok": "Detected misconduct requires action, but authorised officials must decide on contract termination and further procurement, considering the law, contract terms and unit needs.",
             "normy": [
-              "PROC-5",
               "KONST-19"
             ],
             "nastupnyi_vuzol": "V9"
@@ -2657,7 +2622,6 @@
             "chomu_taki_baly": "Integrity (-2): the decision risks concealment or biased use of powers. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. Deliveries continue unchanged, but the detected misconduct remains unaddressed. Trust (-2): Possible losses and inaccurate documentation may recur.",
             "zvorotnyi_zviazok": "Supply continuity does not justify ignoring possible corruption. Oversight and deliveries can proceed in parallel.",
             "normy": [
-              "PROC-5",
               "KONST-19"
             ],
             "nastupnyi_vuzol": "V9"
@@ -2677,7 +2641,6 @@
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. Misconduct is documented, and responsible officials must determine lawful arrangements for continuing supply. Trust (+2): The unit can feed personnel while minimising recurrence of misconduct.",
             "zvorotnyi_zviazok": "This combines legality, oversight of public spending and uninterrupted food provision. The designated officer must not independently take decisions reserved for command or procurement officials.",
             "normy": [
-              "PROC-5",
               "KONST-19"
             ],
             "nastupnyi_vuzol": "V9"
@@ -2697,7 +2660,6 @@
             "chomu_taki_baly": "Integrity (-2): the decision risks concealment or biased use of powers. Effectiveness (+1): there is a quick organisational result, although it does not remove all risks. Some missing quantities may be replaced without proper documentation. Trust (-2): This enables the scheme to continue and may jeopardise your own integrity.",
             "zvorotnyi_zviazok": "Such an arrangement does not ensure proper accounting and may conceal actual misconduct. It is especially concerning because the supplier has already offered food in exchange for stopping checks.",
             "normy": [
-              "PROC-5",
               "KONST-19"
             ],
             "nastupnyi_vuzol": "V9"
@@ -2795,7 +2757,7 @@
     "normy": [
       {
         "id": "ZPK-13-1",
-        "yak_zastosovuietsia": "The designated officer's corruption detection and prevention tasks. Working with facts and reports does not automatically grant investigative, disciplinary or procurement powers. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "The anti-corruption officer's detection and prevention duties. Working with facts and reports does not automatically confer investigative, disciplinary or procurement powers."
       },
       {
         "id": "ZPK-53-2",
@@ -2815,7 +2777,7 @@
       },
       {
         "id": "KONST-19",
-        "yak_zastosovuietsia": "Limits on officials' powers: responding, cancelling a competition, suspending an employee or changing a contract require proper authority and procedure. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Limits on officials' powers: responding, cancelling a competition, suspending an employee or changing a contract require appropriate competence and procedure."
       },
       {
         "id": "ZPK-24",
@@ -2823,11 +2785,11 @@
       },
       {
         "id": "KK-369",
-        "yak_zastosovuietsia": "Offering, promising or providing an undue benefit to a public official. Food being non-monetary, or benefiting a military unit, does not remove the need to assess an exchange for concealing facts. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Offering, promising or providing an undue benefit to an official. Food being non-monetary or benefiting the military unit does not remove the need to assess an exchange for concealing facts."
       },
       {
         "id": "ZPK-53",
-        "yak_zastosovuietsia": "State protection guarantees for whistleblowers where statutory conditions are met. Protection does not depend on a conviction already having been delivered. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Statutory state protection for whistleblowers meeting the legal conditions. Protection does not depend on a conviction already having been delivered."
       },
       {
         "id": "ZPK-53-3",
@@ -2839,23 +2801,19 @@
       },
       {
         "id": "VS-335-10825-16",
-        "yak_zastosovuietsia": "In its judgment of 14 January 2025 in case No. 335/10825/16 (proceedings No. 51-4643km23, register No. 124968308), the Criminal Cassation Court of the Supreme Court quashed the acquittal and ordered a new trial in the court of first instance, stressing proper assessment and admissibility of evidence. The case illustrates the need to examine evidence rather than infer guilt automatically. The references and outcome summary were updated using the team's editorial correction of 18 November 2026. Status remains \"not verified\": the team must complete a final manual check of the full judgment and wording; no verbatim quotation has been confirmed."
+        "yak_zastosovuietsia": "On 14 January 2025, in case No. 335/10825/16 (proceedings No. 51-4643km23, court register 124968308), the Supreme Court's Criminal Cassation Court quashed the acquittal and ordered a new trial at first instance, emphasising proper assessment and admissibility of evidence. This illustrates the need to examine evidence rather than automatically infer guilt."
       },
       {
         "id": "KK-191",
-        "yak_zastosovuietsia": "Checking possible signs of misappropriation, embezzlement or taking possession of property through abuse of official position. A discrepancy amount or a signature on a delivery note alone does not prove guilt. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Examination of possible appropriation, embezzlement or acquisition of property through official position. The discrepancy amount or a signature on a delivery note does not alone establish guilt."
       },
       {
         "id": "KK-364",
-        "yak_zastosovuietsia": "Assessment of abuse of authority or official position requires examination of every element of the offence, including the offender's required status, intent, specific purpose, substantial harm and causation. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Assessing abuse of authority or official position requires examination of all offence elements, including the subject, intent, specific purpose, significant harm and causation."
       },
       {
         "id": "KONST-62",
-        "yak_zastosovuietsia": "Established facts and possible indications of misconduct must be distinguished from a finding of criminal guilt, which is for a court to make. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
-      },
-      {
-        "id": "PROC-5",
-        "yak_zastosovuietsia": "Fair competition, economy and efficiency, openness, non-discrimination, objectivity and corruption prevention in procurement. Responding to shortages must accompany a plan for uninterrupted supplies; powers and special defence procurement rules require separate verification. This library entry is marked \"not verified\"; its current wording and applicability require manual checking."
+        "yak_zastosovuietsia": "Established facts and possible offence elements are distinguished from a finding of criminal guilt, which is the court's responsibility."
       }
     ],
     "zastosovnist": "The duties of the designated officer, commander and logistics chief must be assessed according to their status and powers. General procurement principles do not replace special defence procurement rules. A conflict of interest, whistleblower status, an undue benefit or the elements of a criminal offence cannot be established automatically from a family relationship, shortage or report alone.",
@@ -2876,7 +2834,7 @@
     ],
     "dzherelo_vypadku": {
       "typ": "fictional",
-      "opys": "Case No. 3, \"Do We Protect Our Own?\", from docs/cases-source.pdf supplied by the team. A learning adaptation, not an account of established events or real people. Fictional names were replaced with roles. All stages and four options at each were retained; transitions describe new external events and do not attribute a previous choice to the player."
+      "opys": "Case No. 3, \"Do We Protect Our Own?\", from the team's original educational material. A learning adaptation, not an account of established events or real people. Fictional names were replaced with roles. All stages and four options at each were retained; transitions describe new external events and do not attribute a previous choice to the player."
     },
     "perevirka_zmistu": {
       "fakhivets_dzpk": "pending",
@@ -2887,8 +2845,8 @@
     "shi": {
       "vykorystano": true,
       "instrument": "OpenAI Codex",
-      "shcho_zrobleno": "Transferring the PDF material into a JSON graph, replacing names with roles, editing quiz verdicts into analytical discussion, matching references to the legal library and defining three separate learning scales. The situations, legal arguments and both time horizons of consequences were retained from the document; the outcome of action by competent authorities is not predetermined.",
-      "perevirka_liudynoiu": "No human review or specialist assessment has been conducted following this adaptation. Programmatic validation of the structure and graph does not verify legal content. The runtime engine operates deterministically, without AI."
+      "shcho_zrobleno": "Transferring the team's original educational material into a JSON graph, anonymisation, editing test labels into analytical discussion, mapping references to the directory and defining three independent learning scales. Situations, legal arguments and both consequence horizons have been retained from the document; outcomes of competent authorities' actions are not predetermined.",
+      "perevirka_liudynoiu": "The texts have been proofread and edited by the team. Expert review by an anti-corruption integrity officer (DZPK) has not been conducted. Automated structure and graph checks do not verify legal content. The runtime engine is deterministic and uses no AI."
     }
   }
 }
