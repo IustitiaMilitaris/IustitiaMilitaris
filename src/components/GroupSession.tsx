@@ -1,3 +1,4 @@
+import { CustomScenarioActions } from './CustomScenarioActions';
 import { Layers } from 'lucide-react';
 import { ScenarioIllustration } from './ScenarioIllustration';
 import { ClassroomTimer, timerLabels, type TimerMode } from './ClassroomTimer';
@@ -30,6 +31,7 @@ import { BalanceIndicators } from './BalanceIndicators';
 import { NormDetailModal } from './NormDetailModal';
 
 type State = {
+  scenario: Scenario;
   timerMode: TimerMode;
   timerDurationSec: number;
   timerStartedAt: number | null;
@@ -213,7 +215,7 @@ export function GroupSession({
       cancelled = true;
     };
   }, [room?.code, host]);
-  const source = allScenarios.find((s) => s.id === room?.scenarioId);
+  const source = room?.scenario || allScenarios.find((s) => s.id === room?.scenarioId);
   const scenario = source ? localizeScenario(source, lang) : undefined;
   const node = scenario?.vuzly.find((n) => n.id === room?.currentNodeId);
   const variant = node?.varianty.find((v) => v.id === room?.selectedVariantId);
@@ -335,6 +337,7 @@ export function GroupSession({
             >
               {t.host} →
             </a>
+            <CustomScenarioActions id={s.id} lang={lang} />
           </article>
         );
       })}

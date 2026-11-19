@@ -1,3 +1,5 @@
+import { isBuiltInScenario } from '../data/scenarios';
+import customLabels from '../i18n/customScenarios.json';
 import React, { useId } from 'react';
 import { BookOpen } from 'lucide-react';
 import { Language } from '../i18n';
@@ -14,13 +16,13 @@ function MetadataBadge({ children, hint, color }: { children: React.ReactNode; h
   );
 }
 
-export function CaseMetadata({ lang }: { scenario: Scenario; lang: Language }) {
+export function CaseMetadata({ scenario, lang }: { scenario: Scenario; lang: Language }) {
   const t = labels[lang];
   return (
     <div className="case-metadata-strip flex w-full mt-auto pt-3 overflow-visible">
       <MetadataBadge color="text-tactical-ice" hint={t.trainingHint}>
         <BookOpen className="w-3 h-3 shrink-0" />
-        <span>{t.training}</span>
+        <span>{isBuiltInScenario(scenario.id) ? t.training : customLabels[lang].custom}</span>
       </MetadataBadge>
     </div>
   );

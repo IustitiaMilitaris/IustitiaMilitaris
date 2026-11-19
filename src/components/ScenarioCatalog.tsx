@@ -1,3 +1,4 @@
+import { CustomScenarioActions } from './CustomScenarioActions';
 import { ScenarioIllustration } from './ScenarioIllustration';
 import { caseLabel, scenarioStageCount } from '../i18n/display';
 import { ScenarioDescription } from './ScenarioDescription';
@@ -168,6 +169,7 @@ export const ScenarioCatalog: React.FC<ScenarioCatalogProps> = ({
               {downloadingId === s.id ? ui(lang, 'm196') : 'SCORM 1.2'}
             </button>
           </div>
+          <CustomScenarioActions id={s.id} lang={lang} />
         </div>
       </div>
     );
