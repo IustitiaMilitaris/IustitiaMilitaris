@@ -79,13 +79,14 @@ export function installClassroom(server, directory) {
         if (++messages > 120) { ws.close(1008, 'rateLimit'); return; }
         const data = parseJson(raw.toString());
         if (!data || typeof data !== 'object' || Array.isArray(data) || typeof data.type !== 'string') throw Error('invalidMessage');
-        const allowed = ['CREATE_ROOM','JOIN_ROOM','SUBMIT_VOTE','SET_LIVE','OPEN_VOTING','SHOW_RESULTS','DISCUSS','NEXT_STAGE','CLOSE_SESSION'];
+        const allowed = ['SET_TIMER_MODE','CREATE_ROOM','JOIN_ROOM','SUBMIT_VOTE','SET_LIVE','OPEN_VOTING','SHOW_RESULTS','DISCUSS','NEXT_STAGE','CLOSE_SESSION'];
         if (!allowed.includes(data.type)) throw Error('invalidMessage');
         if (data.type === 'CREATE_ROOM' && (typeof data.scenarioId !== 'string' || !/^S[0-9]{2}$/.test(data.scenarioId))) throw Error('invalidMessage');
         if (data.clientVoteToken !== undefined && (typeof data.clientVoteToken !== 'string' || !/^[a-zA-Z0-9-]{20,100}$/.test(data.clientVoteToken))) throw Error('invalidMessage');
         if (data.variantId !== undefined && (typeof data.variantId !== 'string' || !/^[A-Z][0-9]?$/.test(data.variantId))) throw Error('invalidMessage');
         if (data.hostSecret !== undefined && (typeof data.hostSecret !== 'string' || !/^[a-f0-9]{64}$/.test(data.hostSecret))) throw Error('invalidMessage');
         if (data.type === 'SET_LIVE' && typeof data.showLive !== 'boolean') throw Error('invalidMessage');
+        if (data.type === 'SET_TIMER_MODE' && !['none','10m','15m'].includes(data.timerMode)) throw Error('invalidMessage');
         if (data.type === 'CREATE_ROOM' && data.timerMode !== undefined && !['none', '10m', '15m'].includes(data.timerMode)) throw Error('invalidMessage');
         if (data.type === 'CREATE_ROOM') {
           if (joined || !scenarios.has(data.scenarioId) || rooms.size >= 100)
@@ -183,6 +184,13 @@ export function installClassroom(server, directory) {
           return;
         }
         room.updated = Date.now();
+        if (data.type === 'SET_TIMER_MODE') {
+          if (room.phase !== 'briefing' || room.timerStartedAt !== null) { send(ws, {type:'ERROR',error:'invalidMessage'}); return; }
+          room.timerMode = data.timerMode;
+          room.timerDurationSec = data.timerMode === '10m' ? 600 : data.timerMode === '15m' ? 900 : 0;
+          broadcast(room);
+          return;
+        }
         if (data.type === 'SET_LIVE') {
           room.showLive = Boolean(data.showLive);
           broadcast(room);

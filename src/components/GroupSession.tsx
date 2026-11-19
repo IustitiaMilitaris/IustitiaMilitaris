@@ -1,3 +1,4 @@
+import { Layers } from 'lucide-react';
 import { ScenarioIllustration } from './ScenarioIllustration';
 import { ClassroomTimer, timerLabels, type TimerMode } from './ClassroomTimer';
 import productLabels from '../i18n/product.json';
@@ -65,7 +66,7 @@ export function GroupSession({
   host?: boolean;
 }) {
   const t = labels[lang];
-  const [timerMode, setTimerMode] = useState<TimerMode>('none');
+  const [inspected, setInspected] = useState<{node: string; variant: string} | null>(null);
   const [clockOffset, setClockOffset] = useState(0);
 
   const [cidsOpen, setCidsOpen] = useState(false);
@@ -123,7 +124,7 @@ export function GroupSession({
             ws.send(
               JSON.stringify({
                 type: 'CREATE_ROOM',
-                timerMode: new URLSearchParams(location.search).get('timer') || 'none',
+                timerMode: 'none',
                 scenarioId: initialScenario?.id || allScenarios[0]?.id
               })
             );
@@ -216,9 +217,10 @@ export function GroupSession({
   const scenario = source ? localizeScenario(source, lang) : undefined;
   const node = scenario?.vuzly.find((n) => n.id === room?.currentNodeId);
   const variant = node?.varianty.find((v) => v.id === room?.selectedVariantId);
-  const send = (type: string, variantId?: string, showLive?: boolean) => {
+  const inspectedVariant = node?.varianty.find(v => v.id === (inspected?.node === node.id ? inspected.variant : room?.selectedVariantId)) || node?.varianty[0];
+  const send = (type: string, variantId?: string, showLive?: boolean, timerMode?: TimerMode) => {
     if (socket.current?.readyState === WebSocket.OPEN)
-      socket.current.send(JSON.stringify({ type, variantId, showLive, ...(host ? { hostSecret: sessionStorage.getItem('room-host-' + activeCode.current) } : {}) }));
+      socket.current.send(JSON.stringify({ type, variantId, showLive, timerMode, ...(host ? { hostSecret: sessionStorage.getItem('room-host-' + activeCode.current) } : {}) }));
   };
   const totalVotes = (votes: Record<string, number>) =>
     Object.values(votes).reduce((a, b) => a + b, 0);
@@ -316,7 +318,7 @@ export function GroupSession({
                   {themes[lang][s.tema as keyof typeof themes.en] || s.tema}
                 </span>
                 </div><span className="card-top-meta-time text-steel-300">
-                  {s.tryvalist_khv} {t.minutes} · {scenarioStageCount(s)} {t.stages}
+                  <Layers aria-hidden="true" className="w-3.5 h-3.5" /> {scenarioStageCount(s)} {t.stages}
                 </span>
               </div>
               <h4 className="im-scenario-title font-serif font-bold text-white leading-snug min-h-[3rem] sm:min-h-[3.25rem] mb-2">
@@ -329,7 +331,7 @@ export function GroupSession({
             </div>
             <a
               className="action w-full whitespace-nowrap border-steel-700 text-steel-300 hover:border-steel-600 hover:text-steel-100"
-              href={`/classroom/host/new?scenario=${s.id}&timer=${timerMode}`}
+              href={`/classroom/host/new?scenario=${s.id}`}
             >
               {t.host} →
             </a>
@@ -398,10 +400,7 @@ export function GroupSession({
             <h2 className="im-title font-serif text-xl font-bold">
               {t.hostTitle}
             </h2>
-            <fieldset className="flex flex-wrap gap-2" aria-label={timerLabels[lang].mode}>
-              <legend className="text-sm mb-2">{timerLabels[lang].mode}</legend>
-              {(['none', '10m', '15m'] as const).map(mode => <button type="button" key={mode} aria-pressed={timerMode === mode} className={timerMode === mode ? 'action-primary' : 'action'} onClick={() => setTimerMode(mode)}>{timerLabels[lang][mode]}</button>)}
-            </fieldset>
+
             <section className="space-y-3" aria-label={t.team}>
               <h3 className="im-section-title font-semibold text-steel-300">
                 {t.team}
@@ -609,6 +608,10 @@ export function GroupSession({
                       </div>
                     ))}
                   </div>
+                  {host && <fieldset data-testid="lobby-timer-selector" className="flex flex-wrap gap-2">
+                    <legend className="text-sm mb-2">{timerLabels[lang].mode}</legend>
+                    {(['none', '10m', '15m'] as const).map(mode => <button key={mode} type="button" aria-pressed={room.timerMode === mode} className={room.timerMode === mode ? 'action-primary' : 'action'} onClick={() => send('SET_TIMER_MODE', undefined, undefined, mode)}>{timerLabels[lang][mode]}</button>)}
+                  </fieldset>}
                   {host ? (
                     <button
                       className="action-primary"
@@ -748,39 +751,44 @@ export function GroupSession({
                       </ul>
                     </div>
                   )}
-                  {room.phase === 'feedback' && variant && (
+                  {['results', 'feedback'].includes(room.phase) && inspectedVariant && (
                     <article
                       className="surface space-y-5 animate-fadeIn"
-                      key={variant.id}
+                      key={inspectedVariant.id}
                     >
+                      <div role="tablist" aria-label={lang === 'en' ? 'Option explanations' : 'Розбір варіантів'} className="flex flex-wrap gap-2">
+                        {node.varianty.map((item, index) => <button key={item.id} type="button" role="tab" aria-selected={inspectedVariant.id === item.id} className={inspectedVariant.id === item.id ? 'action-primary' : 'action'} onClick={() => setInspected({node: node.id, variant: item.id})}>
+                          {optionLabel(index, lang)} · {room.totalVotes ? Math.round((room.votes[item.id] || 0) / room.totalVotes * 100) : 0}% {chosenId === item.id && (lang === 'en' ? '· Your choice' : '· Ваш вибір')}
+                        </button>)}
+                      </div>
                       <h2 className="im-title font-serif text-lg font-bold">
-                        {variantLabel(scenario, node.id, variant.id, lang)} ·{' '}
-                        {variant.tekst}
+                        {variantLabel(scenario, node.id, inspectedVariant.id, lang)} ·{' '}
+                        {inspectedVariant.tekst}
                       </h2>
                       <div className="grid gap-4 sm:grid-cols-2">
                         <Consequence title={t.immediate}>
-                          {variant.naslidky.odrazu}
+                          {inspectedVariant.naslidky.odrazu}
                         </Consequence>
                         <Consequence delayed title={t.later}>
-                          {variant.naslidky.vidkladeni}
+                          {inspectedVariant.naslidky.vidkladeni}
                         </Consequence>
                       </div>
                       <BalanceIndicators
-                        scores={variant.baly}
-                        explanation={variant.chomu_taki_baly}
+                        scores={inspectedVariant.baly}
+                        explanation={inspectedVariant.chomu_taki_baly}
                         lang={lang}
                       />
                       <p className="leading-relaxed text-steel-300">
-                        {variant.zvorotnyi_zviazok}
+                        {inspectedVariant.zvorotnyi_zviazok}
                       </p>
-<NormChips ids={variant.normy} lang={lang} onSelect={setNorm} />
-                      {host && (
+<NormChips ids={inspectedVariant.normy} lang={lang} onSelect={setNorm} />
+                      {host && room.phase === 'feedback' && (
                         <button
                           className="action-primary"
                           onClick={() => send('NEXT_STAGE')}
                         >
-                          {variant.nastupnyi_vuzol
-                            ? `${t.nextNode} (${variant.nastupnyi_vuzol}) →`
+                          {variant?.nastupnyi_vuzol
+                            ? `${t.nextNode} →`
                             : t.finish}
                         </button>
                       )}
