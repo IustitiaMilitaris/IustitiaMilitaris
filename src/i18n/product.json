@@ -1,0 +1,42 @@
+{
+  "uk": {
+    "time": "Режим часу",
+    "unlimited": "Без обмеження часу",
+    "ten": "10 хв (Службовий тиск часу)",
+    "fifteen": "15 хв (Стандарт кейсу)",
+    "elapsed": "Фактичний час",
+    "expired": "Рекомендований час вичерпано — в реальній обстановці затримка рішення також має наслідки. Ви можете завершити аналіз без лічильника.",
+    "stats": "Як обирали інші учасники (знеособлена статистика)",
+    "empty": "Ще немає завершених проходжень для порівняння.",
+    "discussion": "Точка найбільшої дискусії",
+    "match": "Ваш вибір (Варіант {option}) збігається з {percent}% завершених проходжень.",
+    "alias": "Активний псевдонім",
+    "guest": "Увійти / Зареєструвати псевдонім (необов’язково)",
+    "hierarchy0": "Конституція України",
+    "hierarchy1": "Кодекси України",
+    "hierarchy2": "Закони України",
+    "hierarchy3": "Судова практика Верховного Суду",
+    "hierarchy4": "Постанови КМУ, роз’яснення НАЗК та міжнародні стандарти",
+    "unavailable": "Статистика тимчасово недоступна."
+  },
+  "en": {
+    "time": "Time mode",
+    "unlimited": "No time limit",
+    "ten": "10 min (Operational time pressure)",
+    "fifteen": "15 min (Standard case)",
+    "elapsed": "Actual elapsed time",
+    "expired": "The recommended time has elapsed. In real operations, a delayed decision also has consequences. You may complete the analysis without the countdown.",
+    "stats": "How others chose (anonymous statistics)",
+    "empty": "No completed attempts are available for comparison yet.",
+    "discussion": "Point of greatest discussion",
+    "match": "Your choice (Option {option}) matches {percent}% of completed attempts.",
+    "alias": "Active alias",
+    "guest": "Sign in / Register an alias (optional)",
+    "hierarchy0": "Constitution of Ukraine",
+    "hierarchy1": "Codes of Ukraine",
+    "hierarchy2": "Laws of Ukraine",
+    "hierarchy3": "Supreme Court case law",
+    "hierarchy4": "Cabinet resolutions, NACP guidance and international standards",
+    "unavailable": "Statistics are temporarily unavailable."
+  }
+}

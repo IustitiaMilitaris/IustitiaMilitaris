@@ -1,3 +1,4 @@
+import { HighlightedText } from './HighlightedText';
 import { caseLabel, stageLabel } from '../i18n/display';
 import React from 'react';
 import { Scale, Crosshair, Clock3 } from 'lucide-react';
@@ -34,7 +35,7 @@ export function Dossier({
           </span>
         )}
       </div>
-      <div className="leading-relaxed">{children}</div>
+      <div className="leading-relaxed">{typeof children === 'string' ? <HighlightedText text={children} /> : children}</div>
     </section>
   );
 }

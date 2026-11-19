@@ -1,3 +1,8 @@
+import productLabels from '../i18n/product.json';
+import { useScenarioTiming, formatElapsed } from '../hooks/useScenarioTiming';
+import { TimingDisplay } from './TimingDisplay';
+import { AnonymousStats } from './AnonymousStats';
+import { HighlightedText } from './HighlightedText';
 import { NormChips } from './NormChips';
 import { NormCards } from './NormCards';
 import { Collapsible } from './Collapsible';
@@ -102,8 +107,11 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
     note?: string;
   } | null>(null);
   const [showValuesConflict, setShowValuesConflict] = useState(false);
+  const [recordStats, setRecordStats] = useState(false);
   const [isExportingScorm, setIsExportingScorm] = useState(false);
 
+  const timer = useScenarioTiming(scenario.id, phase);
+  const product = productLabels[lang];
   useEffect(() => {
     if (
       !window.location.pathname.endsWith('/play') &&
@@ -135,6 +143,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
         if (!restored.length) return;
         setPathway(restored);
         const last = restored[restored.length - 1];
+        if(progress.timing||last.variant.nastupnyi_vuzol===null) timer.restore(progress.timing,last.variant.nastupnyi_vuzol===null);
         setCurrentNodeId(last.variant.nastupnyi_vuzol || last.nodeId);
         setPhase(last.variant.nastupnyi_vuzol ? 'decision' : 'reflection');
       })
@@ -149,6 +158,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
   ) => {
     const progress = {
       scenarioId: scenario.id,
+      timing: timer.timing,
       pathway: newPathway.map((p) => ({
         nodeId: p.nodeId,
         variantId: p.variant.id
@@ -172,7 +182,10 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
       .catch(() => {});
   };
 
+  useEffect(() => { if(phase==='reflection' && timer.completed && timer.hasTiming && pathway.length) saveLocalProgress(pathway); }, [phase,timer.completed]);
+
   const handleStartFromBriefing = () => {
+    timer.start();
     window.history.pushState({}, '', `/scenarios/${scenario.id}/play`);
     window.dispatchEvent(new PopStateEvent('popstate'));
     setPhase('decision');
@@ -202,11 +215,14 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
       setPendingVariant(null);
       setPhase('decision');
     } else {
+      setRecordStats(true);
       setPhase('reflection');
     }
   };
 
   const handleRestart = () => {
+    setRecordStats(false);
+    timer.reset();
     localStorage.removeItem(`simulator_progress_${scenario.id}`);
     fetch('/api/progress', {
       method: 'POST',
@@ -287,6 +303,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
           </span>
         </div>
       </div>
+      {(phase==='decision'||phase==='feedback')&&<p className="lg:hidden font-mono text-sm mb-3">{formatElapsed(timer.mode?Math.max(0,timer.mode*60-timer.elapsedSeconds):timer.elapsedSeconds)}</p>}
       {phase === 'briefing' && (
         <div
           key={`${scenario.id}:${phase}:${currentNodeId}`}
@@ -305,7 +322,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
               <strong className="text-tactical-ice block mb-1">
                 {ui(lang, 'm214')}{' '}
               </strong>
-              {scenario.kontekst}
+              <HighlightedText text={scenario.kontekst} />
             </div>
             <div className="space-y-2">
               <h2 className="im-title font-serif text-sm font-bold text-steel-300 uppercase tracking-wider">
@@ -375,6 +392,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
                 </div>
               </Collapsible>
             </div>
+            <fieldset className="space-y-2"><legend className="text-sm font-semibold">{product.time}</legend><div className="grid gap-2 sm:grid-cols-3">{[0,10,15].map(mode=><button type="button" key={mode} aria-pressed={timer.mode===mode} className={`action ${timer.mode===mode?'border-justice-gold text-justice-gold':''}`} onClick={()=>timer.setMode(mode)}>{mode===0?product.unlimited:mode===10?product.ten:product.fifteen}</button>)}</div></fieldset>
             <button
               onClick={handleStartFromBriefing}
               className="im-primary w-full py-3.5 px-6 rounded-sm bg-justice-gold hover:bg-justice-gold text-white font-bold text-sm sm:text-base transition-all shadow-lg shadow-panel flex items-center justify-center gap-2"
@@ -553,6 +571,8 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
       </div>
       {(phase === 'decision' || phase === 'feedback') && <aside className="tactical-tracker steel-panel p-4 space-y-4 lg:sticky lg:top-20 min-w-0" aria-label={copy.tracker}>
         <h2 className="font-mono text-xs uppercase text-justice-gold">{copy.tracker}</h2>
+        <div data-testid="scenario-timer" className={`font-mono text-xl transition-colors ${timer.mode>0&&timer.mode*60-timer.elapsedSeconds<120?'text-status-warning':'text-steel-100'}`}>{formatElapsed(timer.mode?Math.max(0,timer.mode*60-timer.elapsedSeconds):timer.elapsedSeconds)}</div>
+        {timer.mode>0&&timer.elapsedSeconds>=timer.mode*60&&<p role="status" className="text-xs text-status-warning">{product.expired}</p>}
         <p>{copy.stage} {pathway.filter(p => p.nodeId !== currentNodeId).length + 1} {copy.of} {scenarioStageCount(scenario)}</p>
         <p className="text-sm text-steel-300">{scenario.diiovi_osoby.find(r => r.hravets)?.rol}</p>
         <dl className="space-y-2">{(['dobrochesnist','efektyvnist','dovira'] as const).map(axis => <div key={axis} className="flex justify-between gap-2 text-sm"><dt>{t.dimensions[axis]}</dt><dd className="font-mono">{cumulativeScores[axis] > 0 ? '+' : ''}{cumulativeScores[axis]}</dd></div>)}</dl>
@@ -672,6 +692,8 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
               <CheckCircle2 className="w-4 h-4 text-justice-gold shrink-0" />
               <span>{t.reflection.privacyBanner}</span>
             </div>
+            {timer.hasTiming&&<TimingDisplay timing={timer.timing} lang={lang} />}
+            <AnonymousStats record={recordStats} scenario={scenario} pathway={pathway.map(p=>({nodeId:p.nodeId,variantId:p.variant.id}))} attempt={timer.startedAt} lang={lang} />
             <section className="space-y-2 print-norms"><h3 className="font-bold">{t.feedback.normsTitle}</h3><NormCards ids={pathway.flatMap(p => p.variant.normy)} scenario={scenario} lang={lang} onSelect={openNormModal} /></section>
             <button className="action" onClick={() => window.print()}>{copy.print}</button>
             <div className="pt-4 border-t border-obsidian-800 flex flex-col sm:flex-row items-center justify-between gap-3">

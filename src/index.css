@@ -873,3 +873,4 @@ details > summary::-webkit-details-marker { display:none; }
 .norm-chip { height:36px; }
 .norm-chip-grid .norm-chip { height:40px; justify-content:space-between; }
 .norm-chip-grid .norm-chip > .norm-code { overflow:visible; text-overflow:clip; }
+.fact-highlight { text-decoration:underline; text-decoration-color:rgb(var(--tactical-ice) / .4); text-underline-offset:3px; }

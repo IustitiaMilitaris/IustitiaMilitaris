@@ -1,3 +1,4 @@
+import { installStats } from './stats.js';
 import { parseJson, constantEqual } from './security.js';
 import { promisify } from 'node:util';
 import { readdirSync, readFileSync } from 'node:fs';
@@ -8,7 +9,7 @@ const scenarioNodes = new Map(
       const s = JSON.parse(
         readFileSync(new URL('../stsenarii/' + f, import.meta.url), 'utf8')
       );
-      return [s.id, s.vuzly];
+      return [s.id, s];
     })
 );
 import {
@@ -30,8 +31,9 @@ export async function installAccounts(app, directory) {
     await chmod(file, 0o600);
   } catch (e) {
     if (e.code !== 'ENOENT') throw e;
-    store = { users: [], sessions: {}, progress: {} };
+    store = { users: [], sessions: {}, progress: {}, aggregateStats: {} };
   }
+  store.aggregateStats ||= {};
   let secret = process.env.SESSION_SECRET;
   if (!secret) {
     const secretFile = path.join(directory, '.secret');
@@ -158,6 +160,7 @@ export async function installAccounts(app, directory) {
       res.json({ ok: true });
     })
   );
+  installStats(app, scenarioNodes, () => store.aggregateStats || {}, update);
   app.get('/api/progress', (req, res) => {
     const id = identity(req);
     if (!id) return res.status(401).json({ error: 'unauthorized' });
@@ -168,9 +171,10 @@ export async function installAccounts(app, directory) {
     wrap(async (req, res) => {
       const id = identity(req);
       if (!id) return res.status(401).json({ error: 'unauthorized' });
-      const { scenarioId, pathway, notes } = req.body || {};
+      const { scenarioId, pathway, notes, timing } = req.body || {};
       if (
         !/^S\d{2}$/.test(scenarioId || '') ||
+        (timing !== undefined && (!timing || ![0,10,15].includes(timing.mode) || !Number.isInteger(timing.elapsedSeconds) || timing.elapsedSeconds < 0 || timing.elapsedSeconds > 31536000 || Object.keys(timing).some(k => !['mode','elapsedSeconds'].includes(k)))) ||
         !Array.isArray(pathway) ||
         pathway.length > 100 ||
         (notes !== undefined &&
@@ -194,7 +198,7 @@ export async function installAccounts(app, directory) {
           last &&
           scenarioNodes
             .get(scenarioId)
-            ?.find((n) => n.id === last.nodeId)
+            ?.vuzly.find((n) => n.id === last.nodeId)
             ?.varianty.find((v) => v.id === last.variantId)?.nastupnyi_vuzol ===
             null;
         const now = new Date().toISOString();
@@ -204,6 +208,7 @@ export async function installAccounts(app, directory) {
             variantId: p.variantId
           })),
           notes: notes ?? previous?.notes ?? '',
+          ...((timing || (!changed && previous?.timing)) ? {timing: timing || previous.timing} : {}),
           updatedAt: changed ? now : previous?.updatedAt || now,
           ...(complete
             ? { completedAt: (!changed && previous?.completedAt) || now }

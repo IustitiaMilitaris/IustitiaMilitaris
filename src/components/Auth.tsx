@@ -1,3 +1,4 @@
+import { TimingDisplay } from './TimingDisplay';
 import { ProfileDecisionPath } from './ProfileDecisionPath';
 import { caseLabel } from '../i18n/display';
 import { allScenarios } from '../data/scenarios';
@@ -24,6 +25,7 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
       {
         pathway: { nodeId: string; variantId: string }[];
         notes: string;
+        timing?: {mode:number;elapsedSeconds:number};
         updatedAt?: string;
         completedAt?: string;
       }
@@ -63,6 +65,7 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
         setPassword('');
         setConfirm('');
         await load();
+        if (sessionStorage.getItem('auth-return') === '/classroom') { sessionStorage.removeItem('auth-return'); window.location.assign('/classroom'); }
       }
     } catch {
       setError('serverError');
@@ -192,6 +195,7 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
                   {date(entry.completedAt || entry.updatedAt)}
                 </time>
               </header>
+              {entry.timing&&<TimingDisplay timing={entry.timing} lang={lang} />}
               <ProfileDecisionPath scenario={scenario} path={entry.pathway} lang={lang} open={id === latestRecordId} />
               <DecisionProfile
                 scenario={scenario}

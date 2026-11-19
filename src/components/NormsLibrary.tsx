@@ -1,3 +1,6 @@
+import { AnimatedDetails } from './Collapsible';
+import { normHierarchy } from '../utils/normHierarchy';
+import product from '../i18n/product.json';
 import { formatNormDisplayId } from '../i18n/normDisplay';
 import polish from '../i18n/polish.json';
 import { caseLabel } from '../i18n/display';
@@ -104,8 +107,9 @@ export const NormsLibrary: React.FC<NormsLibraryProps> = ({ lang }) => {
       </div>
       <div className="flex flex-wrap gap-2" role="group" aria-label={t.nav.norms}>{(['all','laws','constitution','courts','international'] as const).map(key => <button className={`action ${category === key ? 'border-justice-gold text-justice-gold' : ''}`} aria-pressed={category === key} key={key} onClick={() => setCategory(key)}>{copy[key]}</button>)}</div>
       <p role="status" className="text-sm text-steel-300" data-testid="norm-results">{copy.found}: {filteredNorms.length}</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filteredNorms.map((norm, index) => {
+      <div className="space-y-4">
+        {[0,1,2,3,4].map(rank=>({rank,norms:filteredNorms.filter(n=>normHierarchy(n)===rank)})).filter(group=>group.norms.length>0).map(group=><AnimatedDetails open className="surface" key={group.rank} data-hierarchy={group.rank}><summary className="font-serif text-lg text-steel-100">{group.rank+1}. {product[lang][`hierarchy${group.rank}` as 'hierarchy0']} ({group.norms.length})</summary><div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        {group.norms.map((norm, index) => {
           const isVerified = norm.status_zvirky === 'zvireno';
           const isRecommended =
             norm.status_zvirky === 'zvireno-rekomendatsiinyi';
@@ -113,7 +117,7 @@ export const NormsLibrary: React.FC<NormsLibraryProps> = ({ lang }) => {
 
           return (
             <React.Fragment key={norm.id}>
-              {(index === 0 || filteredNorms[index - 1].akt !== norm.akt) && (
+              {(index === 0 || group.norms[index - 1].akt !== norm.akt) && (
                 <h2 className="col-span-full font-serif text-xl font-bold mt-4">
                   {norm.akt}
                 </h2>
@@ -176,7 +180,7 @@ export const NormsLibrary: React.FC<NormsLibraryProps> = ({ lang }) => {
               </div>
             </React.Fragment>
           );
-        })}
+        })}</div></AnimatedDetails>)}
       </div>
       <NormDetailModal norm={activeNorm} onClose={() => setActiveNorm(null)} />
     </div>

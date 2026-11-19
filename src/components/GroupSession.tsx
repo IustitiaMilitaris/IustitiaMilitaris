@@ -1,3 +1,5 @@
+import productLabels from '../i18n/product.json';
+import { HighlightedText } from './HighlightedText';
 import { NormChips } from './NormChips';
 import { NormCards } from './NormCards';
 import { AnimatedDetails } from './Collapsible';
@@ -80,6 +82,8 @@ export function GroupSession({
       window.removeEventListener('keydown', exit);
     };
   }, [projector]);
+  const [alias, setAlias] = useState<string|null>(null);
+  useEffect(()=>{fetch('/api/auth/me').then(r=>r.ok?r.json():null).then(data=>setAlias(data?.user?.login||null)).catch(()=>{});},[]);
   const [norm, setNorm] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const socket = useRef<WebSocket | null>(null);
@@ -339,6 +343,7 @@ export function GroupSession({
             </h1>
             <p className="mt-2 text-sm text-steel-300">{t.privacy}</p>
           </header>
+          <div className="surface-muted text-sm">{alias?<p>{productLabels[lang].alias}: {alias} · {t.privacy}</p>:<a className="text-tactical-ice" href="/auth" onClick={()=>sessionStorage.setItem('auth-return','/classroom')}>{productLabels[lang].guest}</a>}</div>
           <form
             className="surface flex flex-col lg:flex-row lg:items-center justify-between gap-5"
             onSubmit={(e) => {
@@ -561,7 +566,7 @@ export function GroupSession({
                     {translations[lang].briefing.title}
                   </h2>
                   <p className="text-steel-300 leading-relaxed">
-                    {scenario.kontekst}
+                    <HighlightedText text={scenario.kontekst} />
                   </p>
                   <Dossier scenario={scenario} lang={lang}>
                     {scenario.sytuatsiia}
