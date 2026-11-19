@@ -26,6 +26,12 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  const geometry=await p.evaluate(()=>{const root=document.querySelector('.host-lobby').getBoundingClientRect();return {root:{x:root.x,w:root.width},items:[document.querySelector('.host-connection > img'),document.querySelector('[data-testid="lobby-start"]'),document.querySelector('.connection-details button')].map(e=>{const r=e.getBoundingClientRect();return r.x+r.width/2;})};});
  assert.ok(geometry.root.w<=896);
  geometry.items.forEach(x=>assert.ok(Math.abs(x-width/2)<2));
+ await p.waitForFunction(expected=>getComputedStyle(document.querySelector('.lobby-timer-option[aria-pressed="true"]')).color===expected,theme==='light'?'rgb(143, 109, 36)':'rgb(200, 164, 86)');
+ const styleCheck=await p.evaluate(()=>{const options=document.querySelector('[data-testid="lobby-timer-options"]').getBoundingClientRect(),start=document.querySelector('[data-testid="lobby-start"]').getBoundingClientRect(),active=document.querySelector('.lobby-timer-option[aria-pressed="true"]'),css=getComputedStyle(active);return {left:Math.abs(options.left-start.left),right:Math.abs(options.right-start.right),color:css.color,border:css.borderTopColor,bg:css.backgroundColor};});
+ assert.ok(styleCheck.left<1&&styleCheck.right<1);
+ assert.equal(styleCheck.color,theme==='light'?'rgb(143, 109, 36)':'rgb(200, 164, 86)');
+ assert.equal(styleCheck.border,styleCheck.color);
+ assert.match(styleCheck.bg,/0\.1\)/);
  const code=await p.evaluate(()=>location.pathname.split('/').pop());
  const student=await c.newPage();await student.goto('http://127.0.0.1:18532/classroom/join/'+code);
  await student.getByTestId('classroom-timer').waitFor();
