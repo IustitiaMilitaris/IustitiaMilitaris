@@ -12,6 +12,7 @@
     "validate": "python3 zibraty.py",
     "test": "node tests/run_tests.js && node tests/localization_tests.js && node tests/host_tests.js && node tests/security_tests.js && node tests/stats_tests.js",
     "test:browser": "npm run build && node tests/product.browser.cjs && node tests/norm-grid.browser.cjs && node tests/norms-ui.browser.cjs && node tests/header-modal.browser.cjs && node tests/collapsible.browser.cjs && node tests/polish.browser.cjs && node tests/profile-path.browser.cjs && node tests/builder-studio.browser.cjs && node tests/security.browser.cjs && node tests/decision-path.browser.cjs && node tests/case-display.browser.cjs && node tests/design.browser.cjs && node tests/themes.browser.cjs && node tests/description.browser.cjs && node tests/tooltips.browser.cjs && node tests/brand.browser.cjs",
+    "test:classroom-timer": "node tests/classroom-timer.browser.cjs",
     "test:themes": "npm run build && node tests/themes.browser.cjs",
     "test:cases": "node tests/case-display.browser.cjs",
     "test:decision-path": "node tests/decision-path.browser.cjs",

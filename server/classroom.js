@@ -17,6 +17,11 @@ export function installClassroom(server, directory) {
     if (ws.readyState === 1) ws.send(JSON.stringify(data));
   };
   const publicRoom = (room, role) => ({
+    timerMode: room.timerMode,
+    timerDurationSec: room.timerDurationSec,
+    timerStartedAt: room.timerStartedAt,
+    timerFinishedAt: room.timerFinishedAt,
+    serverNow: Date.now(),
     code: room.code,
     scenarioId: room.scenarioId,
     currentNodeId: room.currentNodeId,
@@ -81,6 +86,7 @@ export function installClassroom(server, directory) {
         if (data.variantId !== undefined && (typeof data.variantId !== 'string' || !/^[A-Z][0-9]?$/.test(data.variantId))) throw Error('invalidMessage');
         if (data.hostSecret !== undefined && (typeof data.hostSecret !== 'string' || !/^[a-f0-9]{64}$/.test(data.hostSecret))) throw Error('invalidMessage');
         if (data.type === 'SET_LIVE' && typeof data.showLive !== 'boolean') throw Error('invalidMessage');
+        if (data.type === 'CREATE_ROOM' && data.timerMode !== undefined && !['none', '10m', '15m'].includes(data.timerMode)) throw Error('invalidMessage');
         if (data.type === 'CREATE_ROOM') {
           if (joined || !scenarios.has(data.scenarioId) || rooms.size >= 100)
             return;
@@ -89,6 +95,10 @@ export function installClassroom(server, directory) {
             code = String(randomInt(100000, 1000000));
           } while (rooms.has(code));
           const room = {
+            timerMode: data.timerMode || 'none',
+            timerDurationSec: data.timerMode === '10m' ? 600 : data.timerMode === '15m' ? 900 : 0,
+            timerStartedAt: null,
+            timerFinishedAt: null,
             code,
             scenarioId: data.scenarioId,
             currentNodeId: scenarios.get(data.scenarioId).pochatkovyi_vuzol,
@@ -178,8 +188,10 @@ export function installClassroom(server, directory) {
           broadcast(room);
           return;
         }
-        if (data.type === 'OPEN_VOTING' && room.phase === 'briefing')
+        if (data.type === 'OPEN_VOTING' && room.phase === 'briefing') {
+          room.timerStartedAt = Date.now();
           room.phase = 'voting';
+        }
         else if (data.type === 'SHOW_RESULTS' && room.phase === 'voting')
           room.phase = 'results';
         else if (
@@ -199,7 +211,7 @@ export function installClassroom(server, directory) {
             votes: { ...room.votes },
             discussionIndex: room.index
           });
-          if (!variant.nastupnyi_vuzol) room.phase = 'finished';
+          if (!variant.nastupnyi_vuzol) { room.phase = 'finished'; room.timerFinishedAt = Date.now(); }
           else {
             room.currentNodeId = variant.nastupnyi_vuzol;
             room.phase = 'voting';

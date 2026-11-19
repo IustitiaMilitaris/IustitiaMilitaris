@@ -172,6 +172,26 @@ try {
     });
   const send = (ws, data) => ws.send(JSON.stringify({ ...data, ...(hostSecrets.has(ws) ? { hostSecret: hostSecrets.get(ws) } : {}) }));
   try {
+    for (const mode of ['none', '10m', '15m']) {
+      const timedHost = await connect();
+      let response = wait(timedHost, m => m.type === 'ROOM_CREATED');
+      send(timedHost, { type: 'CREATE_ROOM', scenarioId: 'S01', timerMode: mode });
+      const created = await response;
+      assert.equal(created.room.timerMode, mode);
+      assert.equal(created.room.timerDurationSec, mode === '10m' ? 600 : mode === '15m' ? 900 : 0);
+      assert.equal(created.room.timerStartedAt, null);
+      response = wait(timedHost, m => m.room?.phase === 'voting');
+      send(timedHost, { type: 'OPEN_VOTING' });
+      const opened = await response;
+      assert.ok(opened.room.timerStartedAt >= created.room.serverNow);
+      const rejoined = await connect();
+      response = wait(rejoined, m => Boolean(m.room));
+      send(rejoined, {type:'JOIN_ROOM',roomCode:created.room.code,clientVoteToken:'c'.repeat(32)});
+      assert.equal((await response).room.timerStartedAt, opened.room.timerStartedAt);
+      response = wait(timedHost, m => m.type === 'SESSION_CLOSED');
+      send(timedHost, {type:'CLOSE_SESSION'});
+      await response;
+    }
     const host = await connect();
     let pending = wait(host, (m) => m.type === 'ROOM_CREATED');
     send(host, { type: 'CREATE_ROOM', scenarioId: 'S01' });

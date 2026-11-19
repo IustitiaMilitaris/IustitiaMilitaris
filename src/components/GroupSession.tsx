@@ -1,3 +1,5 @@
+import { ScenarioIllustration } from './ScenarioIllustration';
+import { ClassroomTimer, timerLabels, type TimerMode } from './ClassroomTimer';
 import productLabels from '../i18n/product.json';
 import { HighlightedText } from './HighlightedText';
 import { NormChips } from './NormChips';
@@ -27,6 +29,11 @@ import { BalanceIndicators } from './BalanceIndicators';
 import { NormDetailModal } from './NormDetailModal';
 
 type State = {
+  timerMode: TimerMode;
+  timerDurationSec: number;
+  timerStartedAt: number | null;
+  timerFinishedAt: number | null;
+  serverNow: number;
   code: string;
   scenarioId: string;
   currentNodeId: string;
@@ -58,6 +65,8 @@ export function GroupSession({
   host?: boolean;
 }) {
   const t = labels[lang];
+  const [timerMode, setTimerMode] = useState<TimerMode>('none');
+  const [clockOffset, setClockOffset] = useState(0);
 
   const [cidsOpen, setCidsOpen] = useState(false);
   const [room, setRoom] = useState<State | null>(null);
@@ -114,6 +123,7 @@ export function GroupSession({
             ws.send(
               JSON.stringify({
                 type: 'CREATE_ROOM',
+                timerMode: new URLSearchParams(location.search).get('timer') || 'none',
                 scenarioId: initialScenario?.id || allScenarios[0]?.id
               })
             );
@@ -149,6 +159,7 @@ export function GroupSession({
           history.replaceState({}, '', `/classroom/host/${data.room.code}`);
         }
         if (data.room) {
+          setClockOffset(data.room.serverNow - Date.now());
           setRoom(data.room);
           setMessage('');
           setVoted(Boolean(data.hasVoted));
@@ -296,10 +307,10 @@ export function GroupSession({
         return (
           <article
             key={s.id}
-            className="surface-muted h-full flex flex-col gap-4"
+            className="classroom-card surface-muted h-full flex flex-col gap-4"
           >
-            <div className="space-y-3">
-              <div className="card-top-meta">
+            <div className="classroom-card-heading">
+              <div className="card-top-meta mb-3">
                 <div className="card-top-meta-tags"><span className="badge">{caseLabel(s.id, lang)}</span>
                 <span className="badge">
                   {themes[lang][s.tema as keyof typeof themes.en] || s.tema}
@@ -308,16 +319,17 @@ export function GroupSession({
                   {s.tryvalist_khv} {t.minutes} · {scenarioStageCount(s)} {t.stages}
                 </span>
               </div>
-              <h4 className="im-scenario-title font-serif font-bold text-white leading-relaxed">
+              <h4 className="im-scenario-title font-serif font-bold text-white leading-snug min-h-[3rem] sm:min-h-[3.25rem] mb-2">
                 {s.nazva}
               </h4>
+              <ScenarioIllustration id={s.id} title={s.nazva} lang={lang} />
             </div>
             <div className="mt-auto">
               <CaseMetadata scenario={s} lang={lang} />
             </div>
             <a
               className="action w-full whitespace-nowrap border-steel-700 text-steel-300 hover:border-steel-600 hover:text-steel-100"
-              href={`/classroom/host/new?scenario=${s.id}`}
+              href={`/classroom/host/new?scenario=${s.id}&timer=${timerMode}`}
             >
               {t.host} →
             </a>
@@ -386,6 +398,10 @@ export function GroupSession({
             <h2 className="im-title font-serif text-xl font-bold">
               {t.hostTitle}
             </h2>
+            <fieldset className="flex flex-wrap gap-2" aria-label={timerLabels[lang].mode}>
+              <legend className="text-sm mb-2">{timerLabels[lang].mode}</legend>
+              {(['none', '10m', '15m'] as const).map(mode => <button type="button" key={mode} aria-pressed={timerMode === mode} className={timerMode === mode ? 'action-primary' : 'action'} onClick={() => setTimerMode(mode)}>{timerLabels[lang][mode]}</button>)}
+            </fieldset>
             <section className="space-y-3" aria-label={t.team}>
               <h3 className="im-section-title font-semibold text-steel-300">
                 {t.team}
@@ -395,6 +411,7 @@ export function GroupSession({
           </div>
         </>
       )}
+      {room && <ClassroomTimer room={room} offset={clockOffset} lang={lang} />}
       {room && scenario && node && (
         <>
           <header className="surface flex flex-wrap items-center justify-between gap-4">
