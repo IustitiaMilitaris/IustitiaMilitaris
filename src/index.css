@@ -874,3 +874,8 @@ details > summary::-webkit-details-marker { display:none; }
 .norm-chip-grid .norm-chip { height:40px; justify-content:space-between; }
 .norm-chip-grid .norm-chip > .norm-code { overflow:visible; text-overflow:clip; }
 .fact-highlight { text-decoration:underline; text-decoration-color:rgb(var(--tactical-ice) / .4); text-underline-offset:3px; }
+
+.network-online { color:#C8A456; }
+:root[data-theme='light'] .network-online { color:#8F6D24; }
+.header-tools > .header-icon,.header-tools > .language-toggle { height:36px; box-sizing:border-box; align-items:center; justify-content:center; }
+.header-tools > .header-icon { width:36px; }

@@ -87,13 +87,13 @@ export const Navbar = ({
         <div className="header-tools">
           <button className="header-icon mobile-menu-trigger" aria-label={lang === 'uk' ? 'Меню навігації' : 'Navigation menu'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}><ChevronDown strokeWidth={1.75} className={`w-4 h-4 shrink-0 collapse-chevron ${menuOpen ? 'is-open' : ''}`} /></button>
           <span
-            className={`flex items-center gap-1 text-xs ${online ? 'text-steel-300' : 'text-steel-400'}`}
+            className={`flex items-center gap-1 text-xs ${online ? 'network-online' : 'text-steel-400'}`}
             role="status"
             aria-label={online ? t.online : t.offline}
             title={online ? t.online : t.offline}
           >
             <span className="network-dot" aria-hidden="true" />
-            <span className="hidden 2xl:inline">
+            <span className="hidden xl:inline">
               {online ? t.online : t.offline}
             </span>
           </span>
