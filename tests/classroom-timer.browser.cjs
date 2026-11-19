@@ -19,8 +19,13 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  assert.equal(await p.getByTestId('lobby-timer-selector').count(),0);
  assert.ok(!/\d+ (хв|min)/.test(await grid.locator('.card-top-meta-time').first().textContent()));
  await grid.locator('a').first().click();
- await p.getByTestId('classroom-timer').waitFor();
+ await p.getByTestId('lobby-timer-selector').waitFor();
  await p.getByRole('button',{name:lang==='en'?'10 min (Operational time pressure)':'10 хв (Службовий тиск часу)',exact:true}).click();
+ await p.locator('.host-connection > img').waitFor();
+ await p.evaluate(()=>document.fonts.ready);
+ const geometry=await p.evaluate(()=>{const root=document.querySelector('.host-lobby').getBoundingClientRect();return {root:{x:root.x,w:root.width},items:[document.querySelector('.host-connection > img'),document.querySelector('[data-testid="lobby-start"]'),document.querySelector('.connection-details button')].map(e=>{const r=e.getBoundingClientRect();return r.x+r.width/2;})};});
+ assert.ok(geometry.root.w<=896);
+ geometry.items.forEach(x=>assert.ok(Math.abs(x-width/2)<2));
  const code=await p.evaluate(()=>location.pathname.split('/').pop());
  const student=await c.newPage();await student.goto('http://127.0.0.1:18532/classroom/join/'+code);
  await student.getByTestId('classroom-timer').waitFor();

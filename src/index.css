@@ -897,3 +897,16 @@ details > summary::-webkit-details-marker { display:none; }
     .classroom-card > a { margin-top: 0; }
   }
 }
+
+.host-lobby.page-shell { max-width: 56rem !important; margin-inline: auto; }
+.host-lobby > header.surface { flex-direction: column; text-align: center; }
+.host-lobby > header.surface > div { width: 100%; }
+.host-lobby > header.surface .flex { justify-content: center; }
+.host-lobby > header.surface h1 { font-size: 1.5rem; color: var(--text-primary); }
+.host-lobby .host-connection { flex-direction: column; text-align: center; padding: 24px; }
+.host-lobby .host-connection > img { border: 6px solid white; background: white; }
+.host-lobby .connection-details { flex: none; width: 100%; min-width: 0; }
+.host-lobby [data-testid="lobby-timer-selector"] { justify-content: center; gap: 10px; margin-block: 12px; text-align: center; }
+.host-lobby [data-testid="lobby-timer-selector"] legend { width: 100%; }
+.host-lobby [data-testid="lobby-start"] { display: flex; justify-content: center; margin: 16px auto 0; max-width: 100%; }
+@media (min-width: 640px) { .host-lobby > header.surface h1 { font-size: 1.875rem; } }

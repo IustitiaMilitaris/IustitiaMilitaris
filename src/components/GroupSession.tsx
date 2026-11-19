@@ -342,7 +342,7 @@ export function GroupSession({
   );
   return (
     <section
-      className={`page-shell projector-session ${projector ? '!max-w-none sm:!px-12 text-lg' : ''}`}
+      className={`page-shell projector-session ${host && room?.phase === 'briefing' ? 'host-lobby' : ''} ${projector ? '!max-w-none sm:!px-12 text-lg' : ''}`}
     >
       {message && (
         <p className="notice" role="status">
@@ -410,7 +410,7 @@ export function GroupSession({
           </div>
         </>
       )}
-      {room && <ClassroomTimer room={room} offset={clockOffset} lang={lang} />}
+      {room && !(host && room.phase === 'briefing') && <ClassroomTimer room={room} offset={clockOffset} lang={lang} />}
       {room && scenario && node && (
         <>
           <header className="surface flex flex-wrap items-center justify-between gap-4">
@@ -455,7 +455,7 @@ export function GroupSession({
             )}
           </header>
           {host && link && (
-            <div className="surface flex flex-wrap items-center gap-5">
+            <div className="host-connection surface flex flex-wrap items-center gap-5">
               {qr && (
                 <img
                   className="rounded-sm border border-steel-700"
@@ -465,7 +465,8 @@ export function GroupSession({
                   height={144}
                 />
               )}
-              <div className="space-y-3 flex-1">
+              <div className="connection-details space-y-3 flex-1">
+                {room.phase === 'briefing' && <p className="font-mono text-2xl font-bold tracking-widest text-justice-gold my-2">{room.code}</p>}
                 <a
                   className="block text-sm text-tactical-ice break-all"
                   href={link}
@@ -610,11 +611,13 @@ export function GroupSession({
                   </div>
                   {host && <fieldset data-testid="lobby-timer-selector" className="flex flex-wrap gap-2">
                     <legend className="text-sm mb-2">{timerLabels[lang].mode}</legend>
+                    <p className="w-full text-center text-sm text-steel-300">{lang === 'en' ? 'Timing starts synchronously when the first stage begins' : 'Відлік почнеться синхронно після запуску першого етапу'}</p>
                     {(['none', '10m', '15m'] as const).map(mode => <button key={mode} type="button" aria-pressed={room.timerMode === mode} className={room.timerMode === mode ? 'action-primary' : 'action'} onClick={() => send('SET_TIMER_MODE', undefined, undefined, mode)}>{timerLabels[lang][mode]}</button>)}
                   </fieldset>}
                   {host ? (
                     <button
                       className="action-primary"
+                      data-testid="lobby-start"
                       onClick={() => send('OPEN_VOTING')}
                     >
                       {t.start}
