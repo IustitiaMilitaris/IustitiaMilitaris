@@ -37,10 +37,15 @@ export async function refreshCustomScenarios() {
   } catch { /* Built-in cases remain available in offline PWA mode. */ }
   finally { clearTimeout(timeout); catalogReady = true; notifyCatalog(); }
 }
+export class ScenarioApiError extends Error {
+  constructor(public code:string,public status:number,public details:{field:string;code:string;expected?:unknown}[]=[]){super(code);}
+}
 export async function saveCustomScenario(scenario: Scenario) {
   const response = await fetch('/api/scenarios/custom', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(scenario)});
-  if(!response.ok)throw Error('saveFailed');
-  const {scenario:saved} = await response.json();
+  const result=await response.json().catch(()=>({error:'invalidResponse'}));
+  if(!response.ok)throw new ScenarioApiError(result.error || 'serverError',response.status,result.details || []);
+  const saved=result.scenario;
+  if(!saved || saved.id!==scenario.id)throw new ScenarioApiError('invalidResponse',response.status);
   const index=allScenarios.findIndex(s=>s.id===saved.id);
   if(index<0)allScenarios.push(saved);else allScenarios[index]=saved;
   notifyCatalog();

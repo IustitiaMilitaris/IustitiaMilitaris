@@ -17,11 +17,11 @@ app.disable('x-powered-by');
 app.use(securityHeaders);
 app.use('/api', rateLimit(600, 60000), (req, res, next) => {
   res.setHeader('Cache-Control', 'no-store');
-  if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(req.method) && !sameOrigin(req)) return res.status(403).json({ error: 'forbidden' });
+  if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(req.method) && !sameOrigin(req)) return res.status(403).json({ error: 'forbidden', details:[{field:'request.origin',code:'forbidden'}] });
   next();
 });
 app.use(['/api/auth/login', '/api/auth/register'], (req, res, next) => req.method === 'POST' ? authLimit(req, res, next) : next());
-app.use('/api/scenarios/custom', express.json({ limit: '256kb', verify: (req,res,buffer) => { parseJson(buffer.toString('utf8')); } }));
+app.use('/api/scenarios/custom', express.json({ limit: '512kb', verify: (req,res,buffer) => { parseJson(buffer.toString('utf8')); } }));
 app.use(express.json({ limit: '64kb', verify: (req, res, buffer) => { parseJson(buffer.toString('utf8')); } }));
 const dataDirectory = process.env.DATA_DIR || path.join(__dirname, 'data');
 const repository = await installCustomScenarios(app, dataDirectory);
@@ -81,9 +81,12 @@ app.get('*', (req, res) => {
     return res.sendStatus(404);
   res.sendFile(path.join(distPath, 'index.html'));
 });
-app.use((error, req, res, next) =>
-  res.status([400, 403, 413, 503].includes(error.status) ? error.status : 500).json({ error: error.status === 413 ? 'payloadTooLarge' : error.status < 500 ? 'invalidRequest' : 'serverError' })
-);
+app.use((error, req, res, next) => {
+  const status=[400,403,413,503].includes(error.status)?error.status:500;
+  const code=status===413?'payloadTooLarge':status<500?'invalidRequest':'serverError';
+  res.status(status).json({error:code,details:[{field:'request',code}]});
+});
+
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`Local: http://localhost:${PORT}`);
   for (const url of lanUrls()) console.log(`Network (LAN): ${url}`);
