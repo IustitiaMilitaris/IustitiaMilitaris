@@ -455,10 +455,12 @@ export function GroupSession({
             )}
           </header>
           {host && link && room.phase === 'briefing' && (
-            <div className="host-connection surface flex flex-wrap items-center gap-5">
+            <div className="host-connection surface flex flex-col items-center justify-center gap-4 sm:gap-5 p-6 rounded-sm w-full text-center"
+            >
+              <div className="connection-top flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8">
               {qr && (
                 <img
-                  className="rounded-sm border-[6px] border-white bg-white w-44 h-44 sm:w-52 sm:h-52 shrink-0"
+                  className="p-2.5 rounded-sm bg-white w-44 h-44 sm:w-52 sm:h-52 shrink-0"
                   src={qr}
                   alt={link}
                   width={144}
@@ -468,8 +470,11 @@ export function GroupSession({
               <div className="connection-details space-y-3 flex-1">
                 <p className="font-mono text-xs uppercase tracking-widest text-steel-400">{lang === 'en' ? 'ROOM CODE' : 'КОД КІМНАТИ ДЛЯ ВХОДУ'}</p>
                 <p className="font-mono text-4xl sm:text-5xl font-bold tracking-[0.2em] text-justice-gold my-1.5">{room.code}</p>
+              </div>
+              </div>
                 <button
-                  className="connection-copy inline-flex items-center gap-2.5 px-4 py-2.5 rounded-sm border border-steel-700 bg-obsidian-900/90 text-tactical-ice hover:border-tactical-ice/80 transition-colors font-mono text-xs sm:text-sm cursor-pointer shadow-sm break-all max-w-full"
+                  type="button"
+                  className="connection-copy mx-auto inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-sm border border-steel-700 bg-obsidian-900/90 text-tactical-ice hover:border-tactical-ice/80 transition-colors font-mono text-xs sm:text-sm cursor-pointer shadow-sm break-all max-w-full"
                   onClick={async () => {
                     try {
                       await navigator.clipboard.writeText(link);
@@ -491,7 +496,6 @@ export function GroupSession({
                 >
                   {copied ? (lang === 'en' ? '✓ Copied!' : '✓ Скопійовано!') : link}
                 </button>
-              </div>
             </div>
           )}
           {room.phase === 'finished' ? (

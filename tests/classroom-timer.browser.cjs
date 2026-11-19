@@ -21,10 +21,12 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  await grid.locator('a').first().click();
  await p.getByTestId('lobby-timer-selector').waitFor();
  await p.getByRole('button',{name:lang==='en'?'10 min (Operational time pressure)':'10 хв (Службовий тиск часу)',exact:true}).click();
- await p.locator('.host-connection > img').waitFor();
+ await p.locator('.connection-top > img').waitFor();
  await p.evaluate(()=>document.fonts.ready);
- const geometry=await p.evaluate(()=>{const root=document.querySelector('.host-lobby').getBoundingClientRect();return {root:{x:root.x,w:root.width},items:[document.querySelector('.host-connection > img'),document.querySelector('[data-testid="lobby-start"]'),document.querySelector('.connection-details button')].map(e=>{const r=e.getBoundingClientRect();return r.x+r.width/2;})};});
+ const geometry=await p.evaluate(()=>{const root=document.querySelector('.host-lobby').getBoundingClientRect();return {root:{x:root.x,w:root.width},items:[document.querySelector('.connection-top > img'),document.querySelector('[data-testid="lobby-start"]'),document.querySelector('.connection-copy')].map(e=>{const r=e.getBoundingClientRect();return r.x+r.width/2;})};});
  assert.ok(geometry.root.w<=896);
+ const composition=await p.evaluate(()=>{const card=document.querySelector('.host-connection').getBoundingClientRect(),top=document.querySelector('.connection-top').getBoundingClientRect(),link=document.querySelector('.connection-copy').getBoundingClientRect();return {center:Math.abs(link.x+link.width/2-card.x-card.width/2),below:link.top>=top.bottom};});
+ assert.ok(composition.center<2&&composition.below);
  if(width===375) geometry.items.forEach(x=>assert.ok(Math.abs(x-width/2)<2));
  await p.waitForFunction(expected=>getComputedStyle(document.querySelector('.lobby-timer-option[aria-pressed="true"]')).color===expected,theme==='light'?'rgb(143, 109, 36)':'rgb(200, 164, 86)');
  if(width===1280){

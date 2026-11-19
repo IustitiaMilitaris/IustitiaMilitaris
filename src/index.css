@@ -903,7 +903,6 @@ details > summary::-webkit-details-marker { display:none; }
 .host-lobby > header.surface .flex { justify-content: center; }
 .host-lobby > header.surface h1 { font-size: 1.5rem; color: var(--text-primary); }
 .host-lobby .host-connection { flex-direction: column; text-align: center; padding: 24px; }
-.host-lobby .host-connection > img { border: 6px solid white; background: white; }
 .host-lobby .connection-details { flex: none; width: 100%; min-width: 0; }
 .host-lobby [data-testid="lobby-timer-selector"] { justify-content: center; gap: 10px; margin-block: 12px; text-align: center; }
 .host-lobby [data-testid="lobby-timer-selector"] legend { width: 100%; }
@@ -920,10 +919,9 @@ details > summary::-webkit-details-marker { display:none; }
 
 main:has(.host-lobby) #breadcrumbs { max-width: 56rem; margin-inline: auto; }
 main:has(.solo-shell.max-w-4xl) #breadcrumbs { max-width: 56rem; }
-.host-lobby .host-connection, .host-connection { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 24px; }
+.host-lobby .host-connection, .host-connection { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px; }
 .host-lobby .connection-details, .connection-details { width: auto; min-width: 0; flex: 0 1 auto; text-align: center; }
 @media (min-width: 640px) {
- .host-lobby .host-connection, .host-connection { flex-direction: row; gap: 40px; }
  .host-lobby .connection-details, .connection-details { text-align: left; }
 }
 body[data-projector='true'] .projector-session { width: 100%; max-width: 1600px !important; margin-inline: auto; padding: 40px 24px 32px; }
