@@ -1,9 +1,8 @@
 import { SlidingNav } from './SlidingNav';
-import { Collapsible } from './Collapsible';
 import { BrandLogo } from './BrandLogo';
 import brandLabels from '../i18n/brand.json';
 import React, { useEffect, useState } from 'react';
-import { Sun, Moon, UserRound, ChevronDown } from 'lucide-react';
+import { Sun, Moon, UserRound } from 'lucide-react';
 import { Language, translations } from '../i18n';
 import labels from '../i18n/design.json';
 interface NavbarProps {
@@ -22,7 +21,6 @@ export const Navbar = ({
   setLang,
   onAuth
 }: NavbarProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const t = labels[lang];
   const [theme, setTheme] = useState(() => {
     try {
@@ -85,7 +83,7 @@ export const Navbar = ({
           ))}
         </SlidingNav>
         <div className="header-tools">
-          <button className="header-icon mobile-menu-trigger" aria-label={lang === 'uk' ? 'Меню навігації' : 'Navigation menu'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}><ChevronDown strokeWidth={1.75} className={`w-4 h-4 shrink-0 collapse-chevron ${menuOpen ? 'is-open' : ''}`} /></button>
+
           <span
             className={`flex items-center gap-1 text-xs ${online ? 'network-online' : 'text-steel-400'}`}
             role="status"
@@ -118,7 +116,7 @@ export const Navbar = ({
           </button>
         </div>
       </div>
-      <div className="mobile-navigation"><Collapsible isOpen={menuOpen} id="mobile-navigation"><SlidingNav activeKey={currentView + lang + menuOpen} className="flex flex-wrap gap-2 px-4 pb-3" label={lang === 'uk' ? 'Мобільна навігація' : 'Mobile navigation'}>{views.map(view => <button key={view} aria-current={currentView === view || currentView === 'solo' && view === 'catalog' ? 'page' : undefined} className="header-tab" onClick={() => {setCurrentView(view);setMenuOpen(false);}}>{t[view]}</button>)}</SlidingNav></Collapsible></div>
+      <div className="mobile-navigation"><SlidingNav activeKey={currentView + lang} className="mobile-nav-tabs flex items-center gap-1 overflow-x-auto flex-nowrap px-4 py-1 text-xs whitespace-nowrap relative" label={lang === 'uk' ? 'Мобільна навігація' : 'Mobile navigation'}>{views.map(view => <button key={view} aria-current={currentView === view || currentView === 'solo' && view === 'catalog' ? 'page' : undefined} className="header-tab shrink-0 whitespace-nowrap" onClick={() => setCurrentView(view)}>{t[view]}</button>)}</SlidingNav></div>
     </header>
   );
 };

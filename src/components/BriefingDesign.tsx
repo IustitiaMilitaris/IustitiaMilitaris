@@ -49,13 +49,13 @@ export function ValueConflict({
   explanation: string;
 }) {
   return (
-    <div className="space-y-3" data-testid="value-conflict">
+    <div className="value-conflict space-y-3" data-testid="value-conflict">
       <div className="value-poles">
         <div className="value-pole">{a}</div>
         <Scale className="h-6 w-6 text-status-warning" aria-hidden="true" />
         <div className="value-pole">{b}</div>
       </div>
-      <p className="text-sm text-steel-300">{explanation}</p>
+      <p className="value-explanation text-sm text-steel-300">{explanation}</p>
     </div>
   );
 }
@@ -98,9 +98,9 @@ export function StageStepper({
           aria-current={i === completed ? 'step' : undefined}
           className={`progress-chain-step flex items-center shrink-0 ${i > completed ? 'select-none' : ''}`}
         >
-          {i > 0 && <span aria-hidden="true" className="w-4 sm:w-6 h-px bg-steel-700 mr-1.5 sm:mr-2 shrink-0" />}
-          <span className={`inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-sm border font-mono text-xs ${i === completed ? 'border-justice-gold bg-justice-gold/10 text-justice-gold font-bold' : i < completed ? 'border-steel-700 bg-obsidian-850 text-steel-400' : 'opacity-[.35] blur-[0.4px] bg-obsidian-900/60 border-steel-700/50 text-steel-400'}`}>
-            {i < completed ? `✓ ${i + 1}` : i === completed ? `${i + 1} · ${t.current}` : i + 1}
+          {i > 0 && <span aria-hidden="true" className="w-2 sm:w-3 h-px bg-steel-700 mr-1.5 sm:mr-2 shrink-0" />}
+          <span className={`progress-chip inline-flex items-center justify-center whitespace-nowrap px-2.5 py-1 rounded-sm border font-mono text-xs ${i === completed ? 'border-justice-gold bg-justice-gold/10 text-justice-gold font-bold' : i < completed ? 'border-steel-700 bg-obsidian-850 text-steel-400' : 'opacity-[.35] blur-[0.4px] bg-obsidian-900/60 border-steel-700/50 text-steel-400'}`}>
+            <span className="sm:hidden">{i < completed ? `✓ ${i + 1}` : i === completed ? `◉ ${i + 1}` : i + 1}</span><span className="hidden sm:inline">{i < completed ? `✓ ${i + 1}` : i === completed ? `${i + 1} · ${t.current}` : i + 1}</span>
           </span>
         </li>
       ))}

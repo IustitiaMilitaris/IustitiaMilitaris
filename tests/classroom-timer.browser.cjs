@@ -57,7 +57,7 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  const stageBadge=await p.locator('.projector-session > header').textContent();assert.match(stageBadge,/1\s*\/\s*6/);
  const chain=p.getByTestId('stepper');await chain.waitFor();
  const chainLayout=await chain.locator('li').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().top));assert.ok(Math.max(...chainLayout)-Math.min(...chainLayout)<2);
- const future=await chain.locator('li').last().locator('span').last().evaluate(e=>({opacity:getComputedStyle(e).opacity,filter:getComputedStyle(e).filter}));
+ const future=await chain.locator('li').last().locator('.progress-chip').evaluate(e=>({opacity:getComputedStyle(e).opacity,filter:getComputedStyle(e).filter}));
  assert.equal(future.opacity,'0.35');assert.match(future.filter,/blur/);
 await student.getByTestId('classroom-clock').waitFor();
  assert.match(await student.getByTestId('classroom-clock').textContent(),/^(10:00|09:5\d)$/);

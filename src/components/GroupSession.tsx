@@ -474,7 +474,7 @@ export function GroupSession({
               </div>
                 <button
                   type="button"
-                  className="connection-copy mx-auto inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-sm border border-steel-700 bg-obsidian-900/90 text-tactical-ice hover:border-tactical-ice/80 transition-colors font-mono text-xs sm:text-sm cursor-pointer shadow-sm break-all max-w-full"
+                  className="connection-copy mx-auto inline-flex items-center justify-center gap-2 text-tactical-ice hover:text-justice-gold hover:underline transition-colors font-mono text-xs sm:text-sm cursor-pointer bg-transparent border-none p-0 break-all max-w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-justice-gold"
                   onClick={async () => {
                     try {
                       await navigator.clipboard.writeText(link);
@@ -494,7 +494,7 @@ export function GroupSession({
                     }
                   }}
                 >
-                  {copied ? (lang === 'en' ? '✓ Copied!' : '✓ Скопійовано!') : link}
+                  {copied ? (lang === 'en' ? '✓ Copied!' : '✓ Скопійовано!') : <><span>{link}</span><span aria-hidden="true">📋</span></>}
                 </button>
             </div>
           )}
