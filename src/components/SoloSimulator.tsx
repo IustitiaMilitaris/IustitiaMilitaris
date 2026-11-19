@@ -410,8 +410,8 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
           key={`${scenario.id}:${phase}:${currentNodeId}`}
           className="space-y-6 animate-fadeIn"
         >
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-steel-300">
+          <div className="stage-badge-row flex flex-wrap items-center justify-center w-full gap-3">
+            <div className="flex flex-wrap items-center justify-center w-full gap-2 text-center text-xs font-semibold text-steel-300">
               <span className="im-tag px-2.5 py-1 rounded-sm bg-obsidian-800 text-justice-gold border border-justice-gold/30 font-mono">
                 {stageLabel(scenario, currentNode.id, lang)}
               </span>
@@ -576,7 +576,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
         <p>{copy.stage} {pathway.filter(p => p.nodeId !== currentNodeId).length + 1} {copy.of} {scenarioStageCount(scenario)}</p>
         <p className="text-sm text-steel-300">{scenario.diiovi_osoby.find(r => r.hravets)?.rol}</p>
         <dl className="space-y-2">{(['dobrochesnist','efektyvnist','dovira'] as const).map(axis => <div key={axis} className="flex justify-between gap-2 text-sm"><dt>{t.dimensions[axis]}</dt><dd className="font-mono">{cumulativeScores[axis] > 0 ? '+' : ''}{cumulativeScores[axis]}</dd></div>)}</dl>
-        <button className="action w-full" onClick={() => setIsCidsOpen(true)}>{t.step.cidsHelperBtn}</button>
+        <div className="cids-action-row flex justify-center w-full"><button className="action w-full justify-center text-center" onClick={() => setIsCidsOpen(true)}>{t.step.cidsHelperBtn}</button></div>
         <p className="hidden lg:block text-xs text-steel-300">{copy.keys}</p>
       </aside>}
       </div>

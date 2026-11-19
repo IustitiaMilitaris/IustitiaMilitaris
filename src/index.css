@@ -956,3 +956,7 @@ body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1rem
  .value-conflict .value-poles > svg { width: 20px; height: 20px; color: var(--accent-gold); }
  .value-conflict .value-explanation { padding-top: 8px; border-top: 1px solid var(--border-subtle); font-size: 12px; line-height: 1.625; text-align: left; }
 }
+
+.room-status-header > div { width: 100%; }
+.room-status-header > div.flex { justify-content: center; }
+.stage-badge-row .badge, .stage-badge-row .im-tag { text-align: center; }

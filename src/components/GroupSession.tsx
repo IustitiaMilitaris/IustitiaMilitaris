@@ -413,9 +413,9 @@ export function GroupSession({
       {room && !(host && room.phase === 'briefing') && <ClassroomTimer room={room} offset={clockOffset} lang={lang} />}
       {room && scenario && node && (
         <>
-          <header className="surface flex flex-wrap items-center justify-between gap-4">
+          <header className="room-status-header surface flex flex-col items-center justify-center gap-4 text-center">
             <div>
-              <div className="flex flex-wrap gap-2 mb-3">
+              <div className="room-status-badges flex flex-wrap items-center justify-center gap-2 w-full mb-3">
                 <span className="badge font-mono">
                   {t.code}: {room.code}
                 </span>
@@ -433,7 +433,7 @@ export function GroupSession({
                     : room.history.length + depth(node.id)}
                 </span>
               </div>
-              <h1 className="im-title font-serif text-xl sm:text-2xl font-bold text-white">
+              <h1 className="im-title font-serif text-xl sm:text-2xl font-bold text-white text-center">
                 {scenario.nazva}
               </h1>
             </div>
@@ -633,9 +633,9 @@ export function GroupSession({
                     className="surface space-y-4 animate-fadeIn"
                     key={node.id}
                   >
-                    <span className="badge font-mono">
+                    <div className="stage-badge-row flex justify-center w-full"><span className="badge font-mono text-center">
                       {stageLabel(scenario, node.id, lang)}
-                    </span>
+                    </span></div>
                     <h2 className="im-title font-serif text-xl font-bold text-white">
                       {node.zapytannia}
                     </h2>
@@ -653,12 +653,12 @@ export function GroupSession({
                     >
                       {node.tekst || scenario.sytuatsiia}
                     </Dossier>
-                    <button
-                      className="action"
+                    <div className="cids-action-row flex justify-center w-full"><button
+                      className="action justify-center text-center"
                       onClick={() => setCidsOpen(true)}
                     >
                       {translations[lang].step.cidsHelperBtn}
-                    </button>
+                    </button></div>
                   </article>
                   {room.phase === 'voting' && (
                     <div className="surface space-y-5">

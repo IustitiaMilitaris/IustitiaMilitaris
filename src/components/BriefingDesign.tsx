@@ -22,7 +22,7 @@ export function Dossier({
     role = scenario.diiovi_osoby.find((r) => r.hravets);
   return (
     <section className="dossier hud-crosshair space-y-3" data-testid="dossier">
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2 w-full text-center">
         <span className="badge font-mono">
           {caseLabel(scenario.id, lang)} ·{' '}
           {nodeId
