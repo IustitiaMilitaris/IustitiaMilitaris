@@ -910,3 +910,11 @@ details > summary::-webkit-details-marker { display:none; }
 .host-lobby [data-testid="lobby-timer-selector"] legend { width: 100%; }
 .host-lobby [data-testid="lobby-start"] { display: flex; justify-content: center; margin: 16px auto 0; max-width: 100%; }
 @media (min-width: 640px) { .host-lobby > header.surface h1 { font-size: 1.875rem; } }
+
+.host-lobby [data-testid="lobby-timer-selector"] { margin: 0; padding: 0; }
+.host-lobby [data-testid="lobby-start"] { margin: 0; }
+.lobby-timer-option { background: rgb(var(--obsidian-900) / .8); border: 1px solid rgb(var(--steel-700)); color: rgb(var(--steel-300)); transition: background-color 150ms, border-color 150ms, color 150ms; }
+.lobby-timer-option:hover { border-color: rgb(var(--steel-600)); color: var(--text-primary); }
+.lobby-timer-option[aria-pressed="true"] { background: rgb(var(--justice-gold) / .1); border-color: rgb(var(--justice-gold)); color: rgb(var(--justice-gold)); font-weight: 700; box-shadow: inset 0 1px 0 rgb(var(--justice-gold) / .15); }
+:root[data-theme='light'] .lobby-timer-option[aria-pressed="true"] { background: rgb(143 109 36 / .1); border-color: #8f6d24; color: #8f6d24; }
+@media (prefers-reduced-motion: reduce) { .lobby-timer-option { transition: none; } }

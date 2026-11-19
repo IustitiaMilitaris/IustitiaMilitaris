@@ -609,19 +609,19 @@ export function GroupSession({
                       </div>
                     ))}
                   </div>
-                  {host && <fieldset data-testid="lobby-timer-selector" className="flex flex-wrap gap-2">
-                    <legend className="text-sm mb-2">{timerLabels[lang].mode}</legend>
-                    <p className="w-full text-center text-sm text-steel-300">{lang === 'en' ? 'Timing starts synchronously when the first stage begins' : 'Відлік почнеться синхронно після запуску першого етапу'}</p>
-                    {(['none', '10m', '15m'] as const).map(mode => <button key={mode} type="button" aria-pressed={room.timerMode === mode} className={room.timerMode === mode ? 'action-primary' : 'action'} onClick={() => send('SET_TIMER_MODE', undefined, undefined, mode)}>{timerLabels[lang][mode]}</button>)}
-                  </fieldset>}
                   {host ? (
-                    <button
-                      className="action-primary"
-                      data-testid="lobby-start"
-                      onClick={() => send('OPEN_VOTING')}
-                    >
-                      {t.start}
-                    </button>
+                    <div className="lobby-time-controls w-full max-w-2xl mx-auto flex flex-col gap-3 items-center">
+                      <fieldset data-testid="lobby-timer-selector" className="w-full min-w-0">
+                        <legend className="text-sm mb-2 text-center w-full">{timerLabels[lang].mode}</legend>
+                        <p className="text-center text-sm text-steel-300 mb-3">{lang === 'en' ? 'Timing starts synchronously when the first stage begins' : 'Відлік почнеться синхронно після запуску першого етапу'}</p>
+                        <div data-testid="lobby-timer-options" className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
+                          {(['none', '10m', '15m'] as const).map(mode => <button key={mode} type="button" aria-pressed={room.timerMode === mode} className="lobby-timer-option action w-full h-full" onClick={() => send('SET_TIMER_MODE', undefined, undefined, mode)}>{timerLabels[lang][mode]}</button>)}
+                        </div>
+                      </fieldset>
+                      <button className="action-primary w-full py-3 flex items-center justify-center" data-testid="lobby-start" onClick={() => send('OPEN_VOTING')}>
+                        {t.start}
+                      </button>
+                    </div>
                   ) : (
                     <p className="notice">{t.waiting}</p>
                   )}
