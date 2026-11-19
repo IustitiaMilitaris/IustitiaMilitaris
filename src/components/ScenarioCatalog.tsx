@@ -1,3 +1,4 @@
+import { ScenarioIllustration } from './ScenarioIllustration';
 import { caseLabel, scenarioStageCount } from '../i18n/display';
 import { ScenarioDescription } from './ScenarioDescription';
 import { CaseMetadata } from './CaseMetadata';
@@ -128,6 +129,7 @@ export const ScenarioCatalog: React.FC<ScenarioCatalogProps> = ({
               <h3 className="scenario-card-title font-serif text-lg sm:text-xl font-bold text-steel-100 min-h-[3.25rem] sm:min-h-[3.5rem] flex items-start leading-snug">
                 {s.nazva}
               </h3>
+              <ScenarioIllustration id={s.id} title={s.nazva} lang={lang} />
               <ScenarioDescription text={s.sytuatsiia} lang={lang} truncate={s.id !== 'S02' && !(s.id === 'S01' && lang === 'en')} />
             </div>
           </div>
