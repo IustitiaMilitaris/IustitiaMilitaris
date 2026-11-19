@@ -50,7 +50,14 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  assert.equal(await student.getByTestId('classroom-clock').count(),0);
  // The protocol action exercises the same authenticated host command as the UI.
  await p.evaluate(code=>new Promise(resolve=>{const ws=new WebSocket(`ws://${location.host}/ws`);ws.onopen=()=>ws.send(JSON.stringify({type:'JOIN_ROOM',roomCode:code,hostSecret:sessionStorage.getItem('room-host-'+code)}));ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.room?.phase==='briefing')ws.send(JSON.stringify({type:'OPEN_VOTING',hostSecret:sessionStorage.getItem('room-host-'+code)}));if(m.room?.phase==='voting'){ws.close();resolve();}};}),code);
- await p.getByTestId('classroom-clock').waitFor();await student.getByTestId('classroom-clock').waitFor();
+ await p.getByTestId('classroom-clock').waitFor();
+ assert.equal(await p.locator('.host-connection').count(),0);
+ const stageBadge=await p.locator('.projector-session > header').textContent();assert.match(stageBadge,/1\s*\/\s*6/);
+ const chain=p.getByTestId('stepper');await chain.waitFor();
+ const chainLayout=await chain.locator('li').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().top));assert.ok(Math.max(...chainLayout)-Math.min(...chainLayout)<2);
+ const future=await chain.locator('li').last().locator('span').last().evaluate(e=>({opacity:getComputedStyle(e).opacity,filter:getComputedStyle(e).filter}));
+ assert.equal(future.opacity,'0.35');assert.match(future.filter,/blur/);
+await student.getByTestId('classroom-clock').waitFor();
  assert.match(await student.getByTestId('classroom-clock').textContent(),/^(10:00|09:5\d)$/);
  assert.equal(await student.getByRole('tab').count(),0);
  await student.locator('button.action.w-full').filter({has:student.locator('span.badge')}).first().click();
