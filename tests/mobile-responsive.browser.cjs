@@ -9,10 +9,11 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  try {
  await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('startup')),10000);server.stdout.on('data',d=>{if(String(d).includes('Local:')){clearTimeout(timer);resolve();}});});
  browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || '/usr/bin/chromium',args:['--no-sandbox']});
- for(const lang of ['uk','en'])for(const theme of ['dark','light'])for(const width of [375,390]){
+ for(const lang of ['uk','en'])for(const theme of ['dark','light'])for(const width of [375,390,1280]){
  const c=await browser.newContext({viewport:{width,height:width===375?667:844}});
  await c.addInitScript(({lang,theme})=>{localStorage.setItem('eds-language',lang);localStorage.setItem('eds-theme',theme);},{lang,theme});
  const p=await c.newPage();await p.goto('http://127.0.0.1:18532/classroom');
+ if(width<640){
  await p.locator('.mobile-nav-tabs').waitFor();
  await p.evaluate(()=>document.fonts.ready);
  const navLayout=await p.locator('.mobile-nav-tabs').evaluate(e=>({wrap:getComputedStyle(e).flexWrap,ys:[...e.querySelectorAll('button')].map(b=>b.getBoundingClientRect().y)}));
@@ -22,6 +23,7 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  assert.equal(navLayout.wrap,'nowrap');assert.ok(Math.max(...navLayout.ys)-Math.min(...navLayout.ys)<2);
  assert.equal(await p.locator('.mobile-menu-trigger').count(),0);
  assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ }
  const grid=p.getByTestId('landing-team-grid');await grid.waitFor();
  await p.waitForFunction(()=>[...document.querySelectorAll('[data-testid="landing-team-grid"] img')].length===3&&[...document.querySelectorAll('[data-testid="landing-team-grid"] img')].every(i=>i.naturalWidth>0));
  if(width===1280){const ys=await grid.locator('img').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().y));assert.ok(Math.max(...ys)-Math.min(...ys)<2);}
@@ -69,6 +71,14 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  assert.equal(future.opacity,'0.35');assert.match(future.filter,/blur/);
 await student.getByTestId('classroom-clock').waitFor();
  assert.match(await student.getByTestId('classroom-clock').textContent(),/^(10:00|09:5\d)$/);
+ for(const page of [p,student]){
+ const centers=await page.evaluate(()=>{
+ const center=e=>{const r=e.getBoundingClientRect();return r.left+r.width/2;};
+ const badgeRow=document.querySelector('.room-status-badges');const badges=[...badgeRow.children];
+ const rows=new Map();badges.forEach(b=>{const r=b.getBoundingClientRect(),key=Math.round(r.top);const list=rows.get(key)||[];list.push(r);rows.set(key,list);});
+ return [...[...rows.values()].map(rs=>Math.abs((rs[0].left+rs.at(-1).right)/2-center(badgeRow))),...['.stage-badge-row','.cids-action-row'].map(selector=>{const row=document.querySelector(selector);return Math.abs(center(row)-center(row.firstElementChild));})];});
+ centers.forEach(delta=>assert.ok(delta<2));
+ }
  assert.equal(await student.getByRole('tab').count(),0);
  await student.locator('button.action.w-full').filter({has:student.locator('span.badge')}).first().click();
  await p.evaluate(code=>new Promise(resolve=>{const ws=new WebSocket(`ws://${location.host}/ws`);ws.onopen=()=>ws.send(JSON.stringify({type:'JOIN_ROOM',roomCode:code,hostSecret:sessionStorage.getItem('room-host-'+code)}));ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.room?.phase==='voting')ws.send(JSON.stringify({type:'SHOW_RESULTS',hostSecret:sessionStorage.getItem('room-host-'+code)}));if(m.room?.phase==='results'){ws.close();resolve();}};}),code);
@@ -77,6 +87,11 @@ await student.getByTestId('classroom-clock').waitFor();
  await student.getByRole('tab').nth(2).click();
  assert.equal(await student.getByRole('tab').nth(2).getAttribute('aria-selected'),'true');
  assert.equal(await p.getByRole('tab').first().getAttribute('aria-selected'),'true');
+ await p.goto('http://127.0.0.1:18532/scenarios/S01');
+ await p.getByRole('button',{name:lang==='en'?'Begin Resolving Dilemma':'Почати вирішення дилеми',exact:true}).click();
+ await p.getByTestId('stepper').waitFor();
+ const solo=await p.evaluate(()=>{return ['.stage-badge-row','.cids-action-row'].map(selector=>{const row=document.querySelector(selector),a=row.getBoundingClientRect(),b=row.firstElementChild.getBoundingClientRect();return Math.abs(a.left+a.width/2-b.left-b.width/2);});});solo.forEach(delta=>assert.ok(delta<2));
+ console.log('PASS centered badges/CIDS and mobile layout');
  console.log('PASS classroom images and synchronized timer',lang,theme,width);await c.close();
  }
  }finally{await browser?.close();server.kill();await rm(dir,{recursive:true,force:true});}
