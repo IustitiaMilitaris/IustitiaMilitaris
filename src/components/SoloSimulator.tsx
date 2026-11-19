@@ -1,3 +1,4 @@
+import { TacticalTracker } from './TacticalTracker';
 import productLabels from '../i18n/product.json';
 import { useScenarioTiming, formatElapsed } from '../hooks/useScenarioTiming';
 import { TimingDisplay } from './TimingDisplay';
@@ -11,7 +12,6 @@ import { caseLabel, stageLabel, variantLabel, scenarioStageCount } from '../i18n
 import {
   Dossier,
   ValueConflict,
-  StageStepper,
   Consequence
 } from './BriefingDesign';
 import { localizeNorm, localizeScenario } from '../i18n/content';
@@ -21,9 +21,6 @@ import {
   ArrowLeft,
   ArrowRight,
   RotateCcw,
-  Shield,
-  Zap,
-  HeartHandshake,
   HelpCircle,
   ChevronDown,
   ChevronUp,
@@ -295,17 +292,6 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
 
   return (
     <div className={`solo-shell mx-auto px-4 sm:px-6 py-8 ${phase === 'decision' || phase === 'feedback' ? 'max-w-6xl' : 'max-w-4xl'}`}>
-      <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-6 border-b border-obsidian-800">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="im-tag font-mono text-xs font-bold px-2 py-0.5 rounded-sm bg-obsidian-800 text-justice-gold border border-steel-700">
-            {caseLabel(scenario.id, lang)}
-          </span>
-          <span className="text-xs text-steel-300 font-medium">
-            {scenario.nazva}
-          </span>
-        </div>
-      </div>
-      {(phase==='decision'||phase==='feedback')&&<p className="lg:hidden font-mono text-sm mb-3">{formatElapsed(timer.mode?Math.max(0,timer.mode*60-timer.elapsedSeconds):timer.elapsedSeconds)}</p>}
       {phase === 'briefing' && (
         <div
           key={`${scenario.id}:${phase}:${currentNodeId}`}
@@ -412,27 +398,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
           key={`${scenario.id}:${phase}:${currentNodeId}`}
           className="space-y-6 animate-fadeIn"
         >
-          <div className="stage-badge-row flex flex-wrap items-center justify-center w-full gap-3">
-            <div className="flex flex-wrap items-center justify-center w-full gap-2 text-center text-xs font-semibold text-steel-300">
-              <span className="im-tag px-2.5 py-1 rounded-sm bg-obsidian-800 text-justice-gold border border-justice-gold/30 font-mono">
-                {stageLabel(scenario, currentNode.id, lang)}
-              </span>
-              <span>
-                {t.step.stepLabel} {pathway.length + 1}
-              </span>
-            </div>
-
-          </div>
-
           <div className="steel-panel p-6 sm:p-8 rounded-sm bg-obsidian-850 border border-steel-700 shadow-xl space-y-6">
-            <StageStepper
-              scenario={scenario}
-              nodeId={currentNodeId}
-              completed={
-                pathway.filter((p) => p.nodeId !== currentNodeId).length
-              }
-              lang={lang}
-            />
             <Dossier
               scenario={scenario}
               lang={lang}
@@ -507,12 +473,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
           key={`${scenario.id}:${phase}:${currentNodeId}`}
           className="space-y-6 animate-fadeIn"
         >
-          <StageStepper
-            scenario={scenario}
-            nodeId={currentNodeId}
-            completed={pathway.filter((p) => p.nodeId !== currentNodeId).length}
-            lang={lang}
-          />
+          <Dossier scenario={scenario} lang={lang} nodeId={currentNodeId} index={pathway.filter(p=>p.nodeId!==currentNodeId).length+1}>{currentNode?.tekst || scenario.sytuatsiia}</Dossier>
           <div className="steel-panel p-6 sm:p-8 rounded-sm bg-obsidian-850 border border-steel-700 shadow-xl space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-obsidian-800">
               <span className="text-xs font-bold uppercase tracking-wider text-justice-gold">
@@ -571,20 +532,11 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
         </div>
       )}
       </div>
-      {(phase === 'decision' || phase === 'feedback') && <aside className="tactical-tracker steel-panel p-4 space-y-4 lg:sticky lg:top-20 min-w-0" aria-label={copy.tracker}>
-        <h2 className="font-mono text-xs uppercase text-justice-gold text-center">{copy.tracker}</h2>
+      {(phase === 'decision' || phase === 'feedback') && <TacticalTracker lang={lang} stage={pathway.filter(p=>p.nodeId!==currentNodeId).length+1} total={scenarioStageCount(scenario)} detail={scenario.diiovi_osoby.find(r=>r.hravets)?.rol} scores={cumulativeScores} onCids={()=>setIsCidsOpen(true)} keys clock={<>
         <div data-testid="scenario-timer" className={`tracker-clock text-center font-mono text-3xl sm:text-4xl font-bold tracking-wider transition-colors ${timer.mode>0&&timer.mode*60-timer.elapsedSeconds<120?'text-status-warning':'tracker-clock-normal'}`}>{formatElapsed(timer.mode?Math.max(0,timer.mode*60-timer.elapsedSeconds):timer.elapsedSeconds)}</div>
         {timer.mode>0&&timer.elapsedSeconds>=timer.mode*60&&<p role="status" className="text-xs text-status-warning">{product.expired}</p>}
-        <p className="text-center">{copy.stage} {pathway.filter(p => p.nodeId !== currentNodeId).length + 1} / {scenarioStageCount(scenario)}</p>
-        <p className="text-sm text-steel-300">{scenario.diiovi_osoby.find(r => r.hravets)?.rol}</p>
-        <dl className="tracker-axes space-y-2">{(['dobrochesnist','efektyvnist','dovira'] as const).map(axis => {
-          const Icon = axis === 'dobrochesnist' ? Shield : axis === 'efektyvnist' ? Zap : HeartHandshake;
-          const score = cumulativeScores[axis];
-          return <div key={axis} className="rounded-sm border border-steel-700/70 bg-obsidian-900/75 px-3 py-2 flex items-center justify-between gap-2 text-sm"><dt className="flex items-center gap-2"><Icon className="w-4 h-4 shrink-0" aria-hidden="true" />{t.dimensions[axis]}</dt><dd className={`font-mono font-bold px-1.5 py-0.5 rounded-sm ${score > 0 ? 'text-status-success' : score < -1 ? 'text-status-danger' : score < 0 ? 'text-status-warning' : 'text-steel-400'}`}>{score > 0 ? '+' : ''}{score}</dd></div>;
-        })}</dl>
-        <div className="cids-action-row flex justify-center w-full"><button className="action w-full justify-center text-center" onClick={() => setIsCidsOpen(true)}>{t.step.cidsHelperBtn}</button></div>
-        <p className="tracker-keys hidden lg:block text-steel-300 text-center whitespace-nowrap">{copy.keys}</p>
-      </aside>}
+      </>} />}
+
       </div>
       {phase === 'reflection' && (
         <div

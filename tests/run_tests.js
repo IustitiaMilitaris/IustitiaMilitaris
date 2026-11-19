@@ -17,6 +17,12 @@ async function test(name, run) {
   try { await run(); passed++; console.log('PASS:', name); }
   catch (error) { process.exitCode = 1; console.error('FAIL:', name, error); }
 }
+await test('Group disagreement excludes empty/unanimous rounds and reports at most two stages', () => {
+ const {mostDividedStages}=load(root+'/src/utils/groupSummary.ts');
+ const empty={votes:{},discussionIndex:0},unanimous={votes:{A:3},discussionIndex:0},split={votes:{A:2,B:1},discussionIndex:.89},tie={votes:{A:1,B:1},discussionIndex:1};
+ assert.deepEqual(mostDividedStages([empty,unanimous]),[]);
+ assert.deepEqual(mostDividedStages([empty,split,tie,unanimous,split]),[tie,split]);
+});
 await test('Exactly three new cases, 26 nodes and 102 options', () => {
   assert.deepEqual(scenarios.map(s => s.id), ['S01','S02','S03']);
   assert.equal(scenarios.reduce((sum,s) => sum+s.vuzly.length,0),26);

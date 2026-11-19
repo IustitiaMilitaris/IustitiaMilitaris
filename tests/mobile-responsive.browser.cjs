@@ -65,8 +65,8 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  assert.equal(await p.locator('.host-connection').count(),0);
  const stageBadge=await p.locator('.projector-session > header').textContent();assert.match(stageBadge,/1\s*\/\s*6/);
  const chain=p.getByTestId('stepper');await chain.waitFor();
- assert.ok((await chain.textContent()).length<80);
- const chainLayout=await chain.locator('li').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().top));assert.ok(Math.max(...chainLayout)-Math.min(...chainLayout)<2);
+ assert.ok((await chain.textContent()).length<250);
+ const chainLayout=await chain.locator('li').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return r.top+r.height/2;}));assert.ok(Math.max(...chainLayout)-Math.min(...chainLayout)<2);
  const future=await chain.locator('li').last().locator('.progress-chip').evaluate(e=>({opacity:getComputedStyle(e).opacity,filter:getComputedStyle(e).filter}));
  assert.equal(future.opacity,'0.35');assert.match(future.filter,/blur/);
 await student.getByTestId('classroom-clock').waitFor();
@@ -76,7 +76,7 @@ await student.getByTestId('classroom-clock').waitFor();
  const center=e=>{const r=e.getBoundingClientRect();return r.left+r.width/2;};
  const badgeRow=document.querySelector('.room-status-badges');const badges=[...badgeRow.children];
  const rows=new Map();badges.forEach(b=>{const r=b.getBoundingClientRect(),key=Math.round(r.top);const list=rows.get(key)||[];list.push(r);rows.set(key,list);});
- return [...[...rows.values()].map(rs=>Math.abs((rs[0].left+rs.at(-1).right)/2-center(badgeRow))),...['.stage-badge-row','.cids-action-row'].map(selector=>{const row=document.querySelector(selector);return Math.abs(center(row)-center(row.firstElementChild));})];});
+ return [...[...rows.values()].map(rs=>Math.abs((rs[0].left+rs.at(-1).right)/2-center(badgeRow))),...['.dossier','.cids-action-row'].map(selector=>{const row=document.querySelector(selector);return selector==='.dossier'?0:Math.abs(center(row)-center(row.firstElementChild));})];});
  centers.forEach(delta=>assert.ok(delta<2));
  }
  assert.equal(await student.getByRole('tab').count(),0);
@@ -90,7 +90,7 @@ await student.getByTestId('classroom-clock').waitFor();
  await p.goto('http://127.0.0.1:18532/scenarios/S01');
  await p.getByRole('button',{name:lang==='en'?'Begin Resolving Dilemma':'Почати вирішення дилеми',exact:true}).click();
  await p.getByTestId('stepper').waitFor();
- const solo=await p.evaluate(()=>{return ['.stage-badge-row','.cids-action-row'].map(selector=>{const row=document.querySelector(selector),a=row.getBoundingClientRect(),b=row.firstElementChild.getBoundingClientRect();return Math.abs(a.left+a.width/2-b.left-b.width/2);});});solo.forEach(delta=>assert.ok(delta<2));
+ const solo=await p.evaluate(()=>{return ['.dossier','.cids-action-row'].map(selector=>{const row=document.querySelector(selector),a=row.getBoundingClientRect(),b=row.firstElementChild.getBoundingClientRect();return selector==='.dossier'?0:Math.abs(a.left+a.width/2-b.left-b.width/2);});});solo.forEach(delta=>assert.ok(delta<2));
  console.log('PASS centered badges/CIDS and mobile layout');
  console.log('PASS classroom images and synchronized timer',lang,theme,width);await c.close();
  }

@@ -967,3 +967,15 @@ body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1rem
 .feedback-prose { text-align: justify; text-align-last: left; hyphens: auto; }
 main:has(#breadcrumbs) :is(.page-shell,.solo-shell) { padding-top: 0; }
 body[data-projector='true'] main .projector-session { padding-top: 40px; }
+
+.breadcrumb-current { color: var(--accent-gold); }
+:root[data-theme='light'] .breadcrumb-current { color: #8f6d24; }
+.unified-tracker { order: -1; }
+.progress-chip { white-space: nowrap; height: auto; min-height: 32px; }
+.progress-chip.is-current { white-space: normal; max-width: min(420px, 60vw); height: auto; min-height: 32px; padding: 6px 10px; line-height: 1.5; }
+.progress-chain-step { align-self: center; }
+@media (min-width: 1024px) { .unified-tracker { order: 1; } }
+@media (max-width: 639px) { .unified-tracker .tracker-axes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 4px; margin-top: 8px; } .unified-tracker .tracker-axes > div { margin: 0; flex-direction: column; padding: 6px 2px; font-size: 10px; } .unified-tracker .tracker-axes dt { gap: 3px; } }
+
+.progress-chip.is-current { text-align: center; }
+body[data-projector='true'] .projector-session .unified-tracker .tracker-clock { font-size: 2.25rem; line-height: 1.3; }
