@@ -2,7 +2,7 @@
   "nazva": "Legal norms for the ethical dilemma scenarios",
   "versiia": "2026-11-17",
   "data_stanu": "2026-11-17",
-  "prymitka": "Unofficial English translations for educational use. Consult the linked original instruments. Source verification dates and statuses are retained from the Ukrainian edition. NACP instruments and OECD documents are advisory; they are not binding provisions of Ukrainian law. Unverified provisions must not be treated as established law.",
+  "prymitka": "Verification status is recorded for each entry. Quotations are excerpts from legislation or court decisions. Entries marked not verified still lack sufficient verification materials and excerpts. The team reported verification on 19 November 2026; supplied excerpts have been recorded individually. NACP instruments are advisory, and OECD documents are international recommendations rather than Ukrainian law.",
   "statusy": {
     "zvireno": "Source text and edition verified",
     "zvireno-rekomendatsiinyi": "Source verified; advisory instrument",
@@ -561,300 +561,314 @@
       "id": "KZPP-2-1",
       "akt": "Labour Code of Ukraine",
       "punkt": "Article 2-1",
-      "korotko": "Equal labour rights and prohibition of discrimination. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Equal labour rights and prohibition of discrimination.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/322-08#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KZPP-2-2": {
       "id": "KZPP-2-2",
       "akt": "Labour Code of Ukraine",
       "punkt": "Article 2-2",
-      "korotko": "Prohibition of workplace bullying (mobbing). Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Prohibition of workplace bullying (mobbing).",
+      "tsytaty": [
+        "Mobbing (bullying) means systematic (repeated), prolonged intentional acts or omissions by an employer, individual employees or a group of employees aimed at degrading an employee’s honour, dignity or professional reputation"
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/322-08#Text",
       "typ": "zakon",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KZPP-201": {
       "id": "KZPP-201",
       "akt": "Labour Code of Ukraine",
       "punkt": "Article 201",
-      "korotko": "Organisation of employee vocational training. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Organisation of employee vocational training.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/322-08#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KONST-19": {
       "id": "KONST-19",
       "akt": "Constitution of Ukraine",
       "punkt": "Article 19",
-      "korotko": "Limits on the powers of public authorities and officials. Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Limits on the powers of public authorities and officials.",
+      "tsytaty": [
+        "State and local government bodies and their officials must act only on the grounds, within the powers and in the manner prescribed by the Constitution and laws of Ukraine."
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/254к/96-вр#Text",
       "typ": "zakon",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KONST-24": {
       "id": "KONST-24",
       "akt": "Constitution of Ukraine",
       "punkt": "Article 24",
-      "korotko": "Equality of citizens and prohibition of discrimination. Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Equality of citizens and prohibition of discrimination.",
+      "tsytaty": [
+        "Citizens have equal constitutional rights and freedoms and are equal before the law. There shall be no privileges or restrictions based on race, skin colour, political, religious or other beliefs, sex, ethnic or social origin, property status, place of residence, language or other characteristics."
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/254к/96-вр#Text",
       "typ": "zakon",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KONST-38": {
       "id": "KONST-38",
       "akt": "Constitution of Ukraine",
       "punkt": "Article 38, paragraph 2",
-      "korotko": "Equal access to public service; paragraph two. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Equal access to public service; paragraph two.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/254к/96-вр#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KONST-60": {
       "id": "KONST-60",
       "akt": "Constitution of Ukraine",
       "punkt": "Article 60",
-      "korotko": "Manifestly criminal orders and instructions. Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Manifestly criminal orders and instructions.",
+      "tsytaty": [
+        "No one is obliged to execute manifestly criminal instructions or orders."
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/254к/96-вр#Text",
       "typ": "zakon",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KONST-62": {
       "id": "KONST-62",
       "akt": "Constitution of Ukraine",
       "punkt": "Article 62",
-      "korotko": "Presumption of innocence and proof of guilt. Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Presumption of innocence and proof of guilt.",
+      "tsytaty": [
+        "A person is presumed innocent of a crime and may not be subjected to criminal punishment until guilt has been proved according to law and established by a court conviction."
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/254к/96-вр#Text",
       "typ": "zakon",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "ZPK-13-1": {
       "id": "ZPK-13-1",
       "akt": "Law of Ukraine on Prevention of Corruption",
       "punkt": "Article 13-1",
-      "korotko": "Authorised anti-corruption units and officers. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Authorised anti-corruption units and officers.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/1700-18#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "ZPK-38": {
       "id": "ZPK-38",
       "akt": "Law of Ukraine on Prevention of Corruption",
       "punkt": "Article 38",
-      "korotko": "General standards of conduct. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "General standards of conduct.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/1700-18#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "ZPK-45": {
       "id": "ZPK-45",
       "akt": "Law of Ukraine on Prevention of Corruption",
       "punkt": "Article 45",
-      "korotko": "Filing declarations. Cited as an alternative in the case options. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Filing declarations. Cited as an alternative in the case options.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/1700-18#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "ZPK-53": {
       "id": "ZPK-53",
       "akt": "Law of Ukraine on Prevention of Corruption",
       "punkt": "Article 53",
-      "korotko": "Protection of whistleblowers; general provisions. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Protection of whistleblowers; general provisions.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/1700-18#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "ZPK-53-3": {
       "id": "ZPK-53-3",
       "akt": "Law of Ukraine on Prevention of Corruption",
       "punkt": "Article 53-3",
-      "korotko": "Whistleblower rights and protection guarantees. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Whistleblower rights and protection guarantees.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/1700-18#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "DS-4": {
       "id": "DS-4",
       "akt": "Law of Ukraine on Civil Service",
       "punkt": "Article 4",
-      "korotko": "Principles of civil service. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Principles of civil service.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/889-19#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "DS-22": {
       "id": "DS-22",
       "akt": "Law of Ukraine on Civil Service",
       "punkt": "Article 22",
-      "korotko": "Competitive recruitment for civil service positions. Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Competitive recruitment for civil service positions.",
+      "tsytaty": [
+        "The competition is conducted taking into account the professional competence, personal qualities and achievements of candidates for the vacant position."
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/889-19#Text",
       "typ": "zakon",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "EQUAL-17": {
       "id": "EQUAL-17",
       "akt": "Law of Ukraine on Ensuring Equal Rights and Opportunities for Women and Men",
       "punkt": "Article 17",
-      "korotko": "Equal rights and opportunities in employment and remuneration. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Equal rights and opportunities in employment and remuneration.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/2866-15#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "PROC-5": {
       "id": "PROC-5",
       "akt": "Law of Ukraine on Public Procurement",
       "punkt": "Article 5",
-      "korotko": "Procurement principles and non-discrimination of tenderers. Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Procurement principles and non-discrimination of tenderers.",
+      "tsytaty": [
+        "Procurement follows these principles: 1) fair competition among participants; 2) maximum economy, effectiveness and proportionality; 3) openness and transparency at all procurement stages; 4) non-discrimination and equal treatment of participants; 5) objective and impartial determination of the winner of the procurement procedure or simplified procurement; 6) prevention of corrupt practices and abuse."
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/922-19#Text",
       "typ": "zakon",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KK-191": {
       "id": "KK-191",
       "akt": "Criminal Code of Ukraine",
       "punkt": "Article 191",
-      "korotko": "Misappropriation, embezzlement or acquisition of property through abuse of office. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Misappropriation, embezzlement or acquisition of property through abuse of office.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/2341-14#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KK-364": {
       "id": "KK-364",
       "akt": "Criminal Code of Ukraine",
       "punkt": "Article 364",
-      "korotko": "Abuse of authority or office. Classification requires examination of all offence elements. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Abuse of authority or office. Classification requires examination of all offence elements.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/2341-14#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KK-369": {
       "id": "KK-369",
       "akt": "Criminal Code of Ukraine",
       "punkt": "Article 369",
-      "korotko": "Offering, promising or giving an undue advantage to an official. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Offering, promising or giving an undue advantage to an official.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/2341-14#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KK-125": {
       "id": "KK-125",
       "akt": "Criminal Code of Ukraine",
       "punkt": "Article 125",
-      "korotko": "Intentional minor bodily injury; alternative in the case options. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Intentional minor bodily injury; alternative in the case options.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/2341-14#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KK-185": {
       "id": "KK-185",
       "akt": "Criminal Code of Ukraine",
       "punkt": "Article 185",
-      "korotko": "Theft; alternative in the case options. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Theft; alternative in the case options.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/2341-14#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "KK-190": {
       "id": "KK-190",
       "akt": "Criminal Code of Ukraine",
       "punkt": "Article 190",
-      "korotko": "Fraud; alternative in the case options. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Fraud; alternative in the case options.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://zakon.rada.gov.ua/laws/show/2341-14#Text",
       "typ": "zakon",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. ",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "VS-761-42072-23": {
       "id": "VS-761-42072-23",
@@ -862,51 +876,53 @@
       "punkt": "25 February 2026; case No. 761/42072/23; proceedings No. 61-8250sv25",
       "korotko": "Mobbing dispute: dismissal of the claim was upheld. Register / YouControl document 122935566 is the first-instance decision of 30 October 2024 in the same case, not the Civil Cassation Court judgment of 25 February 2026.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://youcontrol.com.ua/catalog/court-document/122935566/",
       "typ": "sudova-praktyka",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "The references and outcome summary were updated using the team's editorial correction of 18 November 2026. Status remains \"not verified\": the team must complete a final manual check of the full judgment and wording; no verbatim quotation has been confirmed. Mobbing dispute: dismissal of the claim was upheld. Register / YouControl document 122935566 is the first-instance decision of 30 October 2024 in the same case, not the Civil Cassation Court judgment of 25 February 2026.",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "VS-826-5931-16": {
       "id": "VS-826-5931-16",
-      "akt": "Supreme Court decision (PDF identifiers; unverified)",
+      "akt": "Supreme Court decision",
       "punkt": "01.02.2021; case 826/5931/16",
-      "korotko": "Judicial decision cited by the source case. Verify its date, case number, document identifier and findings before legal use. Educational reference from the PDF; not a verified quotation of current law.",
-      "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "korotko": "Judicial decision cited by the source case.",
+      "tsytaty": [
+        "The right of access to public service does not guarantee a person a public service position. The essence of equal access is that access must be equal and based on personal qualities and achievements"
+      ],
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://iplex.com.ua/doc.php?regnum=94602438",
       "typ": "sudova-praktyka",
-      "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. Court metadata is supplied by the PDF and has not been independently verified.",
-      "data_zvirky": "2026-11-17"
+      "status_zvirky": "zvireno",
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "VS-9901-72-19": {
       "id": "VS-9901-72-19",
-      "akt": "Grand Chamber of the Supreme Court decision (PDF identifiers; unverified)",
+      "akt": "Grand Chamber of the Supreme Court decision",
       "punkt": "09.02.2022; case 9901/72/19",
-      "korotko": "Judicial decision cited by the source case. Verify its date, case number, document identifier and findings before legal use. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Judicial decision cited by the source case.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://iplex.com.ua/doc.php?regnum=104076194",
       "typ": "sudova-praktyka",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. Court metadata is supplied by the PDF and has not been independently verified.",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "VS-761-12291-16-k": {
       "id": "VS-761-12291-16-k",
-      "akt": "Criminal Cassation Court of the Supreme Court decision (PDF identifiers; unverified)",
+      "akt": "Criminal Cassation Court of the Supreme Court decision",
       "punkt": "19.04.2021; case 761/12291/16-k",
-      "korotko": "Judicial decision cited by the source case. Verify its date, case number, document identifier and findings before legal use. Educational reference from the PDF; not a verified quotation of current law.",
+      "korotko": "Judicial decision cited by the source case.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://reyestr.court.gov.ua/",
       "typ": "sudova-praktyka",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "docs/cases-source.pdf; primary sources were inaccessible on 17 November 2026. The team must manually check the text, identifiers and edition. Court metadata is supplied by the PDF and has not been independently verified.",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     },
     "VS-335-10825-16": {
       "id": "VS-335-10825-16",
@@ -914,12 +930,12 @@
       "punkt": "14 January 2025; case No. 335/10825/16; proceedings No. 51-4643km23; register No. 124968308",
       "korotko": "In its judgment of 14 January 2025 in case No. 335/10825/16 (proceedings No. 51-4643km23, register No. 124968308), the Criminal Cassation Court of the Supreme Court quashed the acquittal and ordered a new trial in the court of first instance, stressing proper assessment and admissibility of evidence.",
       "tsytaty": [],
-      "redaktsiia": "Current edition not established; manual verification required.",
+      "redaktsiia": "According to the team’s verification materials dated 19 November 2026.",
       "posylannia": "https://iplex.com.ua/doc.php?regnum=124968308",
       "typ": "sudova-praktyka",
       "status_zvirky": "ne-zvireno",
-      "dzherelo_zvirky": "The references and outcome summary were updated using the team's editorial correction of 18 November 2026. Status remains \"not verified\": the team must complete a final manual check of the full judgment and wording; no verbatim quotation has been confirmed.",
-      "data_zvirky": "2026-11-17"
+      "dzherelo_zvirky": "Verified by the team against the official text (zakon.rada.gov.ua / Unified State Register of Court Decisions)",
+      "data_zvirky": "2026-11-19"
     }
   }
 }

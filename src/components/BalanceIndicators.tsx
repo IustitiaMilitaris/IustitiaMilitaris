@@ -150,7 +150,7 @@ export const BalanceIndicators: React.FC<BalanceIndicatorsProps> = ({
       </div>
 
       {showExplanation && explanation && (
-        <div className="mt-2 text-xs text-steel-300 bg-obsidian-950/70 p-2.5 rounded-sm border border-obsidian-800 leading-relaxed">
+        <div lang={lang} className="feedback-prose mt-2 text-xs text-steel-300 bg-obsidian-950/70 p-2.5 rounded-sm border border-obsidian-800 leading-relaxed">
           <strong className="text-steel-300">{ui(lang, 'm1')} </strong>
           {explanation}
         </div>

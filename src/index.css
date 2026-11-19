@@ -960,3 +960,10 @@ body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1rem
 .room-status-header > div { width: 100%; }
 .room-status-header > div.flex { justify-content: center; }
 .stage-badge-row .badge, .stage-badge-row .im-tag { text-align: center; }
+
+.tracker-clock-normal { color: #7cc8e0; }
+:root[data-theme='light'] .tracker-clock-normal { color: #1d6982; }
+.tracker-keys { font-size: 10px; letter-spacing: -.025em; }
+.feedback-prose { text-align: justify; text-align-last: left; hyphens: auto; }
+main:has(#breadcrumbs) :is(.page-shell,.solo-shell) { padding-top: 0; }
+body[data-projector='true'] main .projector-session { padding-top: 40px; }

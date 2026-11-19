@@ -127,7 +127,7 @@ export function Consequence({
         <Icon size={18} aria-hidden="true" />
         {title}
       </h3>
-      <div className="text-sm leading-relaxed text-steel-100">{children}</div>
+      <div className="feedback-prose text-sm leading-relaxed text-steel-100">{children}</div>
     </section>
   );
 }
