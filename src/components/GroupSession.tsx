@@ -427,7 +427,7 @@ export function GroupSession({
                   {room.phase === 'finished'
                     ? room.history.length
                     : room.history.length + 1}{' '}
-                  {t.of}{' '}
+                  /{' '}
                   {room.phase === 'finished'
                     ? room.history.length
                     : room.history.length + depth(node.id)}
@@ -454,7 +454,7 @@ export function GroupSession({
               </div>
             )}
           </header>
-          {host && link && (
+          {host && link && room.phase === 'briefing' && (
             <div className="host-connection surface flex flex-wrap items-center gap-5">
               {qr && (
                 <img

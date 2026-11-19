@@ -88,7 +88,7 @@ export function StageStepper({
   const total = Math.min(30, completed + depth(nodeId));
   return (
     <ol
-      className="flex flex-wrap gap-2"
+      className="progress-chain flex items-center gap-1.5 sm:gap-2 overflow-x-auto py-1"
       aria-label={t.stage}
       data-testid="stepper"
     >
@@ -96,15 +96,11 @@ export function StageStepper({
         <li
           key={i}
           aria-current={i === completed ? 'step' : undefined}
-          className={`badge ${i === completed ? '!border-justice-gold !text-justice-gold' : ''}`}
+          className={`progress-chain-step flex items-center shrink-0 ${i > completed ? 'select-none' : ''}`}
         >
-          <span>
-            {i + 1}.{' '}
-            {i < completed
-              ? t.completed
-              : i === completed
-                ? t.current
-                : t.upcoming}
+          {i > 0 && <span aria-hidden="true" className="w-4 sm:w-6 h-px bg-steel-700 mr-1.5 sm:mr-2 shrink-0" />}
+          <span className={`inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-sm border font-mono text-xs ${i === completed ? 'border-justice-gold bg-justice-gold/10 text-justice-gold font-bold' : i < completed ? 'border-steel-700 bg-obsidian-850 text-steel-400' : 'opacity-[.35] blur-[0.4px] bg-obsidian-900/60 border-steel-700/50 text-steel-400'}`}>
+            {i < completed ? `✓ ${i + 1}` : i === completed ? `${i + 1} · ${t.current}` : i + 1}
           </span>
         </li>
       ))}

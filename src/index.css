@@ -935,3 +935,6 @@ body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1rem
  body[data-projector='true'] .projector-session.host-lobby > header.surface h1 { font-size: 2.25rem; }
  body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1.125rem; }
 }
+
+.progress-chain { scrollbar-width: none; flex-wrap: nowrap; }
+.progress-chain::-webkit-scrollbar { display: none; }
