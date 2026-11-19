@@ -16,9 +16,11 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  const grid=p.getByTestId('landing-team-grid');await grid.waitFor();
  await p.waitForFunction(()=>[...document.querySelectorAll('[data-testid="landing-team-grid"] img')].length===3&&[...document.querySelectorAll('[data-testid="landing-team-grid"] img')].every(i=>i.naturalWidth>0));
  if(width===1280){const ys=await grid.locator('img').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().y));assert.ok(Math.max(...ys)-Math.min(...ys)<2);}
- await p.getByRole('button',{name:lang==='en'?'10 min (Operational time pressure)':'10 хв (Службовий тиск часу)',exact:true}).click();
+ assert.equal(await p.getByTestId('lobby-timer-selector').count(),0);
+ assert.ok(!/\d+ (хв|min)/.test(await grid.locator('.card-top-meta-time').first().textContent()));
  await grid.locator('a').first().click();
  await p.getByTestId('classroom-timer').waitFor();
+ await p.getByRole('button',{name:lang==='en'?'10 min (Operational time pressure)':'10 хв (Службовий тиск часу)',exact:true}).click();
  const code=await p.evaluate(()=>location.pathname.split('/').pop());
  const student=await c.newPage();await student.goto('http://127.0.0.1:18532/classroom/join/'+code);
  await student.getByTestId('classroom-timer').waitFor();
@@ -27,6 +29,14 @@ const os=require('node:os'),path=require('node:path'),assert=require('node:asser
  await p.evaluate(code=>new Promise(resolve=>{const ws=new WebSocket(`ws://${location.host}/ws`);ws.onopen=()=>ws.send(JSON.stringify({type:'JOIN_ROOM',roomCode:code,hostSecret:sessionStorage.getItem('room-host-'+code)}));ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.room?.phase==='briefing')ws.send(JSON.stringify({type:'OPEN_VOTING',hostSecret:sessionStorage.getItem('room-host-'+code)}));if(m.room?.phase==='voting'){ws.close();resolve();}};}),code);
  await p.getByTestId('classroom-clock').waitFor();await student.getByTestId('classroom-clock').waitFor();
  assert.match(await student.getByTestId('classroom-clock').textContent(),/^(10:00|09:5\d)$/);
+ assert.equal(await student.getByRole('tab').count(),0);
+ await student.locator('button.action.w-full').filter({has:student.locator('span.badge')}).first().click();
+ await p.evaluate(code=>new Promise(resolve=>{const ws=new WebSocket(`ws://${location.host}/ws`);ws.onopen=()=>ws.send(JSON.stringify({type:'JOIN_ROOM',roomCode:code,hostSecret:sessionStorage.getItem('room-host-'+code)}));ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.room?.phase==='voting')ws.send(JSON.stringify({type:'SHOW_RESULTS',hostSecret:sessionStorage.getItem('room-host-'+code)}));if(m.room?.phase==='results'){ws.close();resolve();}};}),code);
+ await student.getByRole('tab').first().waitFor();
+ assert.equal(await student.getByRole('tab').count(),4);
+ await student.getByRole('tab').nth(2).click();
+ assert.equal(await student.getByRole('tab').nth(2).getAttribute('aria-selected'),'true');
+ assert.equal(await p.getByRole('tab').first().getAttribute('aria-selected'),'true');
  console.log('PASS classroom images and synchronized timer',lang,theme,width);await c.close();
  }
  }finally{await browser?.close();server.kill();await rm(dir,{recursive:true,force:true});}

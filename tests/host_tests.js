@@ -180,6 +180,12 @@ try {
       assert.equal(created.room.timerMode, mode);
       assert.equal(created.room.timerDurationSec, mode === '10m' ? 600 : mode === '15m' ? 900 : 0);
       assert.equal(created.room.timerStartedAt, null);
+      response = wait(timedHost, m => m.error === 'forbidden');
+      timedHost.send(JSON.stringify({type:'SET_TIMER_MODE',timerMode:'15m',hostSecret:'0'.repeat(64)}));
+      await response;
+      response = wait(timedHost, m => m.room?.timerMode === mode);
+      send(timedHost, {type:'SET_TIMER_MODE', timerMode:mode});
+      assert.equal((await response).room.timerStartedAt, null);
       response = wait(timedHost, m => m.room?.phase === 'voting');
       send(timedHost, { type: 'OPEN_VOTING' });
       const opened = await response;
@@ -188,6 +194,12 @@ try {
       response = wait(rejoined, m => Boolean(m.room));
       send(rejoined, {type:'JOIN_ROOM',roomCode:created.room.code,clientVoteToken:'c'.repeat(32)});
       assert.equal((await response).room.timerStartedAt, opened.room.timerStartedAt);
+      response = wait(rejoined, m => m.error === 'forbidden');
+      send(rejoined, {type:'SET_TIMER_MODE',timerMode:'none'});
+      await response;
+      response = wait(timedHost, m => m.error === 'invalidMessage');
+      send(timedHost, {type:'SET_TIMER_MODE',timerMode:'none'});
+      await response;
       response = wait(timedHost, m => m.type === 'SESSION_CLOSED');
       send(timedHost, {type:'CLOSE_SESSION'});
       await response;

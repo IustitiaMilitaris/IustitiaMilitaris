@@ -9,7 +9,6 @@ import {
   Play,
   Users,
   Download,
-  Clock,
   Layers,
   Award,
   HelpCircle,
@@ -121,8 +120,8 @@ export const ScenarioCatalog: React.FC<ScenarioCatalogProps> = ({
               </div>
 
               <div className="card-top-meta-time text-steel-300">
-                <Clock aria-hidden="true" />
-                <span>{s.tryvalist_khv} {t.catalog.minutes} · {stageCount} {t.catalog.stagesCount}</span>
+                <Layers aria-hidden="true" />
+                <span>{stageCount} {t.catalog.stagesCount}</span>
               </div>
             </div>
             <div className="scenario-card-copy">
