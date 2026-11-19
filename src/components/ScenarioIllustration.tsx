@@ -10,10 +10,12 @@ export function ScenarioIllustration({ id, title, lang }: { id: string; title: s
   const src = images[id];
   if (!src || failedSource === src) return null;
   return (
-    <div className="group aspect-video w-full overflow-hidden rounded-sm border border-steel-700/80 bg-obsidian-900 mb-3.5">
+    <div className="scenario-illustration group w-full p-1 rounded-sm border border-[var(--border-subtle)] bg-[var(--bg-sidebar)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] mb-2.5">
+      <div className="aspect-video w-full overflow-hidden rounded-sm border border-steel-700/50">
       <img src={src} alt={`${lang === 'en' ? 'Case illustration' : 'Ілюстрація задачі'}: ${title}`}
         className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:transform-none"
         onError={() => setFailedSource(src)} />
+      </div>
     </div>
   );
 }

@@ -126,7 +126,7 @@ export const ScenarioCatalog: React.FC<ScenarioCatalogProps> = ({
               </div>
             </div>
             <div className="scenario-card-copy">
-              <h3 className="scenario-card-title font-serif text-lg sm:text-xl font-bold text-steel-100 min-h-[3.25rem] sm:min-h-[3.5rem] flex items-start leading-snug">
+              <h3 className="scenario-card-title font-serif text-lg sm:text-xl font-bold text-steel-100 min-h-[3rem] sm:min-h-[3.25rem] mb-2 flex items-start leading-snug">
                 {s.nazva}
               </h3>
               <ScenarioIllustration id={s.id} title={s.nazva} lang={lang} />
