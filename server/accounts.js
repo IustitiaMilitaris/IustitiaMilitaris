@@ -22,7 +22,7 @@ import { mkdir, readFile, writeFile, rename, chmod } from 'node:fs/promises';
 import path from 'node:path';
 const hashPassword = promisify(scrypt);
 
-export async function installAccounts(app, directory, scenarioNodesOverride) {
+export async function installAccounts(app, directory, scenarioNodesOverride, scenarioKeyFor = () => undefined) {
   const scenarioNodes = scenarioNodesOverride || defaultScenarioNodes;
   await mkdir(directory, { recursive: true, mode: 0o700 });
   const file = path.join(directory, 'store.json');
@@ -161,7 +161,7 @@ export async function installAccounts(app, directory, scenarioNodesOverride) {
       res.json({ ok: true });
     })
   );
-  installStats(app, scenarioNodes, () => store.aggregateStats || {}, update);
+  installStats(app, scenarioNodes, () => store.aggregateStats || {}, update, scenarioKeyFor);
   app.get('/api/progress', (req, res) => {
     const id = identity(req);
     if (!id) return res.status(401).json({ error: 'unauthorized' });
@@ -172,7 +172,7 @@ export async function installAccounts(app, directory, scenarioNodesOverride) {
     wrap(async (req, res) => {
       const id = identity(req);
       if (!id) return res.status(401).json({ error: 'unauthorized' });
-      const { scenarioId, pathway, notes, timing } = req.body || {};
+      const { scenarioId, pathway, notes, timing, caseKey } = req.body || {};
       if (
         !/^S\d{2}$/.test(scenarioId || '') ||
         (timing !== undefined && (!timing || ![0,10,15].includes(timing.mode) || !Number.isInteger(timing.elapsedSeconds) || timing.elapsedSeconds < 0 || timing.elapsedSeconds > 31536000 || Object.keys(timing).some(k => !['mode','elapsedSeconds'].includes(k)))) ||
@@ -189,6 +189,9 @@ export async function installAccounts(app, directory, scenarioNodesOverride) {
         )
       )
         return res.status(400).json({ error: 'invalidProgress' });
+      if(/^S(0[4-9]|[1-9][0-9])$/.test(scenarioId)&&!scenarioNodes.has(scenarioId))return res.status(409).json({error:'staleScenario'});
+      if(scenarioKeyFor(scenarioId)!==undefined&&caseKey!==scenarioKeyFor(scenarioId))return res.status(409).json({error:'staleScenario'});
+      const scenarioSnapshot=scenarioNodes.get(scenarioId);
       await update((d) => {
         d.progress[id] ||= {};
         const previous = d.progress[id][scenarioId];
@@ -197,8 +200,7 @@ export async function installAccounts(app, directory, scenarioNodesOverride) {
         const last = pathway[pathway.length - 1];
         const complete =
           last &&
-          scenarioNodes
-            .get(scenarioId)
+          scenarioSnapshot
             ?.vuzly.find((n) => n.id === last.nodeId)
             ?.varianty.find((v) => v.id === last.variantId)?.nastupnyi_vuzol ===
             null;
@@ -219,4 +221,10 @@ export async function installAccounts(app, directory, scenarioNodesOverride) {
       res.json({ ok: true });
     })
   );
+  return {remapScenarios: async(mapping,deletedId)=>update(d=>{
+    const remap=source=>{const result=Object.fromEntries(Object.entries(source||{}).filter(([id])=>!/^S(0[4-9]|[1-9][0-9])$/.test(id)));for(const [oldId,newId]of Object.entries(mapping))if(oldId!==deletedId&&source?.[oldId])result[newId]=source[oldId];return result;};
+    for(const userId of Object.keys(d.progress||{}))d.progress[userId]=remap(d.progress[userId]);
+    d.aggregateStats=remap(d.aggregateStats);
+  })};
+
 }

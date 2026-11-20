@@ -21,11 +21,12 @@ app.use('/api', rateLimit(600, 60000), (req, res, next) => {
   next();
 });
 app.use(['/api/auth/login', '/api/auth/register'], (req, res, next) => req.method === 'POST' ? authLimit(req, res, next) : next());
-app.use('/api/scenarios/custom', express.json({ limit: '512kb', verify: (req,res,buffer) => { parseJson(buffer.toString('utf8')); } }));
+app.use('/api/scenarios/custom', express.json({ limit: '4mb', verify: (req,res,buffer) => { parseJson(buffer.toString('utf8')); } }));
 app.use(express.json({ limit: '64kb', verify: (req, res, buffer) => { parseJson(buffer.toString('utf8')); } }));
 const dataDirectory = process.env.DATA_DIR || path.join(__dirname, 'data');
 const repository = await installCustomScenarios(app, dataDirectory);
-await installAccounts(app, dataDirectory, repository.scenarios);
+const accounts = await installAccounts(app, dataDirectory, repository.scenarios, id => /^S(0[4-9]|[1-9][0-9])$/.test(id) && repository.scenarios.has(id) ? repository.metadataFor(id).key : undefined);
+repository.onRenumber = accounts.remapScenarios;
 const server = http.createServer(app);
 server.headersTimeout = 15000;
 server.requestTimeout = 30000;

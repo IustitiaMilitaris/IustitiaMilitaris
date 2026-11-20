@@ -27,7 +27,7 @@ export function publicStats(scenario, aggregate) {
     return { nodeId:n.id, completions:record?.completions || 0, variants:n.varianty.map(v => ({ variantId:v.id, percent:record?.completions ? Math.round((record.variants[v.id] || 0) / record.completions * 1000) / 10 : 0 })) };
   }) };
 }
-export function installStats(app, scenarios, readAggregate, update) {
+export function installStats(app, scenarios, readAggregate, update, scenarioKeyFor = () => undefined) {
   app.get('/api/stats/:scenarioId', (req,res) => {
     const scenario = scenarios.get(req.params.scenarioId);
     if (!scenario) return res.status(404).json({error:'notFound'});
@@ -35,7 +35,8 @@ export function installStats(app, scenarios, readAggregate, update) {
   });
   app.post('/api/stats/record', rateLimit(30, 60 * 60000), async (req,res,next) => {
     const body = req.body;
-    if (!body || Object.keys(body).some(k => !['scenarioId','pathway'].includes(k)) || !validateCompletedPath(scenarios.get(body.scenarioId),body.pathway)) return res.status(400).json({error:'invalidPath'});
+    if (!body || Object.keys(body).some(k => !['scenarioId','pathway','caseKey'].includes(k)) || !validateCompletedPath(scenarios.get(body.scenarioId),body.pathway)) return res.status(400).json({error:'invalidPath'});
+    if(scenarioKeyFor(body.scenarioId)!==undefined&&body.caseKey!==scenarioKeyFor(body.scenarioId))return res.status(409).json({error:'staleScenario'});
     try { await update(draft => { draft.aggregateStats ||= {}; addAggregate(draft.aggregateStats,body.scenarioId,body.pathway); }); res.json({ok:true}); } catch(error) { next(error); }
   });
 }

@@ -127,9 +127,9 @@ await test('Scenario IDs advance past catalogue, imported and reserved IDs withi
   const { nextScenarioId }=load(root+'/src/utils/builderStudio.ts');
   assert.equal(nextScenarioId(scenarios.map(s=>s.id)),'S04');
   assert.equal(nextScenarioId(['S01','S03','S04']),'S05');
-  assert.equal(nextScenarioId(['S03','S10','S05']),'S11');
-  assert.equal(nextScenarioId(['S09','S09','invalid','S100']),'S10');
-  assert.equal(nextScenarioId(['S99']),null);
+  assert.equal(nextScenarioId(['S03','S10','S05']),'S06');
+  assert.equal(nextScenarioId(['S09','S09','invalid','S100']),'S05');
+  assert.equal(nextScenarioId(['S99']),'S05');
 });
 await test('Diagram geometry uses card centres, horizontal tangents and non-overlapping branch columns', () => {
   const { choiceRect, horizontalCurve, layoutDecisionStages, diagram }=load(root+'/src/utils/decisionDiagram.ts');

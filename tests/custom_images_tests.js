@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {mkdtemp,rm,readFile,access,readdir} from 'node:fs/promises';
+import os from 'node:os';import path from 'node:path';
+import fixtures from './scenarios.cjs';
+const directory=await mkdtemp(path.join(os.tmpdir(),'custom-images-'));
+const server=spawn(process.execPath,['server/index.js'],{env:{...process.env,PORT:'18576',DATA_DIR:directory},stdio:['ignore','pipe','pipe']});
+const base='http://127.0.0.1:18576';
+const png='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/qZkAAAAASUVORK5CYII=';
+const request=(method,url,body,cookie)=>fetch(base+url,{method,headers:{Origin:base,'Content-Type':'application/json',...(cookie?{Cookie:cookie}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+try{
+ await new Promise((resolve,reject)=>{const timeout=setTimeout(()=>reject(Error('startup')),10000);server.stdout.on('data',d=>{if(String(d).includes('Local:')){clearTimeout(timeout);resolve();}});});
+ const one={...structuredClone(fixtures.scenarios[0]),id:'S04',nazva:'First custom'},two={...structuredClone(fixtures.scenarios[0]),id:'S05',nazva:'Second custom'};
+ assert.equal((await request('POST','/api/scenarios/custom',{scenario:{...one,id:'S01'},imageDataUrl:png})).status,403);
+ for(const imageDataUrl of ['data:image/svg+xml;base64,'+Buffer.from('<svg/>').toString('base64'),'data:image/png;base64,'+Buffer.from('<svg/>').toString('base64'),png.replace('image/png','image/jpeg')])assert.equal((await request('POST','/api/scenarios/custom',{scenario:one,imageDataUrl})).status,400);
+ let response=await request('POST','/api/scenarios/custom',{scenario:one,imageDataUrl:png,revision:'new'});assert.equal(response.status,200);const first=await response.json();
+ response=await request('POST','/api/scenarios/custom',{scenario:two,imageDataUrl:png,revision:'new'});assert.equal(response.status,200);const second=await response.json();
+ const image=await fetch(base+second.metadata.S05.customImageUrl);assert.equal(image.status,200);assert.equal(image.headers.get('content-type'),'image/png');assert.equal(image.headers.get('x-content-type-options'),'nosniff');assert.equal(image.headers.get('cache-control'),'no-cache');
+ assert.equal(JSON.parse(await readFile(path.join(directory,'custom-scenarios/S05.json'),'utf8')).imageDataUrl,undefined);
+ const account=await request('POST','/api/auth/register',{login:'image_tester',password:'StrongTestPassword-42'});assert.equal(account.status,200);const cookie=account.headers.get('set-cookie').split(';')[0];
+ const route=fixtures.route(fixtures.scenarios[0]).map(s=>({nodeId:s.nodeId,variantId:s.variantId}));
+ assert.equal((await request('POST','/api/progress',{scenarioId:'S05',caseKey:second.metadata.S05.key,pathway:route},cookie)).status,200);
+ assert.equal((await request('POST','/api/stats/record',{scenarioId:'S05',caseKey:second.metadata.S05.key,pathway:route})).status,200);
+ response=await request('DELETE','/api/scenarios/custom/S04');assert.equal(response.status,200);const deleted=await response.json();assert.deepEqual(deleted.scenarios.map(s=>[s.id,s.nazva]),[['S04','Second custom']]);assert.equal(deleted.metadata.S04.key,second.metadata.S05.key);
+ await assert.rejects(access(path.join(directory,'custom-scenarios/S05.json')));await assert.rejects(access(path.join(directory,'custom-scenarios/images/S05.png')));
+ assert.equal(JSON.parse(await readFile(path.join(directory,'custom-scenarios/S04.json'),'utf8')).nazva,'Second custom');assert.equal((await fetch(base+deleted.metadata.S04.customImageUrl)).status,200);assert.equal((await fetch(base+first.metadata.S04.customImageUrl)).status,404);
+ const progress=await (await request('GET','/api/progress',undefined,cookie)).json();assert.ok(progress.S04);assert.equal(progress.S05,undefined);assert.equal((await (await fetch(base+'/api/stats/S04')).json()).completions,1);
+ assert.equal((await request('POST','/api/progress',{scenarioId:'S04',caseKey:first.metadata.S04.key,pathway:route},cookie)).status,409);
+ assert.equal((await request('POST','/api/progress',{scenarioId:'S05',caseKey:second.metadata.S05.key,pathway:route},cookie)).status,409);
+ assert.equal((await request('POST','/api/scenarios/custom',{scenario:two,revision:second.metadata.S05.revision})).status,409);
+ response=await request('POST','/api/scenarios/custom',{scenario:{...two,id:'S04'},removeImage:true,revision:deleted.metadata.S04.revision});assert.equal(response.status,200);const removed=await response.json();assert.equal(removed.metadata.S04.customImageUrl,null);await assert.rejects(access(path.join(directory,'custom-scenarios/images/S04.png')));
+ assert.equal((await request('DELETE','/api/scenarios/custom/S04')).status,200);assert.deepEqual((await readdir(path.join(directory,'custom-scenarios'))).filter(f=>/^S\d/.test(f)),[]);
+ console.log('PASS custom images: magic bytes, separate files, image API, compaction, stale revisions and progress/stat identity');
+}finally{server.kill();await rm(directory,{recursive:true,force:true});}

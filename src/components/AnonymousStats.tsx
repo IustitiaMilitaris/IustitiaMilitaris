@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { customMetadata } from '../data/scenarios';
+import React, { useEffect, useState, useRef } from 'react';
 import type { Language } from '../i18n';
 import type { Scenario } from '../types';
 import { stageLabel, variantLabel } from '../i18n/display';
@@ -6,17 +7,18 @@ import labels from '../i18n/product.json';
 type Stats = { nodes:{nodeId:string;completions:number;variants:{variantId:string;percent:number}[]}[] };
 export function AnonymousStats({scenario,pathway,attempt,lang,record}:{scenario:Scenario;pathway:{nodeId:string;variantId:string}[];attempt:number;lang:Language;record:boolean}) {
   const [stats,setStats]=useState<Stats|null>(null),[failed,setFailed]=useState(false);
+  const caseKey=useRef(customMetadata[scenario.id]?.key).current;
   const signature=JSON.stringify(pathway);
   useEffect(()=>{
     let cancelled=false;
     const comparison=fetch(`/api/stats/${scenario.id}`,{credentials:'omit'}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{if(!cancelled)setStats(data);}).catch(()=>{if(!cancelled)setFailed(true);});
     comparison.then(()=>{
-    const key=`anonymous-recorded-${scenario.id}-${attempt}`;
+    const key=`anonymous-recorded-${caseKey || scenario.id}-${attempt}`;
     const last=scenario.vuzly.find(n=>n.id===pathway[pathway.length-1]?.nodeId)?.varianty.find(v=>v.id===pathway[pathway.length-1]?.variantId);
     if(record&&last?.nastupnyi_vuzol===null){
       let recorded=false;try{recorded=!!sessionStorage.getItem(key);}catch{}
       if(!recorded){try{sessionStorage.setItem(key,'1');}catch{}
-        fetch('/api/stats/record',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({scenarioId:scenario.id,pathway})}).then(r=>{if(!r.ok)throw Error();}).catch(()=>{try{sessionStorage.removeItem(key);}catch{}});
+        fetch('/api/stats/record',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({scenarioId:scenario.id,pathway,caseKey})}).then(r=>{if(!r.ok)throw Error();}).catch(()=>{try{sessionStorage.removeItem(key);}catch{}});
       }
     }
     });

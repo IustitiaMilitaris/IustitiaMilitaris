@@ -1,6 +1,6 @@
 import customLabels from '../i18n/customScenarios.json';
 import { CustomScenarioActions } from './CustomScenarioActions';
-import { saveCustomScenario, ScenarioApiError, isBuiltInScenario } from '../data/scenarios';
+import { customMetadata, saveCustomScenario, ScenarioApiError, isBuiltInScenario } from '../data/scenarios';
 import { AnimatedDetails, Collapsible } from './Collapsible';
 import studioLabels from '../i18n/builderStudio.json';
 import { freshNode, freshVariant, reachableNodes, nextScenarioId, knownScenarioIds } from '../utils/builderStudio';
@@ -51,6 +51,17 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
   const studio = studioLabels[lang];
   const custom = customLabels[lang];
   const [saving,setSaving] = useState(false);
+  const routeId=window.location.pathname.split('/')[2];
+  const [expectedRevision,setExpectedRevision]=useState(customMetadata[routeId]?.revision || 'new');
+  const [imageDataUrl,setImageDataUrl]=useState<string|null>(null);
+  const [removeImage,setRemoveImage]=useState(false);
+  const [imageError,setImageError]=useState('');
+  const [imageBusy,setImageBusy]=useState(false);
+  const uploadImage=async(file:File)=>{
+   setImageError('');if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>2*1024*1024){setImageError(custom.imageInvalid);return;}
+   setImageBusy(true);const url=URL.createObjectURL(file);
+   try{const image=await new Promise<HTMLImageElement>((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=url;});const canvas=document.createElement('canvas');const ratio=Math.min(1,1280/image.naturalWidth);canvas.width=Math.max(1,Math.round(image.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(image.naturalHeight*ratio));if(canvas.height>8192)throw Error('dimensions');const ctx=canvas.getContext('2d');if(!ctx)throw Error('canvas');ctx.drawImage(image,0,0,canvas.width,canvas.height);const data=canvas.toDataURL(file.type==='image/png'?'image/png':'image/jpeg',.85);if(data.length>Math.ceil(2*1024*1024/3)*4+100)throw Error('size');setImageDataUrl(data);setRemoveImage(false);setDirty(true);}catch{setImageError(custom.imageInvalid);}finally{URL.revokeObjectURL(url);setImageBusy(false);}
+  };
   const [saveNotice,setSaveNotice] = useState('');
   const [saveError,setSaveError] = useState(false);
   const persist = async (launch = false) => {
@@ -62,7 +73,7 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
     }
     delete (draft as unknown as Record<string,unknown>).builtIn;
     setSaving(true);setSaveNotice('');setSaveError(false);
-    try { await saveCustomScenario(draft);setDirty(false);setSaveNotice(custom.saved);if(launch)location.assign(`/classroom/host/new?scenario=${draft.id}`); }
+    try { const metadata=await saveCustomScenario(draft,{revision:expectedRevision,...(imageDataUrl?{imageDataUrl}:removeImage?{removeImage:true}:{})});setExpectedRevision(metadata.revision);setImageDataUrl(null);setRemoveImage(false);setDirty(false);setSaveNotice(custom.saved);if(launch)location.assign(`/classroom/host/new?scenario=${draft.id}`); }
     catch(error) {
       setSaveError(true);
       if(error instanceof ScenarioApiError){
@@ -223,13 +234,6 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
     }
   );
 
-  useEffect(() => {
-    if (!/^S\d{2}$/.test(scenario.id)) return;
-    try {
-      sessionStorage.setItem('builder-scenario-ids', JSON.stringify([...new Set([...knownScenarioIds(allScenarios), scenario.id])]));
-    } catch { /* Editing works when session storage is unavailable. */ }
-  }, [scenario.id]);
-
   const setScenario: React.Dispatch<React.SetStateAction<Scenario>> = next => { setDirty(true); setScenarioState(next); };
 
   const [selectedNodeIdx, setSelectedNodeIdx] = useState<number>(0);
@@ -330,7 +334,7 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
   };
   const loadDraft = (source?: Scenario) => {
     if(dirty && !confirm(studio.replace))return;
-    const id = nextScenarioId([...knownScenarioIds(allScenarios), scenario.id]);
+    const id = nextScenarioId(knownScenarioIds(allScenarios));
     if (!id) { alert(studio.noCaseId); return; }
     const draft=copyCase(source || allScenarios[0]);draft.id=id;
     if(!source){
@@ -343,6 +347,7 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
       draft.perevirka_zmistu={fakhivets_dzpk:'не проведено',khto:null,data:null,prymitka:studio.draft};
       draft.shi={vykorystano:true,instrument:'OpenAI Codex',shcho_zrobleno:studio.templateAI,perevirka_liudynoiu:studio.draft};
     }
+    setExpectedRevision('new');setImageDataUrl(null);setRemoveImage(false);setImageError('');
     setScenario(draft);setSelectedNodeIdx(0);setValidationRequested(true);setActiveTab('general');setDirty(false);
   };
   const errorTab = (field: string) => ['vuzly','varianty','baly','nastupnyi_vuzol','pochatkovyi_vuzol','normy'].includes(field)?'nodes':field==='diiovi_osoby'?'roles':field==='shi'||field==='perevirka_zmistu'?'verification':'general';
@@ -383,9 +388,9 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
         </div>
         <div className="studio-toolbar w-full">
           <div className="builder-main-actions grid grid-cols-1 sm:grid-cols-3 gap-2">
-            <button className="im-primary action-primary" disabled={saving} onClick={()=>persist()}>{saving?custom.busy:custom.save}</button>
-            <button className="im-secondary action" disabled={saving} onClick={handleTestInSimulator}><Play size={16}/>{custom.solo}</button>
-            <button className="im-secondary action" disabled={saving} onClick={()=>persist(true)}>{custom.group}</button>
+            <button className="im-primary action-primary" disabled={saving || imageBusy} onClick={()=>persist()}>{saving?custom.busy:custom.save}</button>
+            <button className="im-secondary action" disabled={saving || imageBusy} onClick={handleTestInSimulator}><Play size={16}/>{custom.solo}</button>
+            <button className="im-secondary action" disabled={saving || imageBusy} onClick={()=>persist(true)}>{custom.group}</button>
           </div>
           <div className="builder-utilities grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
             <button onClick={runValidation} className="im-secondary action"><ShieldCheck size={16}/>{custom.validate}</button>
@@ -465,6 +470,12 @@ export const ScenarioBuilder: React.FC<ScenarioBuilderProps> = ({
       <div data-testid="studio-content" className="steel-panel p-6 sm:p-8 rounded-sm bg-obsidian-850 border border-steel-700 shadow-xl space-y-6">
         {activeTab === 'general' && (
           <div className="space-y-4 text-xs">
+            <section className="surface-muted space-y-3" aria-label={custom.imageTitle}>
+              <h2 className="font-semibold text-sm">{custom.imageTitle}</h2>
+              {!removeImage && (imageDataUrl || customMetadata[scenario.id]?.customImageUrl) && <div className="scenario-illustration p-1 rounded-sm border border-[var(--border-subtle)] bg-[var(--bg-sidebar)]"><div className="aspect-video overflow-hidden rounded-sm"><img data-testid="builder-image-preview" src={imageDataUrl || customMetadata[scenario.id]?.customImageUrl || ''} alt={custom.imageTitle} className="w-full h-full object-cover" /></div></div>}
+              <div className="flex flex-wrap gap-2"><label className="action cursor-pointer">{custom.uploadImage}<input aria-label={custom.uploadImage} type="file" accept="image/png,image/jpeg,image/webp" disabled={imageBusy} onChange={e=>{const file=e.target.files?.[0];if(file)void uploadImage(file);e.target.value='';}} className="sr-only" /></label><button type="button" className="action" disabled={imageBusy} onClick={()=>{setImageDataUrl(null);setRemoveImage(true);setDirty(true);}}>{custom.removeImage}</button></div>
+              <p>{custom.imageHelp}</p>{imageError&&<p role="alert">{imageError}</p>}
+            </section>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-steel-300 font-bold mb-1">
