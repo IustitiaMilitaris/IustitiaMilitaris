@@ -107,7 +107,7 @@ async function solo(page,source,lang,branch=0) {
       await page.locator('main details summary').evaluateAll(elements=>elements.forEach(e=>e.click()));
       await readable(page,lang);
       assert.deepEqual(errors,[]);await context.close();
-      console.log('PASS cases:',theme,lang,width,'catalogue, complete solo paths, 26 desktop nodes, summaries, profile, 64 norms/5 courts, builder previews, SCORM content/letters/privacy');
+      console.log('PASS cases:',theme,lang,width,'catalogue, complete solo paths, 26 desktop nodes, summaries, profile, 62 norms/3 courts, builder previews, SCORM content/letters/privacy');
     }
   } finally {
     await browser?.close();server.kill('SIGTERM');await new Promise(resolve=>server.exitCode!==null?resolve():server.once('exit',resolve));await new Promise(resolve=>exported.close(resolve));await fs.rm(directory,{recursive:true,force:true});
