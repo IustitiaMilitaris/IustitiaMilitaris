@@ -165,14 +165,15 @@ export async function installAccounts(app, directory, scenarioNodesOverride, sce
   app.get('/api/progress', (req, res) => {
     const id = identity(req);
     if (!id) return res.status(401).json({ error: 'unauthorized' });
-    res.json(store.progress[id] || {});
+    const entries=store.progress[id] || {};
+    res.json({...Object.fromEntries(Object.entries(entries).filter(([key])=>key.endsWith('::none')).map(([key,value])=>[key.split('::')[0],value])),...entries});
   });
   app.post(
     '/api/progress',
     wrap(async (req, res) => {
       const id = identity(req);
       if (!id) return res.status(401).json({ error: 'unauthorized' });
-      const { scenarioId, pathway, notes, timing, caseKey } = req.body || {};
+      const { scenarioId, pathway, notes, timing, caseKey, timerMode } = req.body || {};
       if (
         !/^S\d{2}$/.test(scenarioId || '') ||
         (timing !== undefined && (!timing || ![0,10,15].includes(timing.mode) || !Number.isInteger(timing.elapsedSeconds) || timing.elapsedSeconds < 0 || timing.elapsedSeconds > 31536000 || Object.keys(timing).some(k => !['mode','elapsedSeconds'].includes(k)))) ||
@@ -193,8 +194,12 @@ export async function installAccounts(app, directory, scenarioNodesOverride, sce
       if(scenarioKeyFor(scenarioId)!==undefined&&caseKey!==scenarioKeyFor(scenarioId))return res.status(409).json({error:'staleScenario'});
       const scenarioSnapshot=scenarioNodes.get(scenarioId);
       await update((d) => {
+        const mode = timerMode === undefined ? (timing?.mode===10?'10m':timing?.mode===15?'15m':'none') : timerMode;
+        if (!['none','10m','15m'].includes(mode)) throw Object.assign(new Error('invalidProgress'), {status:400});
+        const key = `${scenarioId}::${mode}`;
         d.progress[id] ||= {};
-        const previous = d.progress[id][scenarioId];
+        const previous = d.progress[id][key] || (mode==='none'?d.progress[id][scenarioId]:undefined);
+        if(mode==='none')delete d.progress[id][scenarioId];
         const changed =
           JSON.stringify(previous?.pathway) !== JSON.stringify(pathway);
         const last = pathway[pathway.length - 1];
@@ -205,7 +210,8 @@ export async function installAccounts(app, directory, scenarioNodesOverride, sce
             ?.varianty.find((v) => v.id === last.variantId)?.nastupnyi_vuzol ===
             null;
         const now = new Date().toISOString();
-        d.progress[id][scenarioId] = {
+        d.progress[id][key] = {
+          timerMode: mode,
           pathway: pathway.map((p) => ({
             nodeId: p.nodeId,
             variantId: p.variantId
@@ -222,7 +228,7 @@ export async function installAccounts(app, directory, scenarioNodesOverride, sce
     })
   );
   return {remapScenarios: async(mapping,deletedId)=>update(d=>{
-    const remap=source=>{const result=Object.fromEntries(Object.entries(source||{}).filter(([id])=>!/^S(0[4-9]|[1-9][0-9])$/.test(id)));for(const [oldId,newId]of Object.entries(mapping))if(oldId!==deletedId&&source?.[oldId])result[newId]=source[oldId];return result;};
+    const remap=source=>{const result=Object.fromEntries(Object.entries(source||{}).filter(([id])=>!/^S(0[4-9]|[1-9][0-9])$/.test(id.split('::')[0])));for(const [oldId,newId]of Object.entries(mapping))if(oldId!==deletedId)for(const [key,value] of Object.entries(source||{}))if(key.split('::')[0]===oldId)result[newId+key.slice(oldId.length)]=value;return result;};
     for(const userId of Object.keys(d.progress||{}))d.progress[userId]=remap(d.progress[userId]);
     d.aggregateStats=remap(d.aggregateStats);
   })};

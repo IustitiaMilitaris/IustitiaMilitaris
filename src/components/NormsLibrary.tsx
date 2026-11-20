@@ -63,25 +63,6 @@ export const NormsLibrary: React.FC<NormsLibraryProps> = ({ lang }) => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      <div className="steel-panel p-6 rounded-sm bg-obsidian-850 border border-steel-700 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="p-2 rounded-sm bg-tactical-ice/20 text-tactical-ice border border-tactical-ice/30">
-              <BookOpen className="w-5 h-5" />
-            </div>
-            <h1 className="im-title font-serif text-xl sm:text-2xl font-bold text-white">
-              {normyData.nazva}
-            </h1>
-          </div>
-          <p className="text-xs text-steel-300 mt-1 max-w-2xl leading-relaxed">
-            {normyData.prymitka}
-          </p>
-        </div>
-
-        <div className="text-xs font-mono text-tactical-ice px-3 py-1.5 rounded-sm bg-obsidian-800 border border-steel-700 shrink-0">
-          {ui(lang, 'm42')} {normyData.data_stanu} {ui(lang, 'm43')}{' '}
-        </div>
-      </div>
       <div className="steel-panel p-4 rounded-sm bg-obsidian-850 border border-obsidian-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 text-steel-300 absolute left-3 top-3" />
