@@ -26,3 +26,8 @@ export function formatNormChipPoint(norm: { id: string; punkt: string; typ?: str
   const short = norm.punkt.split(/\s+[—–]\s+|:/)[0].trim();
   return lang === 'en' ? short.replace(/^Article\b/i, 'Art.') : short;
 }
+
+export function formatNormBadge(norm: { id: string; punkt: string; typ?: string }, lang: Language): string {
+  const point = formatNormChipPoint(norm, lang);
+  return `${formatNormDisplayId(norm.id, lang)}${point ? ` · ${point}` : ''}`;
+}

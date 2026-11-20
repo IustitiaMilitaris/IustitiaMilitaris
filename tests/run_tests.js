@@ -180,4 +180,11 @@ await test('Legal bases match the current verified team allowlist and scenario r
  for(const scenario of scenarios){assert.ok(scenario.normy.length);for(const ref of scenario.normy)assert.ok(allowed.includes(ref.id));for(const node of scenario.vuzly)for(const option of node.varianty)for(const id of option.normy)assert.ok(allowed.includes(id));}
 });
 
+await test('Norm badges combine source and compact article exactly once', () => {
+ const {formatNormBadge}=load(root+'/src/i18n/normDisplay.ts');
+ assert.equal(formatNormBadge({id:'ZPK-1',punkt:'ст. 1 — визначення термінів'},'uk'),'ЗУ № 1700-VII · ст. 1');
+ assert.equal(formatNormBadge({id:'KZPP-2-1',punkt:'Article 2-1'},'en'),'Labor Code · Art. 2-1');
+ assert.equal(formatNormBadge({id:'VS-9901-72-19',punkt:'справа № 9901/72/19'},'uk'),'ВП ВС · № 9901/72/19');
+});
+
 console.log(`${passed}/${total} tests passed (${Math.round(100*passed/total)}%)`);

@@ -999,3 +999,5 @@ body[data-projector='true'] .projector-session .unified-tracker .tracker-clock {
 
 :root { --graph-completed-bg: rgba(46,158,117,.10); --graph-completed-border: rgba(46,158,117,.42); }
 :root[data-theme='light'] { --graph-completed-bg: rgba(46,158,117,.08); --graph-completed-border: rgba(46,158,117,.38); }
+
+.norm-code { display:inline-flex; align-items:center; max-width:100%; white-space:normal; overflow-wrap:anywhere; }

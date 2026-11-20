@@ -1,4 +1,4 @@
-import { formatNormDisplayId } from '../i18n/normDisplay';
+import { formatNormChipPoint, formatNormBadge, formatNormDisplayId } from '../i18n/normDisplay';
 import { AnimatedOverlay } from './Collapsible';
 import { safeExternalUrl } from '../utils/security';
 import { localizeNorm } from '../i18n/content';
@@ -39,9 +39,9 @@ export const NormDetailModal: React.FC<NormDetailModalProps> = ({ norm: original
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="norm-code im-tag font-mono text-xs font-bold px-2 py-0.5 rounded-sm bg-obsidian-800 text-tactical-ice border border-tactical-ice">
-                  {formatNormDisplayId(norm.id, lang)}
+                  {formatNormBadge(norm, lang)}
                 </span>
-                <span className="text-xs text-steel-300">{norm.punkt}</span>
+                {norm.punkt !== formatNormChipPoint(norm, lang) && <span className="text-xs text-steel-300">{norm.punkt}</span>}
               </div>
               <h2 className="im-title font-serif text-base sm:text-lg font-bold text-white mt-1 break-words">
                 {norm.akt}
