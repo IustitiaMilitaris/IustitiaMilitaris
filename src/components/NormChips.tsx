@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { normMap } from '../data/scenarios';
 import { localizeNorm } from '../i18n/content';
-import { formatNormDisplayId, formatNormChipPoint } from '../i18n/normDisplay';
+import { formatNormBadge, formatNormDisplayId, formatNormChipPoint } from '../i18n/normDisplay';
 import type { Language } from '../i18n';
 
 export function NormChips({ ids, lang, onSelect }: { ids: string[]; lang: Language; onSelect: (id: string) => void }) {
@@ -10,8 +10,7 @@ export function NormChips({ ids, lang, onSelect }: { ids: string[]; lang: Langua
     const source = normMap.get(id);
     const norm = source ? localizeNorm(source, lang) : undefined;
     return <button type="button" key={id} data-norm-id={id} title={norm ? `${norm.akt} · ${norm.punkt}` : id} onClick={() => onSelect(id)} className="norm-chip w-full flex items-center justify-between gap-2 px-3 py-2 text-left rounded-sm border border-steel-700 text-tactical-ice hover:border-tactical-ice transition-colors min-w-0 text-xs">
-      <span className="norm-code font-mono shrink-0 whitespace-nowrap">{formatNormDisplayId(id, lang)}</span>
-      <span className="truncate min-w-0 flex-1 text-steel-300">{norm ? formatNormChipPoint(norm, lang) : ''}</span>
+      <span className="norm-code font-mono inline-flex items-center max-w-full min-w-0">{norm ? formatNormBadge(norm, lang) : formatNormDisplayId(id, lang)}</span>
       <ChevronRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
     </button>;
   })}</div>;

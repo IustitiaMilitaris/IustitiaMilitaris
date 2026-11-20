@@ -1,4 +1,4 @@
-import { formatNormDisplayId } from '../i18n/normDisplay';
+import { formatNormBadge } from '../i18n/normDisplay';
 import { scriptJson } from './security';
 import { caseLabel, stageLabel, variantLabel } from '../i18n/display';
 import { Language } from '../i18n';
@@ -147,7 +147,7 @@ function generateStandaloneHtmlPlayer(
 ): string {
   const labels = scormLabels[lang];
   const presentation = {
-    normCodes: Object.fromEntries(embeddedNorms.map(norm => [norm.id, formatNormDisplayId(norm.id, lang)])),
+    normCodes: Object.fromEntries(embeddedNorms.map(norm => [norm.id, formatNormBadge(norm, lang)])),
     normsTitle: lang === 'uk' ? 'Застосовні норми права' : 'Applicable legal provisions',
     case: caseLabel(scenario.id, lang),
     stages: Object.fromEntries(
@@ -350,7 +350,7 @@ function generateStandaloneHtmlPlayer(
         var card = element('section', undefined, 'context-box', cards);
         var badge = element('strong', presentation.normCodes[id] || id, 'badge', card);
         badge.style.whiteSpace = 'nowrap';
-        element('h4', norm.akt + ' · ' + norm.punkt, undefined, card);
+        element('h4', norm.akt, undefined, card);
         element('p', norm.korotko, undefined, card);
       });
     }

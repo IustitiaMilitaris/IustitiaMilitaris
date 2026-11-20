@@ -1,4 +1,4 @@
-import { formatNormDisplayId } from '../i18n/normDisplay';
+import { formatNormBadge, formatNormDisplayId } from '../i18n/normDisplay';
 import { AnimatedDetails } from './Collapsible';
 import React, { useState } from 'react';
 import type { Scenario, Variant } from '../types';
@@ -36,7 +36,7 @@ export function BuilderNodeEditor({scenario,lang,index,onChange,onSelect,onAdd,o
      {(['odrazu','vidkladeni'] as const).map(key=><label className="block" key={key}>{key==='odrazu'?translations[lang].feedback.immediateTitle:translations[lang].feedback.delayedTitle}<textarea className="im-field w-full" value={v.naslidky[key]} onChange={e=>change(i,v=>{v.naslidky[key]=e.target.value;})}/></label>)}
      <label className="block">{t.reason}<textarea className="im-field w-full" value={v.chomu_taki_baly} onChange={e=>change(i,v=>{v.chomu_taki_baly=e.target.value;})}/></label>
      <label className="block">{t.feedback}<textarea className="im-field w-full" value={v.zvorotnyi_zviazok} onChange={e=>change(i,v=>{v.zvorotnyi_zviazok=e.target.value;})}/></label>
-     <fieldset><legend>{t.norms}</legend><div className="max-h-64 overflow-y-auto space-y-1 mt-2">{norms.length===0&&<p>{t.empty}</p>}{norms.map(n=><button type="button" key={n.id} title={n.korotko} aria-pressed={v.normy.includes(n.id)} className={`studio-norm w-full text-left ${v.normy.includes(n.id)?'studio-selected':''}`} onClick={()=>update(s=>{const ids=s.vuzly[index].varianty[i].normy;const j=ids.indexOf(n.id);if(j<0)ids.push(n.id);else ids.splice(j,1);const used=new Set(s.vuzly.flatMap(n=>n.varianty.flatMap(v=>v.normy)));s.normy=[...used].map(id=>s.normy.find(n=>n.id===id)||{id,yak_zastosovuietsia:localizeNorm(normyData.normy.find(n=>n.id===id)!,lang).korotko});})}><span className="norm-code">{formatNormDisplayId(n.id, lang)}</span> · {n.punkt} · {n.akt}</button>)}</div></fieldset>
+     <fieldset><legend>{t.norms}</legend><div className="max-h-64 overflow-y-auto space-y-1 mt-2">{norms.length===0&&<p>{t.empty}</p>}{norms.map(n=><button type="button" key={n.id} title={n.korotko} aria-pressed={v.normy.includes(n.id)} className={`studio-norm w-full text-left ${v.normy.includes(n.id)?'studio-selected':''}`} onClick={()=>update(s=>{const ids=s.vuzly[index].varianty[i].normy;const j=ids.indexOf(n.id);if(j<0)ids.push(n.id);else ids.splice(j,1);const used=new Set(s.vuzly.flatMap(n=>n.varianty.flatMap(v=>v.normy)));s.normy=[...used].map(id=>s.normy.find(n=>n.id===id)||{id,yak_zastosovuietsia:localizeNorm(normyData.normy.find(n=>n.id===id)!,lang).korotko});})}><span className="norm-code">{formatNormBadge(n, lang)}</span> · {n.akt}</button>)}</div></fieldset>
     </div>
    </AnimatedDetails>)}
    <button className="im-secondary action" disabled={node.varianty.length>=4} onClick={()=>{try{update(s=>{s.vuzly[index].varianty.push(freshVariant(s,lang));});}catch{alert(t.limit);}}}>+ {t.addOption}</button>

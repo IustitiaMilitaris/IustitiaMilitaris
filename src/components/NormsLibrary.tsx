@@ -1,7 +1,7 @@
 import { AnimatedDetails } from './Collapsible';
 import { normHierarchy } from '../utils/normHierarchy';
 import product from '../i18n/product.json';
-import { formatNormDisplayId } from '../i18n/normDisplay';
+import { formatNormBadge, formatNormDisplayId } from '../i18n/normDisplay';
 import polish from '../i18n/polish.json';
 import { caseLabel } from '../i18n/display';
 import { localizeNorms } from '../i18n/content';
@@ -131,7 +131,7 @@ export const NormsLibrary: React.FC<NormsLibraryProps> = ({ lang }) => {
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2 gap-2">
                     <span className="norm-code im-tag font-mono text-xs font-bold px-2 py-0.5 rounded-sm bg-obsidian-800 text-tactical-ice border border-tactical-ice">
-                      {formatNormDisplayId(norm.id, lang)}
+                      {formatNormBadge(norm, lang)}
                     </span>
                     <span
                       className={`im-tag text-[11px] px-2 py-0.5 rounded-sm border flex items-center gap-1 font-medium ${
@@ -158,9 +158,7 @@ export const NormsLibrary: React.FC<NormsLibraryProps> = ({ lang }) => {
                   <h3 className="im-section-title font-bold text-sm text-white ">
                     {norm.akt}
                   </h3>
-                  <div className="text-xs text-steel-300 font-medium">
-                    {norm.punkt}
-                  </div>
+
                   <p className="text-xs text-steel-300  leading-relaxed">
                     {norm.korotko}
                   </p>
