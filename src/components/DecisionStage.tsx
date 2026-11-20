@@ -21,7 +21,7 @@ export function DecisionStage({ scenario, node, lang, x, top, selectedIndex, act
   const title = /^(Етап|Stage)\s*\d+\s*[·.:–—-]/u.test(firstLine) ? firstLine.replace(/^(Етап|Stage)\s*\d+\s*[·.:–—-]\s*/u,'') : heading.split(' · ').slice(1).join(' · ');
   const header = <><strong className="block text-left font-mono text-xs uppercase tracking-widest text-justice-gold">{stageLabel(scenario, node.id, lang, false)}</strong><span className="diagram-stage-title block mt-2 text-sm leading-snug"><QuotedStageTitle text={title} quoteOnNewLine /></span></>;
   return <>
-    <rect x={x} y={top} width={diagram.width} data-testid="stage-header-box" height={headerBoxHeight} rx={2} fill="var(--graph-header-bg)" stroke={unreachable ? 'var(--graph-warning)' : active ? '#C8A456' : 'var(--graph-header-border)'} strokeDasharray={unreachable ? '4 2' : undefined} />
+    <rect x={x} y={top} width={diagram.width} data-testid="stage-header-box" height={headerBoxHeight} rx={2} fill={graph ? 'var(--graph-header-bg)' : 'var(--graph-completed-bg)'} stroke={unreachable ? 'var(--graph-warning)' : active ? '#C8A456' : graph ? 'var(--graph-header-border)' : 'var(--graph-completed-border)'} strokeDasharray={unreachable ? '4 2' : undefined} />
     <foreignObject data-stage-id={node.id} x={x} y={top} width={diagram.width} height={headerBoxHeight}>
       {onSelect ? <button type="button" data-testid="builder-stage-button" onClick={onSelect} title={heading} aria-pressed={!!active} className="diagram-stage-header diagram-stage-button w-full h-full text-left px-3 py-2.5 text-steel-100">{header}</button> : <div className="diagram-stage-header px-3 py-2.5 text-steel-100">{header}</div>}
     </foreignObject>

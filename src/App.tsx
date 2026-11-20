@@ -1,3 +1,4 @@
+import { useServerNetwork } from './hooks/useServerNetwork';
 import { PageMotion } from './components/PageMotion';
 import polish from './i18n/polish.json';
 import { caseLabel } from './i18n/display';
@@ -25,6 +26,7 @@ const ScenarioBuilder = lazy(() => import('./components/ScenarioBuilder').then(m
 const NormsLibrary = lazy(() => import('./components/NormsLibrary').then(module => ({ default: module.NormsLibrary })));
 
 export const App: React.FC = () => {
+  useServerNetwork();
   useSyncExternalStore(subscribeCatalog, catalogRevision);
   useEffect(() => { void refreshCustomScenarios(); }, []);
   const [pathname, setPathname] = useState(window.location.pathname);

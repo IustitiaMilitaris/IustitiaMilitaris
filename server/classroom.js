@@ -1,10 +1,21 @@
+import os from 'node:os';
+import { isIP } from 'node:net';
 import { constantEqual, sameOrigin, parseJson } from './security.js';
 import { randomBytes, randomInt } from 'node:crypto';
 import { WebSocketServer } from 'ws';
 export function installClassroom(server, repository) {
   const scenarios = repository.scenarios;
   const rooms = new Map();
-  const wss = new WebSocketServer({ server, path: '/ws', maxPayload: 16 * 1024, verifyClient: info => sameOrigin(info.req) && wss.clients.size < 1000 });
+  const isNetworkProbe = req => {
+    try {
+      if (req.url !== '/ws?network-probe=1') return false;
+      const origin = new URL(req.headers.origin), target = new URL(`http://${req.headers.host}`);
+      const ip = origin.hostname.split('.').map(Number);
+      const privateOrigin = isIP(origin.hostname) === 4 && (ip[0] === 10 || ip[0] === 192 && ip[1] === 168 || ip[0] === 172 && ip[1] >= 16 && ip[1] <= 31);
+      return origin.protocol === 'http:' && privateOrigin && origin.port === target.port && Object.values(os.networkInterfaces()).flat().some(a => a && !a.internal && a.address === target.hostname);
+    } catch { return false; }
+  };
+  const wss = new WebSocketServer({ server, path: '/ws', maxPayload: 16 * 1024, verifyClient: info => (sameOrigin(info.req) || isNetworkProbe(info.req)) && wss.clients.size < 1000 });
   const send = (ws, data) => {
     if (ws.readyState === 1) ws.send(JSON.stringify(data));
   };
@@ -52,6 +63,7 @@ export function installClassroom(server, repository) {
   timer.unref();
   server.on('close', () => clearInterval(timer));
   wss.on('connection', (ws, request) => {
+    if (request.url === '/ws?network-probe=1') { ws.close(1000); return; }
     if (request.headers.origin) {
       try {
         if (new URL(request.headers.origin).host !== request.headers.host) {
@@ -237,5 +249,9 @@ export function installClassroom(server, repository) {
       }
     });
   });
+  rooms.broadcastNetwork = info => {
+    const message = JSON.stringify({ type: 'server_ip_changed', ...info });
+    for (const client of wss.clients) if (client.readyState === 1) client.send(message);
+  };
   return rooms;
 }
