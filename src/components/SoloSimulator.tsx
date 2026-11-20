@@ -1,3 +1,4 @@
+import { progressKey, progressMode } from '../utils/progressMode';
 import { customMetadata } from '../data/scenarios';
 import { TacticalTracker } from './TacticalTracker';
 import productLabels from '../i18n/product.json';
@@ -111,8 +112,10 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
   const [isExportingScorm, setIsExportingScorm] = useState(false);
 
   const caseKey=useRef(customMetadata[scenario.id]?.key).current;
-  const storageId=caseKey?`custom_${caseKey}`:scenario.id;
-  const timer = useScenarioTiming(storageId, phase);
+  const mode = progressMode(new URLSearchParams(location.search).get('mode'));
+  const legacyStorageId=caseKey?`custom_${caseKey}`:scenario.id;
+  const storageId = progressKey(legacyStorageId, mode);
+  const timer = useScenarioTiming(storageId, phase, mode==='10m'?10:mode==='15m'?15:0);
   const product = productLabels[lang];
   useEffect(() => {
     if (
@@ -124,11 +127,11 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
     fetch('/api/progress')
       .then(async (response) => {
         let progress;
-        if (response.ok) progress = (await response.json())[scenario.id];
+        if (response.ok) { const entries=await response.json(); progress=entries[progressKey(scenario.id,mode)] || (mode==='none'?entries[scenario.id]:undefined); }
         else if (response.status === 401) {
           try {
             progress = JSON.parse(
-              localStorage.getItem(`simulator_progress_${storageId}`) ||
+              localStorage.getItem(`simulator_progress_${storageId}`) || (mode==='none'?localStorage.getItem(`simulator_progress_${legacyStorageId}`):null) ||
                 'null'
             );
           } catch {}
@@ -159,7 +162,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
     newPathway: { nodeId: string; variant: Variant }[]
   ) => {
     const progress = {
-      scenarioId: scenario.id,
+      scenarioId: scenario.id, timerMode: mode,
       caseKey,
       timing: timer.timing,
       pathway: newPathway.map((p) => ({
@@ -189,7 +192,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
 
   const handleStartFromBriefing = () => {
     timer.start();
-    window.history.pushState({}, '', `/scenarios/${scenario.id}/play`);
+    window.history.pushState({}, '', `/scenarios/${scenario.id}/play?mode=${mode}`);
     window.dispatchEvent(new PopStateEvent('popstate'));
     setPhase('decision');
     setCurrentNodeId(scenario.pochatkovyi_vuzol);
@@ -227,10 +230,11 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
     setRecordStats(false);
     timer.reset();
     localStorage.removeItem(`simulator_progress_${storageId}`);
+    if(mode==='none')localStorage.removeItem(`simulator_progress_${legacyStorageId}`);
     fetch('/api/progress', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ scenarioId: scenario.id, caseKey, pathway: [] })
+      body: JSON.stringify({ scenarioId: scenario.id, timerMode: mode, caseKey, pathway: [] })
     }).catch(() => {});
     setPathway([]);
     setCurrentNodeId(scenario.pochatkovyi_vuzol);
@@ -384,7 +388,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
                 </div>
               </Collapsible>
             </div>
-            <fieldset className="space-y-2"><legend className="text-sm font-semibold">{product.time}</legend><div className="grid gap-2 sm:grid-cols-3">{[0,10,15].map(mode=><button type="button" key={mode} aria-pressed={timer.mode===mode} className={`action ${timer.mode===mode?'border-justice-gold text-justice-gold':''}`} onClick={()=>timer.setMode(mode)}>{mode===0?product.unlimited:mode===10?product.ten:product.fifteen}</button>)}</div></fieldset>
+            <fieldset className="space-y-2"><legend className="text-sm font-semibold">{product.time}</legend><div className="grid gap-2 sm:grid-cols-3">{[0,10,15].map(mode=><button type="button" key={mode} aria-pressed={timer.mode===mode} className={`action ${timer.mode===mode?'border-justice-gold text-justice-gold':''}`} onClick={()=>window.location.assign(`/scenarios/${scenario.id}?mode=${mode===10?'10m':mode===15?'15m':'none'}`)}>{mode===0?product.unlimited:mode===10?product.ten:product.fifteen}</button>)}</div></fieldset>
             <button
               onClick={handleStartFromBriefing}
               className="im-primary w-full py-3.5 px-6 rounded-sm bg-justice-gold hover:bg-justice-gold text-white font-bold text-sm sm:text-base transition-all shadow-lg shadow-panel flex items-center justify-center gap-2"

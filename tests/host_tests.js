@@ -106,6 +106,14 @@ try {
   await request('/api/progress',{scenarioId:'S01',pathway:caseRoute(firstCase)},cookie);
   const completed=(await(await request('/api/progress',null,cookie)).json()).S01;assert.ok(completed.completedAt);
   await request('/api/progress',{scenarioId:'S01',pathway:completed.pathway,notes:'note'},cookie);assert.equal((await(await request('/api/progress',null,cookie)).json()).S01.completedAt,completed.completedAt);
+  for (const timerMode of ['10m','15m']) {
+    const response=await request('/api/progress',{scenarioId:'S01',timerMode,timing:{mode:timerMode==='10m'?10:15,elapsedSeconds:0},pathway:caseRoute(firstCase).slice(0,1)},cookie);
+    assert.equal(response.status,200);
+  }
+  const modes=await(await request('/api/progress',null,cookie)).json();
+  assert.equal(modes['S01::none'].pathway.length,completed.pathway.length);
+  assert.equal(modes['S01::10m'].pathway.length,1);
+  assert.equal(modes['S01::15m'].pathway.length,1);
   const bob = await request('/api/auth/register', {
     login: 'other-alias',
     password: 'secure-pass'

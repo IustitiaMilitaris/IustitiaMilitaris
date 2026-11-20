@@ -74,7 +74,8 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
     }
   }
   const records = Object.entries(progress).flatMap(([id, entry]) => {
-    const source = allScenarios.find((s) => s.id === id);
+    if(!id.includes('::') && progress[`${id}::none`])return [];
+    const source = allScenarios.find((s) => s.id === id.split('::')[0]);
     if (!source) return [];
     const scenario = localizeScenario(source, lang),
       steps = resolvePath(scenario, entry.pathway);
@@ -153,9 +154,9 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
             {[
               [
                 t.completedCount,
-                `${completed.length} / ${allScenarios.length}`
+                `${new Set(completed.map(r=>r.scenario.id)).size} / ${allScenarios.length}`
               ],
-              [t.teamCount, `${completed.length} / ${allScenarios.length}`],
+              [t.teamCount, `${new Set(completed.map(r=>r.scenario.id)).size} / ${allScenarios.length}`],
               [t.lastPlayed, date(recent)]
             ].map(([label, value]) => (
               <div className="surface space-y-3" key={label}>
@@ -169,11 +170,11 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
           </h2>
           {!records.length && <p className="surface">{t.empty}</p>}
           {records.map(({ id, entry, scenario, steps, complete }) => (
-            <article key={id} className="surface min-w-0 space-y-5" data-testid="profile-case" data-scenario-id={id}>
+            <article key={id} className="surface min-w-0 space-y-5" data-testid="profile-case" data-scenario-id={scenario.id}>
               <header className="flex flex-wrap justify-between items-start gap-3">
                 <div>
                   <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="badge">{caseLabel(id, lang)}</span>
+                    <span className="badge">{caseLabel(scenario.id, lang)}</span><span className="badge">{id.endsWith('::10m')?'10':id.endsWith('::15m')?'15':(lang==='uk'?'Без часу':'Untimed')}{/::(10|15)m$/.test(id)?(lang==='uk'?' хв':' min'):''}</span>
                     <span className="badge">
                       {themes[lang][scenario.tema as keyof typeof themes.en] ||
                         scenario.tema}
@@ -232,7 +233,7 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                          scenarioId: id,
+                          scenarioId: scenario.id, timerMode: id.split('::')[1] || 'none',
                           pathway: entry.pathway,
                           notes: entry.notes
                         })
@@ -264,10 +265,10 @@ export function Auth({ lang, onExit }: { lang: Language; onExit: () => void }) {
                       const response = await fetch('/api/progress', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ scenarioId: id, pathway: [] })
+                        body: JSON.stringify({ scenarioId: scenario.id, timerMode: id.split('::')[1] || 'none', pathway: [] })
                       });
                       if (!response.ok) throw Error();
-                      window.location.assign(`/scenarios/${id}`);
+                      window.location.assign(`/scenarios/${scenario.id}?mode=${id.split('::')[1] || 'none'}`);
                     } catch {
                       setError('serverError');
                     }
