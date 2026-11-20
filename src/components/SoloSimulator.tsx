@@ -1,3 +1,4 @@
+import { customMetadata } from '../data/scenarios';
 import { TacticalTracker } from './TacticalTracker';
 import productLabels from '../i18n/product.json';
 import { useScenarioTiming, formatElapsed } from '../hooks/useScenarioTiming';
@@ -16,7 +17,7 @@ import {
 } from './BriefingDesign';
 import { localizeNorm, localizeScenario } from '../i18n/content';
 import { ui } from '../i18n/ui';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -109,7 +110,9 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
   const [recordStats, setRecordStats] = useState(false);
   const [isExportingScorm, setIsExportingScorm] = useState(false);
 
-  const timer = useScenarioTiming(scenario.id, phase);
+  const caseKey=useRef(customMetadata[scenario.id]?.key).current;
+  const storageId=caseKey?`custom_${caseKey}`:scenario.id;
+  const timer = useScenarioTiming(storageId, phase);
   const product = productLabels[lang];
   useEffect(() => {
     if (
@@ -125,7 +128,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
         else if (response.status === 401) {
           try {
             progress = JSON.parse(
-              localStorage.getItem(`simulator_progress_${scenario.id}`) ||
+              localStorage.getItem(`simulator_progress_${storageId}`) ||
                 'null'
             );
           } catch {}
@@ -157,6 +160,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
   ) => {
     const progress = {
       scenarioId: scenario.id,
+      caseKey,
       timing: timer.timing,
       pathway: newPathway.map((p) => ({
         nodeId: p.nodeId,
@@ -172,7 +176,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
         if (response.status === 401) {
           try {
             localStorage.setItem(
-              `simulator_progress_${scenario.id}`,
+              `simulator_progress_${storageId}`,
               JSON.stringify(progress)
             );
           } catch {}
@@ -222,11 +226,11 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
   const handleRestart = () => {
     setRecordStats(false);
     timer.reset();
-    localStorage.removeItem(`simulator_progress_${scenario.id}`);
+    localStorage.removeItem(`simulator_progress_${storageId}`);
     fetch('/api/progress', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ scenarioId: scenario.id, pathway: [] })
+      body: JSON.stringify({ scenarioId: scenario.id, caseKey, pathway: [] })
     }).catch(() => {});
     setPathway([]);
     setCurrentNodeId(scenario.pochatkovyi_vuzol);

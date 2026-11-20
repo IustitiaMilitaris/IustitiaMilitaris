@@ -26,7 +26,7 @@
     "storagePermission": "Сервер не має прав запису в каталог сценаріїв",
     "storageFull": "На диску сервера немає вільного місця",
     "storageFailed": "Не вдалося записати файл сценарію на сервері",
-    "payloadTooLarge": "Розмір JSON перевищує 512 KiB",
+    "payloadTooLarge": "Тіло запиту перевищує 4 МБ",
     "invalidRequest": "Некоректний запит або заборонений JSON-ключ",
     "invalidResponse": "Сервер повернув неочікувану відповідь",
     "serverError": "Внутрішня помилка сервера",
@@ -51,7 +51,17 @@
     "unknownNorm": "Норма відсутня в довіднику",
     "rootNorm": "Норму варіанта не додано в корінь сценарію",
     "unreachable": "Вузол недосяжний",
-    "storedScenarioTooLarge": "Форматований файл перевищує 2 MiB"
+    "storedScenarioTooLarge": "Форматований файл перевищує 2 MiB",
+    "imageTitle": "Прев’ю зображення",
+    "uploadImage": "Завантажити зображення",
+    "removeImage": "Видалити фото",
+    "imageHelp": "PNG, JPEG або WebP до 2 МБ; ширина оптимізується до 1280 px. SVG заборонено.",
+    "imageInvalid": "Оберіть коректне PNG, JPEG або WebP до 2 МБ. SVG не підтримується.",
+    "invalidImage": "Некоректне зображення або невідповідність сигнатури файла",
+    "imageTooLarge": "Зображення перевищує 2 МБ",
+    "staleScenario": "Каталог змінився. Перезавантажте задачу перед збереженням або видаленням.",
+    "typeTitle": "Для підтвердження видалення введіть точну назву задачі:",
+    "close": "Закрити"
   },
   "en": {
     "save": "Save to catalog",
@@ -80,7 +90,7 @@
     "storagePermission": "The server cannot write to the scenario directory",
     "storageFull": "The server disk is full",
     "storageFailed": "The scenario file could not be written on the server",
-    "payloadTooLarge": "JSON exceeds 512 KiB",
+    "payloadTooLarge": "Request body exceeds 4 MB",
     "invalidRequest": "Invalid request or forbidden JSON key",
     "invalidResponse": "The server returned an unexpected response",
     "serverError": "Internal server error",
@@ -105,6 +115,16 @@
     "unknownNorm": "Norm is missing from the directory",
     "rootNorm": "Option norm is missing from the scenario root",
     "unreachable": "Node is unreachable",
-    "storedScenarioTooLarge": "The formatted file exceeds 2 MiB"
+    "storedScenarioTooLarge": "The formatted file exceeds 2 MiB",
+    "imageTitle": "Preview image",
+    "uploadImage": "Upload image",
+    "removeImage": "Remove photo",
+    "imageHelp": "PNG, JPEG or WebP up to 2 MB; width is optimised to 1280 px. SVG is prohibited.",
+    "imageInvalid": "Choose a valid PNG, JPEG or WebP up to 2 MB. SVG is not supported.",
+    "invalidImage": "Invalid image or mismatched file signature",
+    "imageTooLarge": "Image exceeds 2 MB",
+    "staleScenario": "The catalog has changed. Reload the case before saving or deleting.",
+    "typeTitle": "To confirm deletion, type the exact case title:",
+    "close": "Close"
   }
 }

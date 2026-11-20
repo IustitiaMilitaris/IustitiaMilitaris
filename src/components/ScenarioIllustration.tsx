@@ -1,3 +1,4 @@
+import { customMetadata } from '../data/scenarios';
 import React, { useState } from 'react';
 import { Language } from '../i18n';
 
@@ -7,7 +8,7 @@ const images: Record<string, string> = {
 
 export function ScenarioIllustration({ id, title, lang }: { id: string; title: string; lang: Language }) {
   const [failedSource, setFailedSource] = useState<string | null>(null);
-  const src = images[id];
+  const src = images[id] || customMetadata[id]?.customImageUrl;
   if (!src || failedSource === src) return null;
   return (
     <div className="scenario-illustration group w-full p-1 rounded-sm border border-[var(--border-subtle)] bg-[var(--bg-sidebar)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] mb-2.5">

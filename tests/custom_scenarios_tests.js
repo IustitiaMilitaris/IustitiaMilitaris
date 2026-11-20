@@ -37,7 +37,7 @@ try{
  const large=structuredClone(scenario);large.kontekst='X'.repeat(300000);
  const lanOrigin=base.replace('127.0.0.1','localhost');
  assert.equal((await fetch(lanOrigin+'/api/scenarios/custom',{method:'POST',headers:{'Content-Type':'application/json',Origin:lanOrigin},body:JSON.stringify(large)})).status,200);
- const oversized=structuredClone(scenario);oversized.kontekst='X'.repeat(600000);
+ const oversized=structuredClone(scenario);oversized.kontekst='X'.repeat(4500000);
  const tooBig=await request('POST','/api/scenarios/custom',oversized);assert.equal(tooBig.status,413);assert.equal((await tooBig.json()).error,'payloadTooLarge');
  assert.equal((await request('POST','/api/scenarios/custom',scenario)).status,200);
  const file=path.join(directory,'custom-scenarios/S04.json');const bytes=await readFile(file);assert.notEqual(bytes.subarray(0,3).toString('hex'),'efbbbf');assert.equal(JSON.parse(bytes).id,'S04');

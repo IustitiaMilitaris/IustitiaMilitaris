@@ -29,7 +29,7 @@ const labels=require('../src/i18n/customScenarios.json');
  assert.equal(await p.getByTestId('landing-team-grid').getByRole('button',{name:t.delete,exact:true}).count(),1);
  await p.getByTestId('landing-team-grid').getByRole('button',{name:t.delete,exact:true}).click();await p.getByRole('dialog').waitFor();await p.keyboard.press('Escape');await p.getByRole('dialog').waitFor({state:'hidden'});
  await p.getByTestId('landing-team-grid').getByRole('button',{name:t.delete,exact:true}).click();
- await p.getByRole('dialog').getByRole('button',{name:t.delete,exact:true}).click();await p.waitForFunction(()=>document.querySelectorAll('[data-testid="landing-team-grid"] article').length===3);
+ await p.getByRole('dialog').getByRole('textbox').fill(await p.getByTestId('delete-case-title').textContent());await p.getByRole('dialog').getByRole('button',{name:t.delete,exact:true}).click();await p.waitForFunction(()=>document.querySelectorAll('[data-testid="landing-team-grid"] article').length===3);
  await assert.rejects(fs.access(path.join(dir,'custom-scenarios/S04.json')));
  await guest.reload();await guest.getByTestId('classroom-timer').waitFor();
  await p.goto(base+'/');await p.locator('.scenario-card').first().waitFor();assert.equal(await p.locator('.scenario-card').count(),3);

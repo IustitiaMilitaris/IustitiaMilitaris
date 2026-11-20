@@ -6,7 +6,7 @@ import accountLabels from './i18n/accounts.json';
 import { localizeScenario } from './i18n/content';
 import React, { useState, useEffect, useSyncExternalStore, lazy, Suspense } from 'react';
 import { Scenario } from './types';
-import { catalogReady, catalogRevision, subscribeCatalog, refreshCustomScenarios, allScenarios, teamScenarios } from './data/scenarios';
+import { customMetadata, catalogReady, catalogRevision, subscribeCatalog, refreshCustomScenarios, allScenarios, teamScenarios } from './data/scenarios';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ScenarioCatalog } from './components/ScenarioCatalog';
@@ -209,7 +209,7 @@ export const App: React.FC = () => {
             activeScenario &&
             activeScenario.id === scenarioId && (
               <SoloSimulator
-                key={pathname}
+                key={`${pathname}:${customMetadata[scenarioId]?.key || ''}`}
                 scenario={localizeScenario(activeScenario, lang)}
                 onBackToCatalog={() => setCurrentView('catalog')}
                 lang={lang}

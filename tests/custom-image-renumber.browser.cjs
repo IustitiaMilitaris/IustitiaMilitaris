@@ -1,0 +1,30 @@
+const {chromium}=require('playwright');const {spawn}=require('node:child_process');
+const fs=require('node:fs/promises'),os=require('node:os'),path=require('node:path'),assert=require('node:assert/strict');const labels=require('../src/i18n/customScenarios.json');
+(async()=>{
+ const dir=await fs.mkdtemp(path.join(os.tmpdir(),'image-renumber-browser-'));let server,browser;
+ const start=async()=>{server=spawn(process.execPath,['server/index.js'],{env:{...process.env,PORT:'18577',DATA_DIR:dir},stdio:['ignore','pipe','pipe']});await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('startup')),10000);server.stdout.on('data',d=>{if(String(d).includes('Local:')){clearTimeout(timer);resolve();}});});};
+ try{await start();browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||'/usr/bin/chromium',args:['--no-sandbox']});let iteration=0;
+ for(const lang of ['uk','en'])for(const theme of ['dark','light'])for(const width of [375,1280]){
+ if(iteration++){await new Promise(resolve=>{server.once('exit',resolve);server.kill();});await start();}
+ const c=await browser.newContext({viewport:{width,height:900}});await c.addInitScript(({lang,theme})=>{localStorage.setItem('eds-language',lang);localStorage.setItem('eds-theme',theme);},{lang,theme});const p=await c.newPage(),base='http://127.0.0.1:18577',t=labels[lang];
+ for(const [id,title,color]of [['S04','Training First','#426b84'],['S05','Training Second','#8b7239']]){
+ await p.goto(base+'/builder');await p.locator('[data-field="nazva"]').fill(title);
+ const image=await p.evaluate(color=>{const canvas=document.createElement('canvas');canvas.width=32;canvas.height=18;const ctx=canvas.getContext('2d');ctx.fillStyle=color;ctx.fillRect(0,0,32,18);return canvas.toDataURL('image/png').split(',')[1];},color);
+ await p.getByLabel(t.uploadImage,{exact:true}).setInputFiles({name:'preview.png',mimeType:'image/png',buffer:Buffer.from(image,'base64')});await p.getByTestId('builder-image-preview').waitFor();
+ const saved=p.waitForResponse(r=>r.url().endsWith('/api/scenarios/custom')&&r.request().method()==='POST');await p.getByRole('button',{name:t.save,exact:true}).click();assert.equal((await saved).status(),200);await p.getByText(t.saved,{exact:true}).waitFor();assert.equal(JSON.parse(await fs.readFile(path.join(dir,`custom-scenarios/${id}.json`),'utf8')).image,undefined);await fs.access(path.join(dir,`custom-scenarios/images/${id}.png`));
+ }
+ await p.goto(base+'/');await p.locator('.scenario-card').nth(4).waitFor();const card=p.locator('.scenario-card').filter({hasText:'Training First'});
+ await card.locator('img').waitFor();await p.waitForFunction(()=>[...document.querySelectorAll('.scenario-card img[src*="/api/scenarios/custom/"]')].every(i=>i.naturalWidth>0));
+ const widths=await card.evaluate(e=>{const actions=e.querySelector('[data-testid="custom-card-actions"]').getBoundingClientRect(),cta=e.querySelector('.im-primary').getBoundingClientRect(),buttons=[...e.querySelectorAll('[data-testid="custom-card-actions"] > *')].map(b=>b.getBoundingClientRect());return {left:Math.abs(actions.left-cta.left),right:Math.abs(actions.right-cta.right),height:Math.abs(buttons[0].height-buttons[1].height)};});assert.ok(widths.left<1&&widths.right<1&&widths.height<1);
+ await card.getByRole('button',{name:t.delete,exact:true}).click();await p.getByRole('dialog').waitFor();assert.equal(await p.getByRole('dialog').getByRole('button',{name:t.delete,exact:true}).isDisabled(),true);await p.getByRole('dialog').getByRole('textbox').fill('wrong title');assert.equal(await p.getByRole('dialog').getByRole('button',{name:t.delete,exact:true}).isDisabled(),true);await p.keyboard.press('Escape');await p.getByRole('dialog').waitFor({state:'hidden'});
+ await card.getByRole('button',{name:t.delete,exact:true}).click();assert.equal(await p.getByRole('dialog').getByRole('textbox').inputValue(),'');await p.getByRole('dialog').getByRole('textbox').fill(' Training First ');await p.getByRole('dialog').getByRole('button',{name:t.delete,exact:true}).click();await p.getByRole('dialog').waitFor({state:'hidden'});await p.waitForFunction(()=>document.querySelectorAll('.scenario-card').length===4);
+ await assert.rejects(fs.access(path.join(dir,'custom-scenarios/S05.json')));await assert.rejects(fs.access(path.join(dir,'custom-scenarios/images/S05.png')));assert.equal(JSON.parse(await fs.readFile(path.join(dir,'custom-scenarios/S04.json'),'utf8')).nazva,'Training Second');
+ const second=p.locator('.scenario-card').filter({hasText:'Training Second'});assert.ok((await second.textContent()).includes(lang==='uk'?'ЗАДАЧА 4':'CASE 4'));assert.ok((await second.locator('img').getAttribute('src')).includes('/S04/image'));
+ await p.goto(base+'/builder');await p.getByRole('button',{name:t.save,exact:true}).waitFor();await p.locator('summary').first().click();assert.equal(await p.locator('[data-field="id"]').inputValue(),'S05');
+ await p.goto(base+'/classroom');const group=p.getByTestId('landing-team-grid').locator('article').filter({hasText:'Training Second'});await group.locator('img').waitFor();await group.getByRole('button',{name:t.delete,exact:true}).click();await p.getByRole('dialog').getByRole('textbox').fill('Training Second');await p.getByRole('dialog').getByRole('button',{name:t.delete,exact:true}).click();await p.waitForFunction(()=>document.querySelectorAll('[data-testid="landing-team-grid"] article').length===3);
+ await p.goto(base+'/builder');await p.getByRole('button',{name:t.save,exact:true}).waitFor();await p.locator('summary').first().click();assert.equal(await p.locator('[data-field="id"]').inputValue(),'S04');assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ console.log('PASS upload, card actions, typed deletion, image renumber and count IDs',lang,theme,width);await c.close();
+ }
+ assert.deepEqual((await fs.readdir(path.join(dir,'custom-scenarios/images'))).filter(f=>!f.startsWith('.')),[]);
+ }finally{await browser?.close();server?.kill();await fs.rm(dir,{recursive:true,force:true});}
+})().catch(e=>{console.error(e);process.exitCode=1;});
