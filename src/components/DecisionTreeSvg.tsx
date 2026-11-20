@@ -21,7 +21,7 @@ export const DecisionTreeSvg: React.FC<DecisionTreeSvgProps> = ({
 }) => {
   const lang = useLanguage();
   const arrow = `tree-arrow-${useId().replace(/:/g, '')}`;
-  const { svgRef, headerHeight } = useDiagramHeaderHeight(scenario, lang);
+  const { svgRef, headerHeight, headerBoxHeights } = useDiagramHeaderHeight(scenario, lang);
   const [hovered, setHovered] = useState<{ node: string; option?: number } | null>(null);
   if (selectedPath) return <DecisionPathSvg scenario={scenario} steps={selectedPath} />;
   if (!scenario.vuzly?.length) return <div className="p-8 text-center text-steel-400 text-sm">{ui(lang, 'm27')}</div>;
@@ -60,7 +60,7 @@ export const DecisionTreeSvg: React.FC<DecisionTreeSvgProps> = ({
       {scenario.vuzly.map(node => {
         const pos = layout.positions.get(node.id)!;
         return <g key={node.id} onMouseEnter={() => setHovered({ node: node.id })} onMouseLeave={() => setHovered(null)} data-testid="builder-stage" data-node-id={node.id} data-unreachable={!pos.reachable || unreachableNodeIds.includes(node.id)}>
-          <DecisionStage graph onHoverOption={option => setHovered({ node: node.id, option })} scenario={scenario} node={node} lang={lang} x={pos.x} top={pos.top} headerHeight={headerHeight} active={node.id === currentNodeId} unreachable={!pos.reachable || unreachableNodeIds.includes(node.id)} onSelect={onSelectNode ? () => onSelectNode(node.id) : undefined} />
+          <DecisionStage graph onHoverOption={option => setHovered({ node: node.id, option })} scenario={scenario} node={node} lang={lang} x={pos.x} top={pos.top} headerHeight={headerHeight} headerBoxHeight={headerBoxHeights[node.id]} active={node.id === currentNodeId} unreachable={!pos.reachable || unreachableNodeIds.includes(node.id)} onSelect={onSelectNode ? () => onSelectNode(node.id) : undefined} />
         </g>;
       })}
     </svg>
