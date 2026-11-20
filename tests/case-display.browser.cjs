@@ -48,7 +48,7 @@ async function solo(page,source,lang,branch=0) {
       await context.addInitScript(({theme,lang})=>{localStorage.setItem('eds-theme',theme);localStorage.setItem('eds-language',lang);},{theme,lang});
       const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));
       await page.goto('http://127.0.0.1:18500/');
-      assert.equal(await page.locator('.scenario-card').count(),3);
+      assert.equal(await page.locator('.scenario-card').count(),2);
       for(let i=1;i<=3;i++) assert.equal(await page.getByText(`${lang==='uk'?'ЗАДАЧА':'CASE'} ${i}`,{exact:true}).count(),1);
       await readable(page,lang);
       await page.screenshot({path:path.join(root,`test-results/cases/catalog-${theme}-${lang}-${width}.png`),fullPage:true});
@@ -96,7 +96,7 @@ async function solo(page,source,lang,branch=0) {
         await page.getByRole('heading',{name:sourceFor(source,lang).nazva,exact:true}).waitFor();await readable(page,lang);
       }
       await page.goto('http://127.0.0.1:18500/classroom');
-      assert.equal(await page.locator('[data-testid="landing-team-grid"] article').count(),3);
+      assert.equal(await page.locator('[data-testid="landing-team-grid"] article').count(),2);
       assert.equal(await page.locator('[data-testid="landing-examples-grid"]').count(),0);
       await readable(page,lang);
       assert.equal((await page.request.post('http://127.0.0.1:18500/api/auth/register',{data:{login:`cases-${theme}-${lang}-${width}`,password:'case-check-pass'}})).status(),200);
@@ -107,7 +107,7 @@ async function solo(page,source,lang,branch=0) {
       await page.locator('main details summary').evaluateAll(elements=>elements.forEach(e=>e.click()));
       await readable(page,lang);
       assert.deepEqual(errors,[]);await context.close();
-      console.log('PASS cases:',theme,lang,width,'catalogue, complete solo paths, 26 desktop nodes, summaries, profile, 62 norms/3 courts, builder previews, SCORM content/letters/privacy');
+      console.log('PASS cases:',theme,lang,width,'catalogue, complete solo paths, 26 desktop nodes, summaries, profile, 60 norms/2 courts, builder previews, SCORM content/letters/privacy');
     }
   } finally {
     await browser?.close();server.kill('SIGTERM');await new Promise(resolve=>server.exitCode!==null?resolve():server.once('exit',resolve));await new Promise(resolve=>exported.close(resolve));await fs.rm(directory,{recursive:true,force:true});

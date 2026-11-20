@@ -74,7 +74,7 @@ await test('Every legal reference exists; unverified sources retain honest statu
   }
   for(const norm of norms.normy) if(norm.status_zvirky!=='ne-zvireno') assert.ok(norm.tsytaty.length>0);
   const courts=norms.normy.filter(n=>n.id.startsWith('VS-'));
-  assert.equal(courts.length,3);assert.ok(courts.every(n=>n.status_zvirky==='ne-zvireno' || n.tsytaty.some(quote=>quote.trim())));
+  assert.equal(courts.length,2);assert.ok(courts.every(n=>n.status_zvirky==='ne-zvireno' || n.tsytaty.some(quote=>quote.trim())));
 });
 await test('Actual localization preserves custom imports and switches complete built-in content', () => {
   for(const source of allScenarios) {
@@ -153,13 +153,13 @@ await test('Norm display codes localize every source prefix without changing int
   assert.equal(formatNormDisplayId('DS-22','uk'),'ЗДС-22');
 });
 
-await test('Compact norm points retain article and court numbers; corrected SC outcomes stay unverified', () => {
+await test('Compact norm points retain article and court numbers; verified SC evidence assessment', () => {
   const {formatNormChipPoint}=load(root+'/src/i18n/normDisplay.ts');
   assert.equal(formatNormChipPoint({id:'ZPK-1',punkt:'ст. 1 — визначення термінів'},'uk'),'ст. 1');
   assert.equal(formatNormChipPoint({id:'ZPK-1',punkt:'Article 1: definitions'},'en'),'Art. 1');
-  assert.equal(formatNormChipPoint(norms.normy.find(n=>n.id==='VS-826-5931-16'),'uk'),'№ 826/5931/16');
-  const court=norms.normy.find(n=>n.id==='VS-335-10825-16');assert.equal(court.status_zvirky,'ne-zvireno');assert.match(court.korotko,/скасував виправдувальний вирок/);assert.match(court.punkt,/51-4643км23/);
-  assert.match(scenarios[2].vuzly[6].tekst,/скасував виправдувальний вирок/);
+  assert.equal(formatNormChipPoint(norms.normy.find(n=>n.id==='VS-9901-72-19'),'uk'),'№ 9901/72/19');
+  const court=norms.normy.find(n=>n.id==='VS-335-10825-16');assert.equal(court.status_zvirky,'zvireno');assert.match(court.korotko,/показань свідка/);assert.match(court.punkt,/51-4643км23/);
+  assert.match(scenarios[2].vuzly[6].tekst,/показань свідка/);
 });
 
 await test('LAN redirect only leaves inactive private IPv4 and preserves the route', () => {
@@ -170,11 +170,11 @@ await test('LAN redirect only leaves inactive private IPv4 and preserves the rou
   for(const preferredOrigin of ['http://example.org:3000','http://192.168.1.20:4000','https://192.168.1.20:3000','http://user:pass@192.168.1.20:3000']) assert.equal(networkRedirect('http://192.168.1.10:3000/',{...info,preferredOrigin}),null);
 });
 
-await test('Legal bases match the exact team allowlist and scenario references', () => {
+await test('Legal bases match the current verified team allowlist and scenario references', () => {
  const allowed=JSON.parse(fs.readFileSync(root+'/tests/allowed-norm-ids.json','utf8')).sort();
  const uk=JSON.parse(fs.readFileSync(root+'/normy.json','utf8')).normy;
  const en=JSON.parse(fs.readFileSync(root+'/src/i18n/norms.en.json','utf8')).normy;
- assert.equal(allowed.length,62);
+ assert.equal(allowed.length,60);
  assert.deepEqual(uk.map(n=>n.id).sort(),allowed);
  assert.deepEqual(Object.keys(en).sort(),allowed);
  for(const scenario of scenarios){assert.ok(scenario.normy.length);for(const ref of scenario.normy)assert.ok(allowed.includes(ref.id));for(const node of scenario.vuzly)for(const option of node.varianty)for(const id of option.normy)assert.ok(allowed.includes(id));}
