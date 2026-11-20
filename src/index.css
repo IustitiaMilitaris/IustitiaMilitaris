@@ -991,8 +991,8 @@ body[data-projector='true'] .projector-session .unified-tracker .tracker-clock {
 .diagram-stage-header > strong, .diagram-stage-header > .diagram-stage-title { width: 100%; text-align: left; }
 .diagram-stage-header .quoted-stage-fragment { text-align: left; margin-inline: 0; }
 
-:root { --graph-header-bg: rgba(107, 174, 196, 0.12); --graph-header-border: rgba(107, 174, 196, 0.42); }
-:root[data-theme='light'] { --graph-header-bg: rgba(29, 105, 130, 0.08); --graph-header-border: rgba(29, 105, 130, 0.32); }
+:root { --graph-header-bg: rgba(107, 174, 196, 0.08); --graph-header-border: rgba(107, 174, 196, 0.22); }
+:root[data-theme='light'] { --graph-header-bg: rgba(29, 105, 130, 0.06); --graph-header-border: rgba(29, 105, 130, 0.22); }
 .task-prose { text-align: justify; text-align-last: left; hyphens: auto; }
 
 .diagram-stage-header > strong, .diagram-stage-header > .diagram-stage-title { flex-shrink: 0; }
