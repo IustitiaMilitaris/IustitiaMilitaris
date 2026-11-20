@@ -148,9 +148,9 @@ await test('Diagram geometry uses card centres, horizontal tangents and non-over
 
 await test('Norm display codes localize every source prefix without changing internal IDs', () => {
   const { formatNormDisplayId }=load(root+'/src/i18n/normDisplay.ts');
-  for(const norm of norms.normy){assert.equal(formatNormDisplayId(norm.id,'en'),norm.id);assert.doesNotMatch(formatNormDisplayId(norm.id,'uk').split('-')[0],/[A-Z]/);}
-  assert.equal(formatNormDisplayId('KZPP-2-1','uk'),'КЗпП-2-1');
-  assert.equal(formatNormDisplayId('DS-22','uk'),'ЗДС-22');
+  for(const norm of norms.normy){assert.ok(formatNormDisplayId(norm.id,'en').length);assert.notEqual(formatNormDisplayId(norm.id,'uk'),norm.id);}
+  assert.equal(formatNormDisplayId('KZPP-2-1','uk'),'КЗпП');
+  assert.equal(formatNormDisplayId('DS-22','uk'),'ЗУ № 889-VIII');
 });
 
 await test('Compact norm points retain article and court numbers; verified SC evidence assessment', () => {

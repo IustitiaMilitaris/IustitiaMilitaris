@@ -493,7 +493,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
                 )}
               </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-3">
               <Consequence title={copy.immediate}>
                 {selectedVariant.naslidky.odrazu}
               </Consequence>
