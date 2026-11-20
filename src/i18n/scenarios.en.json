@@ -86,8 +86,7 @@
             "zvorotnyi_zviazok": "Seniority as a guide, with a risk of opacity. Experience is useful, but it is not yet clear whether these particular competencies match the programme. A single refusal of training does not in itself establish mobbing. Systematic, unjustified restrictions require assessment under Articles 2-1 and 2-2 of the Labour Code; mobbing requires the statutory elements to be established, rather than mere disagreement with the selection.",
             "normy": [
               "KZPP-2-1",
-              "KZPP-2-2",
-              "VS-761-42072-23"
+              "KZPP-2-2"
             ],
             "nastupnyi_vuzol": "V2"
           },
@@ -852,10 +851,6 @@
         "yak_zastosovuietsia": "Examination of possible mobbing, including systematic restrictions on training and career development. Disagreement with a single decision does not itself establish mobbing."
       },
       {
-        "id": "VS-761-42072-23",
-        "yak_zastosovuietsia": "The Supreme Court ruling of 25 February 2026 in case No. 761/42072/23 concerns mobbing and discrimination against an employee of JSC NNEGC Energoatom. According to the source document, dismissal of the claim was upheld because the alleged conduct was not proved. The learning question is that a single refusal of a trip does not itself prove mobbing; systematic conduct, duration, intent and other statutory elements must be examined. Systematic unjustified restrictions on access to training may require examination for discrimination or mobbing. Directory link: https://youcontrol.com.ua/catalog/court-document/122935566/."
-      },
-      {
         "id": "ZPK-1",
         "yak_zastosovuietsia": "Private interest, potential and actual conflicts of interest, undue benefit and whistleblower status criteria. Personal ties must be considered against specific powers and their influence on a decision."
       },
@@ -1570,8 +1565,7 @@
             "chomu_taki_baly": "Integrity (+2): the decision rests on fact-checking and a lawful procedure. Effectiveness (-1): further checks or review take time and resources. Checking and establishing the circumstances may take additional time but permits legal assessment of those involved's actions. Trust (+1): Holding guilty persons accountable where all lawful grounds exist supports restored legality, protection of state interests and prevention of similar future violations.",
             "zvorotnyi_zviazok": "Article 364 of Ukraine's Criminal Code provides liability for an official's intentional use of authority or official position contrary to service interests to obtain an undue benefit for themselves or another person, where this causes significant harm to legally protected rights, freedoms and interests. Examine whether the person is a qualifying subject of this offence; used official powers contrary to service interests; acted intentionally and with the statutory purpose; caused significant harm; and whether a causal link exists between the official's actions and that harm. Changing competition results does not automatically constitute an Article 364 offence. All mandatory elements must be proved.",
             "normy": [
-              "KK-364",
-              "VS-761-12291-16-k"
+              "KK-364"
             ],
             "nastupnyi_vuzol": "V8"
           },
@@ -1591,7 +1585,6 @@
             "zvorotnyi_zviazok": "Article 185 of Ukraine's Criminal Code concerns secretly stealing another person's property. This situation concerns abuse of official powers rather than secret appropriation of property.",
             "normy": [
               "KK-364",
-              "VS-761-12291-16-k",
               "KK-185"
             ],
             "nastupnyi_vuzol": "V8"
@@ -1612,7 +1605,6 @@
             "zvorotnyi_zviazok": "Article 125 of Ukraine's Criminal Code concerns intentional minor bodily injury. There is no information here about anyone suffering bodily injury.",
             "normy": [
               "KK-364",
-              "VS-761-12291-16-k",
               "KK-125"
             ],
             "nastupnyi_vuzol": "V8"
@@ -1633,7 +1625,6 @@
             "zvorotnyi_zviazok": "Article 190 of Ukraine's Criminal Code concerns obtaining another person's property or property rights through deception or abuse of trust. Here, the central issue for legal assessment is improper use of official powers during personnel selection.",
             "normy": [
               "KK-364",
-              "VS-761-12291-16-k",
               "KK-190"
             ],
             "nastupnyi_vuzol": "V8"
@@ -1832,10 +1823,6 @@
       {
         "id": "KK-364",
         "yak_zastosovuietsia": "Assessing abuse of authority or official position requires examination of all offence elements, including the subject, intent, specific purpose, significant harm and causation."
-      },
-      {
-        "id": "VS-761-12291-16-k",
-        "yak_zastosovuietsia": "Assessing abuse of official position during competitive selection requires proof of a qualifying subject, intent, statutory purpose, significant harm and causation. Altering scores alone is insufficient."
       },
       {
         "id": "KK-185",
