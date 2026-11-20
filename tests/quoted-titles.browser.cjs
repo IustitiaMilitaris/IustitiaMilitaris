@@ -45,6 +45,7 @@ const fs=require('node:fs/promises'),os=require('node:os'),path=require('node:pa
  state=(await action(host,{type:'NEXT_STAGE',hostSecret:secret},m=>m.room?.phase==='voting'||m.room?.phase==='finished')).room;
  }
  await p.getByTestId('path-stage').first().waitFor();assert.equal(await p.getByTestId('path-stage').count(),8);assert.equal(await p.getByTestId('selected-curve').count(),7);
+ const leftEdges=await p.locator('.diagram-stage-title').evaluateAll(es=>es.map(e=>{const label=e.previousElementSibling;return {align:getComputedStyle(e).textAlign,delta:Math.abs(e.getBoundingClientRect().left-label.getBoundingClientRect().left)};}));leftEdges.forEach(e=>{assert.equal(e.align,'left');assert.ok(e.delta<1);});
  const quoteLayout=await p.locator('.diagram-stage-title .quoted-stage-fragment').evaluateAll(es=>es.map(e=>{const c=document.createElement('canvas').getContext('2d');c.font=getComputedStyle(e).font;const range=document.createRange();range.selectNodeContents(e);return {natural:c.measureText(e.textContent).width,available:e.parentElement.clientWidth,lines:range.getClientRects().length,bottom:e.getBoundingClientRect().bottom,option:e.closest('[data-testid="path-stage"]').querySelector('[data-testid="path-option"] rect').getBoundingClientRect().top};}));
  assert.ok(quoteLayout.length>0);quoteLayout.forEach(q=>{if(q.natural<=q.available)assert.equal(q.lines,1);assert.ok(q.bottom<=q.option);});
  const percentages=await p.getByTestId('vote-percentage').allTextContents();assert.deepEqual(percentages,width===1280?['67%','33%']:['100%']);

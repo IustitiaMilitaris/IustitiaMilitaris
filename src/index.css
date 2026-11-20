@@ -985,4 +985,4 @@ body[data-projector='true'] .projector-session .unified-tracker .tracker-clock {
 .builder-utilities svg { flex-shrink: 0; }
 
 .progress-chip.is-current { display: inline-block; }
-.diagram-stage-title { text-align: center; overflow-wrap: break-word; }
+.diagram-stage-title { text-align: left; overflow-wrap: break-word; }
