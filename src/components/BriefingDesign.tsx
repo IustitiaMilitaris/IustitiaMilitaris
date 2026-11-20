@@ -1,3 +1,4 @@
+import { QuotedStageTitle } from './QuotedStageTitle';
 import { HighlightedText } from './HighlightedText';
 import { caseLabel, stageLabel } from '../i18n/display';
 import React from 'react';
@@ -102,7 +103,7 @@ export function StageStepper({
         >
           {i > 0 && <span aria-hidden="true" className="w-2 sm:w-3 h-px bg-steel-700 mr-1.5 sm:mr-2 shrink-0" />}
           <span className={`progress-chip ${i === completed ? 'is-current' : ''} inline-flex items-center justify-center px-2.5 py-1 rounded-sm border font-mono text-xs ${i === completed ? 'border-justice-gold bg-justice-gold/10 text-justice-gold font-bold' : i < completed ? 'border-tactical-ice/60 bg-tactical-ice/10 text-tactical-ice font-semibold' : 'opacity-[.35] blur-[0.4px] bg-obsidian-900/60 border-steel-700/50 text-steel-400'}`}>
-            {i === completed ? `${i + 1} · ${title}` : i + 1}
+            {i === completed ? <QuotedStageTitle text={`${i + 1} · ${title}`} /> : i + 1}
           </span>
         </li>
       ))}

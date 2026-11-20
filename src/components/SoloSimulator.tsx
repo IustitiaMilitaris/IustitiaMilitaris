@@ -411,7 +411,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
             </Dossier>
 
             <div>
-              <h2 className="im-title font-serif text-base sm:text-xl font-bold text-white leading-snug">
+              <h2 data-testid="stage-question" className="im-title font-serif text-base sm:text-xl font-bold text-white leading-snug text-center w-full">
                 {currentNode.zapytannia}
               </h2>
               <p className="text-xs text-steel-300 mt-1">

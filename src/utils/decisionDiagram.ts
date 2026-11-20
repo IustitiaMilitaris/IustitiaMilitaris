@@ -1,6 +1,6 @@
 import type { Scenario } from '../types';
 
-export const diagram = { width: 280, gap: 112, header: 84, row: 88, box: 72, padding: 16 };
+export const diagram = { width: 280, gap: 112, header: 156, row: 88, box: 72, padding: 16 };
 export type Point = { x: number; y: number };
 
 export function choiceRect(x: number, top: number, index: number) {

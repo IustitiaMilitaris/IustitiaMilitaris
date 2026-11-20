@@ -623,7 +623,7 @@ export function GroupSession({
                     >
                       {node.tekst || scenario.sytuatsiia}
                     </Dossier>
-                    <h2 className="im-title font-serif text-xl font-bold text-white">{node.zapytannia}</h2>
+                    <h2 data-testid="stage-question" className="im-title font-serif text-xl font-bold text-white text-center w-full">{node.zapytannia}</h2>
 
                   </article>
                   {room.phase === 'voting' && (
@@ -692,7 +692,7 @@ export function GroupSession({
                       )}
                       {host && (
                         <button
-                          className="action-primary"
+                          className="action-primary w-full flex items-center justify-center"
                           onClick={() => send('SHOW_RESULTS')}
                         >
                           {t.results}
@@ -754,7 +754,7 @@ export function GroupSession({
 <NormChips ids={inspectedVariant.normy} lang={lang} onSelect={setNorm} />
                       {host && room.phase === 'feedback' && (
                         <button
-                          className="action-primary"
+                          className="action-primary w-full flex items-center justify-center"
                           onClick={() => send('NEXT_STAGE')}
                         >
                           {variant?.nastupnyi_vuzol
