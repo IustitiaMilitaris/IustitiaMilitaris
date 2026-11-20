@@ -740,7 +740,7 @@ export function GroupSession({
                         {variantLabel(scenario, node.id, inspectedVariant.id, lang)} ·{' '}
                         {inspectedVariant.tekst}
                       </h2>
-                      <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="flex flex-col gap-3">
                         <Consequence title={t.immediate}>
                           {inspectedVariant.naslidky.odrazu}
                         </Consequence>

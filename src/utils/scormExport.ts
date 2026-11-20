@@ -298,7 +298,8 @@ function generateStandaloneHtmlPlayer(
       padding-top: 1rem;
       border-top: 1px solid var(--card-border);
     }
-  </style>
+   .consequence-stack { display:flex; flex-direction:column; gap:12px; } .consequence-immediate { border-left:4px solid #6BAEC4; } .consequence-delayed { border-left:4px solid #D99B38; }
+</style>
 </head>
 <body>
   <div class="container" id="app">
@@ -387,11 +388,13 @@ function generateStandaloneHtmlPlayer(
           var value = v.baly[axis];
           element('div', (value > 0 ? '+' : '') + value, 'score-val ' + (value > 0 ? 'pos' : value < 0 ? 'neg' : 'zero'), card);
         });
-        var feedback = element('div', undefined, 'feedback-box');
-        element('strong', labels.s12, undefined, feedback);
-        element('p', v.naslidky.odrazu, undefined, feedback);
-        element('strong', labels.s13, undefined, feedback);
-        element('p', v.naslidky.vidkladeni, undefined, feedback);
+        var feedback = element('div', undefined, 'consequence-stack');
+        var immediate = element('div', undefined, 'feedback-box consequence-immediate', feedback);
+        var delayed = element('div', undefined, 'feedback-box consequence-delayed', feedback);
+        element('strong', labels.s12, undefined, immediate);
+        element('p', v.naslidky.odrazu, undefined, immediate);
+        element('strong', labels.s13, undefined, delayed);
+        element('p', v.naslidky.vidkladeni, undefined, delayed);
         element('strong', labels.s14);
         element('p', v.chomu_taki_baly);
         var analysis = element('div', undefined, 'context-box');
