@@ -1,3 +1,4 @@
+import { useDiagramHeaderHeight } from '../hooks/useDiagramHeaderHeight';
 import React, { useId, useState } from 'react';
 import type { Scenario } from '../types';
 import { variantLabel } from '../i18n/display';
@@ -20,10 +21,11 @@ export const DecisionTreeSvg: React.FC<DecisionTreeSvgProps> = ({
 }) => {
   const lang = useLanguage();
   const arrow = `tree-arrow-${useId().replace(/:/g, '')}`;
+  const { svgRef, headerHeight } = useDiagramHeaderHeight(scenario, lang);
   const [hovered, setHovered] = useState<{ node: string; option?: number } | null>(null);
   if (selectedPath) return <DecisionPathSvg scenario={scenario} steps={selectedPath} />;
   if (!scenario.vuzly?.length) return <div className="p-8 text-center text-steel-400 text-sm">{ui(lang, 'm27')}</div>;
-  const layout = layoutDecisionStages(scenario);
+  const layout = layoutDecisionStages(scenario, headerHeight);
   const groups = scenario.vuzly.flatMap(node => {
     const targets = new Map<string, number[]>();
     node.varianty.forEach((v, index) => {
@@ -33,11 +35,11 @@ export const DecisionTreeSvg: React.FC<DecisionTreeSvgProps> = ({
     return [...targets].map(([to, options]) => ({ node, to, options }));
   });
   return <div className="decision-path-scroll w-full overflow-x-auto rounded-sm border border-steel-700 bg-obsidian-950/80 p-4" tabIndex={0} aria-label={lang === 'uk' ? 'Граф рішень' : 'Decision graph'}>
-    <svg width={layout.width + 64} height={layout.height} className="block select-none" role="img" aria-label={lang === 'uk' ? 'Усі етапи та варіанти' : 'All stages and options'}>
+    <svg ref={svgRef} width={layout.width + 64} height={layout.height} className="block select-none" role="img" aria-label={lang === 'uk' ? 'Усі етапи та варіанти' : 'All stages and options'}>
       <defs><DiagramArrow id={arrow} color="#6BAEC4" size={5} /><DiagramArrow id={`${arrow}-active`} color="#C8A456" size={5} /></defs>
       {groups.map(({ node, to, options }) => {
         const from = layout.positions.get(node.id)!, target = layout.positions.get(to)!;
-        const rects = options.map(index => choiceRect(from.x, from.top + diagram.header, index));
+        const rects = options.map(index => choiceRect(from.x, from.top + headerHeight, index));
         const incoming = groups.filter(edge => edge.to === to).flatMap(edge => edge.options.map(option => ({ node: edge.node.id, option })));
         const active = node.id === currentNodeId ||
           (visitedNodeIds.includes(node.id) && visitedNodeIds.includes(to)) ||
@@ -58,7 +60,7 @@ export const DecisionTreeSvg: React.FC<DecisionTreeSvgProps> = ({
       {scenario.vuzly.map(node => {
         const pos = layout.positions.get(node.id)!;
         return <g key={node.id} onMouseEnter={() => setHovered({ node: node.id })} onMouseLeave={() => setHovered(null)} data-testid="builder-stage" data-node-id={node.id} data-unreachable={!pos.reachable || unreachableNodeIds.includes(node.id)}>
-          <DecisionStage graph onHoverOption={option => setHovered({ node: node.id, option })} scenario={scenario} node={node} lang={lang} x={pos.x} top={pos.top} active={node.id === currentNodeId} unreachable={!pos.reachable || unreachableNodeIds.includes(node.id)} onSelect={onSelectNode ? () => onSelectNode(node.id) : undefined} />
+          <DecisionStage graph onHoverOption={option => setHovered({ node: node.id, option })} scenario={scenario} node={node} lang={lang} x={pos.x} top={pos.top} headerHeight={headerHeight} active={node.id === currentNodeId} unreachable={!pos.reachable || unreachableNodeIds.includes(node.id)} onSelect={onSelectNode ? () => onSelectNode(node.id) : undefined} />
         </g>;
       })}
     </svg>

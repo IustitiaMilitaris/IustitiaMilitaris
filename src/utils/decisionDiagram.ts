@@ -12,7 +12,7 @@ export function horizontalCurve(from: Point, to: Point): string {
   return `M ${from.x} ${from.y} C ${from.x + dx} ${from.y}, ${to.x - dx} ${to.y}, ${to.x} ${to.y}`;
 }
 
-export function layoutDecisionStages(scenario: Scenario) {
+export function layoutDecisionStages(scenario: Scenario, headerHeight = diagram.header) {
   const levels = new Map<string, number>();
   const nodes = new Map(scenario.vuzly.map(node => [node.id, node]));
   const queue = [{ id: scenario.pochatkovyi_vuzol, level: 0 }];
@@ -31,11 +31,11 @@ export function layoutDecisionStages(scenario: Scenario) {
     const level = levels.get(node.id) ?? last;
     const top = offsets.get(level) ?? 8;
     positions.set(node.id, { x: diagram.padding + level * (diagram.width + diagram.gap), top, reachable: levels.has(node.id) });
-    offsets.set(level, top + diagram.header + node.varianty.length * diagram.row + 32);
+    offsets.set(level, top + headerHeight + node.varianty.length * diagram.row + 32);
   }
   return {
     positions,
     width: Math.max(320, ...[...positions.values()].map(p => p.x + diagram.width + diagram.padding)),
-    height: Math.max(260, ...offsets.values())
+    height: Math.max(0, ...[...positions.entries()].map(([id, position]) => position.top + headerHeight + (nodes.get(id)!.varianty.length - 1) * diagram.row + diagram.box + diagram.padding))
   };
 }

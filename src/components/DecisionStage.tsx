@@ -11,9 +11,9 @@ export function DiagramArrow({ id, color, size = 10 }: { id: string; color: stri
   </marker>;
 }
 
-export function DecisionStage({ scenario, node, lang, x, top, selectedIndex, active, unreachable, onSelect, graph = false, onHoverOption, votes } : {
+export function DecisionStage({ scenario, node, lang, x, top, selectedIndex, active, unreachable, onSelect, graph = false, onHoverOption, votes, headerHeight = diagram.header } : {
   scenario: Scenario; node: Node; lang: Language; x: number; top: number;
-  votes?: Record<string,number>;
+  votes?: Record<string,number>; headerHeight?: number;
   selectedIndex?: number; active?: boolean; unreachable?: boolean; onSelect?: () => void; graph?: boolean; onHoverOption?: (index: number | undefined) => void;
 }) {
   const heading = stageLabel(scenario, node.id, lang);
@@ -21,8 +21,8 @@ export function DecisionStage({ scenario, node, lang, x, top, selectedIndex, act
   const title = /^(Етап|Stage)\s*\d+\s*[·.:–—-]/u.test(firstLine) ? firstLine.replace(/^(Етап|Stage)\s*\d+\s*[·.:–—-]\s*/u,'') : heading.split(' · ').slice(1).join(' · ');
   const header = <><strong className="block text-left font-mono text-xs uppercase tracking-widest text-justice-gold">{stageLabel(scenario, node.id, lang, false)}</strong><span className="diagram-stage-title block mt-2 text-sm leading-snug"><QuotedStageTitle text={title} quoteOnNewLine /></span></>;
   return <>
-    {graph && <rect x={x} y={top} width={diagram.width} height={diagram.header - 12} rx={2} fill={active ? 'rgba(200,164,86,.13)' : 'var(--graph-surface)'} stroke={unreachable ? 'var(--graph-warning)' : active ? '#C8A456' : 'rgb(var(--slate-600))'} strokeDasharray={unreachable ? '4 2' : undefined} />}
-    <foreignObject x={x} y={top} width={diagram.width} height={diagram.header - 8}>
+    {graph && <rect x={x} y={top} width={diagram.width} height={headerHeight - 12} rx={2} fill={active ? 'rgba(200,164,86,.13)' : 'var(--graph-surface)'} stroke={unreachable ? 'var(--graph-warning)' : active ? '#C8A456' : 'rgb(var(--slate-600))'} strokeDasharray={unreachable ? '4 2' : undefined} />}
+    <foreignObject x={x} y={top} width={diagram.width} height={headerHeight - 8}>
       {onSelect ? <button type="button" data-testid="builder-stage-button" onClick={onSelect} title={heading} aria-pressed={!!active} className="diagram-stage-header diagram-stage-button w-full h-full text-left p-2 text-steel-100">{header}</button> : <div className="diagram-stage-header text-steel-100">{header}</div>}
     </foreignObject>
     {node.varianty.map((variant, index) => {
@@ -31,7 +31,7 @@ export function DecisionStage({ scenario, node, lang, x, top, selectedIndex, act
       const total=Object.values(votes || {}).reduce((a,b)=>a+b,0);
       const voted=count>0;
       const percentage=total?Math.round(count/total*100):0;
-      const rect = choiceRect(x, top + diagram.header, index);
+      const rect = choiceRect(x, top + headerHeight, index);
       const content = <><strong className="shrink-0 font-mono" style={{ color: selected ? 'rgb(var(--justice-gold))' : 'inherit' }}>{variantLabel(scenario, node.id, variant.id, lang)}</strong><span className="line-clamp-2">{variant.tekst}</span>{voted && <span data-testid="vote-percentage" className="shrink-0 font-mono text-[11px]">{percentage}%</span>}{selected && <span className="shrink-0" aria-label={lang === 'uk' ? 'Обрано' : 'Selected'}>✓</span>}</>;
       return <g key={variant.id} onMouseEnter={() => onHoverOption?.(index)} onMouseLeave={() => onHoverOption?.(undefined)} data-testid={graph ? 'builder-option' : 'path-option'} data-selected={selected} data-voted={voted} data-vote-count={count}>
         <rect {...rect} rx={2} fill={selected ? 'rgba(200,164,86,.13)' : voted ? 'rgba(107,174,196,.1)' : 'var(--graph-surface)'} stroke={selected ? '#C8A456' : voted ? '#6BAEC4' : 'rgb(var(--slate-600))'} />
