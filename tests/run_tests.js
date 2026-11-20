@@ -162,4 +162,12 @@ await test('Compact norm points retain article and court numbers; corrected SC o
   assert.match(scenarios[2].vuzly[6].tekst,/скасував виправдувальний вирок/);
 });
 
+await test('LAN redirect only leaves inactive private IPv4 and preserves the route', () => {
+  const { networkRedirect } = load(root+'/src/utils/serverNetwork.ts');
+  const info = { preferredOrigin:'http://192.168.1.20:3000', lanIps:['192.168.1.20'], lanUrls:[] };
+  assert.equal(networkRedirect('http://192.168.1.10:3000/classroom/host/123456?q=1#stage',info),'http://192.168.1.20:3000/classroom/host/123456?q=1#stage');
+  for(const host of ['localhost','127.0.0.1','example.org','192.168.1.20']) assert.equal(networkRedirect(`http://${host}:3000/classroom/host/123456`,info),null);
+  for(const preferredOrigin of ['http://example.org:3000','http://192.168.1.20:4000','https://192.168.1.20:3000','http://user:pass@192.168.1.20:3000']) assert.equal(networkRedirect('http://192.168.1.10:3000/',{...info,preferredOrigin}),null);
+});
+
 console.log(`${passed}/${total} tests passed (${Math.round(100*passed/total)}%)`);

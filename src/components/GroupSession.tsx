@@ -155,6 +155,7 @@ export function GroupSession({
       };
       ws.onmessage = (e) => {
         const data = JSON.parse(e.data);
+        if (data.type === 'server_ip_changed') window.dispatchEvent(new CustomEvent('server-network', { detail: data }));
         if (data.type === 'ROOM_CREATED') {
           activeCode.current = data.room.code;
           sessionStorage.setItem(
@@ -202,7 +203,7 @@ export function GroupSession({
   useEffect(() => {
     if (!room?.code || !host) return;
     let cancelled = false;
-    fetch('/api/server-info')
+    const refresh = () => fetch('/api/server-info')
       .then((r) => r.json())
       .then(async (info) => {
         const url = `${info.preferredOrigin}/classroom/join/${room.code}`;
@@ -213,8 +214,12 @@ export function GroupSession({
         }
       })
       .catch(() => setLink(`${location.origin}/classroom/join/${room.code}`));
+    const update = () => { void refresh(); };
+    update();
+    window.addEventListener('server-network', update);
     return () => {
       cancelled = true;
+      window.removeEventListener('server-network', update);
     };
   }, [room?.code, host]);
   const source = room?.scenario || allScenarios.find((s) => s.id === room?.scenarioId);

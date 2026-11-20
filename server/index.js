@@ -65,17 +65,22 @@ function lanUrls() {
     .filter((a) => a.family === 'IPv4' && !a.internal)
     .map((a) => `http://${a.address}:${PORT}`);
 }
-app.get('/api/server-info', (req, res) => {
+function networkInfo() {
   const urls = lanUrls();
-  const host = req.headers.host || '';
-  const origin = `${req.protocol}://${host}`;
-  res.json({
-    lanUrls: urls,
-    preferredOrigin: /^(localhost|127\.0\.0\.1|\[::1\])(?::|$)/.test(host)
-      ? urls[0] || origin
-      : origin
-  });
-});
+  return { lanUrls: urls, lanIps: urls.map(url => new URL(url).hostname), preferredOrigin: urls[0] || `http://localhost:${PORT}` };
+}
+app.get('/api/server-info', (req, res) => res.json(networkInfo()));
+let lastPreferredOrigin = networkInfo().preferredOrigin;
+const networkWatcher = setInterval(() => {
+  const info = networkInfo();
+  if (info.preferredOrigin === lastPreferredOrigin) return;
+  lastPreferredOrigin = info.preferredOrigin;
+  console.log(`Network IP changed -> ${info.preferredOrigin}`);
+  for (const url of info.lanUrls) console.log(`Network (LAN): ${url}`);
+  rooms.broadcastNetwork(info);
+}, 5000);
+networkWatcher.unref();
+server.on('close', () => clearInterval(networkWatcher));
 app.use('/api', (req, res) => res.status(404).json({ error: 'notFound' }));
 app.get('*', (req, res) => {
   if (req.path.startsWith('/ws') || path.extname(req.path))

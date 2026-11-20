@@ -996,3 +996,6 @@ body[data-projector='true'] .projector-session .unified-tracker .tracker-clock {
 .task-prose { text-align: justify; text-align-last: left; hyphens: auto; }
 
 .diagram-stage-header > strong, .diagram-stage-header > .diagram-stage-title { flex-shrink: 0; }
+
+:root { --graph-completed-bg: rgba(46,158,117,.10); --graph-completed-border: rgba(46,158,117,.42); }
+:root[data-theme='light'] { --graph-completed-bg: rgba(46,158,117,.08); --graph-completed-border: rgba(46,158,117,.38); }
