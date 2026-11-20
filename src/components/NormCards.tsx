@@ -6,7 +6,7 @@ import { localizeNorm } from '../i18n/content';
 import { formatNormDisplayId } from '../i18n/normDisplay';
 
 export function NormCards({ ids, scenario, lang, onSelect }: { ids: string[]; scenario: Scenario; lang: Language; onSelect: (id: string) => void }) {
-  return <div className="norm-cards grid grid-cols-1 md:grid-cols-2 gap-3">
+  return <div lang={lang} className="norm-cards grid grid-cols-1 md:grid-cols-2 gap-3">
     {[...new Set(ids)].map(id => {
       const original = normMap.get(id);
       if (!original) return null;
@@ -19,7 +19,7 @@ export function NormCards({ ids, scenario, lang, onSelect }: { ids: string[]; sc
         <div className="flex flex-wrap items-start justify-between gap-2 mb-2"><span className="norm-code font-mono text-xs text-tactical-ice">{formatNormDisplayId(id, lang)}</span><span className="text-[10px] text-steel-300">{verified ? (lang === 'uk' ? 'Звірено' : 'Verified') : (lang === 'uk' ? 'За матеріалами кейсу · не звірено' : 'Case source · not verified')}</span></div>
         <p className="text-xs text-steel-300 mb-1">{norm.punkt}</p>
         <h4 className="font-medium text-steel-100 text-sm mb-2">{norm.akt}</h4>
-        <p className="text-xs text-steel-300 leading-relaxed">{application}</p>
+        <p className="task-prose text-xs text-steel-300 leading-relaxed">{application}</p>
       </button>;
     })}
   </div>;

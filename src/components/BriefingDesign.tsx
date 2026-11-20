@@ -21,7 +21,7 @@ export function Dossier({
 }) {
   const role = scenario.diiovi_osoby.find((r) => r.hravets);
   return (
-    <section className="dossier hud-crosshair space-y-3" data-testid="dossier">
+    <section lang={lang} className="dossier hud-crosshair space-y-3" data-testid="dossier">
       {nodeId ? <StageStepper scenario={scenario} nodeId={nodeId} completed={index - 1} lang={lang} /> : <div className="flex flex-wrap items-center justify-center gap-2 w-full text-center">
         <span className="badge font-mono">
           {caseLabel(scenario.id, lang)} ·{' '}
@@ -35,7 +35,7 @@ export function Dossier({
           </span>
         )}
       </div>}
-      <div className="leading-relaxed">{typeof children === 'string' ? <HighlightedText text={nodeId && /^(Етап|Stage)\s*\d+/u.test(children) ? children.split('\n').slice(1).join('\n').trim() : children} /> : children}</div>
+      <div className="task-prose leading-relaxed">{typeof children === 'string' ? <HighlightedText text={nodeId && /^(Етап|Stage)\s*\d+/u.test(children) ? children.split('\n').slice(1).join('\n').trim() : children} /> : children}</div>
     </section>
   );
 }
@@ -55,7 +55,7 @@ export function ValueConflict({
         <Scale className="h-6 w-6 text-status-warning" aria-hidden="true" />
         <div className="value-pole">{b}</div>
       </div>
-      <p className="value-explanation text-sm text-steel-300">{explanation}</p>
+      <p className="task-prose value-explanation text-sm text-steel-300">{explanation}</p>
     </div>
   );
 }
