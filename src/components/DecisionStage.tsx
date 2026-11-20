@@ -19,7 +19,7 @@ export function DecisionStage({ scenario, node, lang, x, top, selectedIndex, act
   const heading = stageLabel(scenario, node.id, lang);
   const firstLine=node.tekst?.split('\n')[0] || '';
   const title = /^(Етап|Stage)\s*\d+\s*[·.:–—-]/u.test(firstLine) ? firstLine.replace(/^(Етап|Stage)\s*\d+\s*[·.:–—-]\s*/u,'') : heading.split(' · ').slice(1).join(' · ');
-  const header = <><strong className="block font-mono text-xs uppercase tracking-widest text-justice-gold">{stageLabel(scenario, node.id, lang, false)}</strong><span className="diagram-stage-title block mt-2 text-sm leading-snug"><QuotedStageTitle text={title} /></span></>;
+  const header = <><strong className="block text-left font-mono text-xs uppercase tracking-widest text-justice-gold">{stageLabel(scenario, node.id, lang, false)}</strong><span className="diagram-stage-title block mt-2 text-sm leading-snug"><QuotedStageTitle text={title} /></span></>;
   return <>
     {graph && <rect x={x} y={top} width={diagram.width} height={diagram.header - 12} rx={2} fill={active ? 'rgba(200,164,86,.13)' : 'var(--graph-surface)'} stroke={unreachable ? 'var(--graph-warning)' : active ? '#C8A456' : 'rgb(var(--slate-600))'} strokeDasharray={unreachable ? '4 2' : undefined} />}
     <foreignObject x={x} y={top} width={diagram.width} height={diagram.header - 8}>
