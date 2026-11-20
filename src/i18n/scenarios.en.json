@@ -1007,8 +1007,7 @@
               "ZPK-53-1",
               "ZPK-53-2",
               "ZPK-53-3",
-              "ZPK-53-4",
-              "VS-826-5931-16"
+              "ZPK-53-4"
             ],
             "nastupnyi_vuzol": "V2"
           },
@@ -1038,8 +1037,7 @@
               "ZPK-53-1",
               "ZPK-53-2",
               "ZPK-53-3",
-              "ZPK-53-4",
-              "VS-826-5931-16"
+              "ZPK-53-4"
             ],
             "nastupnyi_vuzol": "V2"
           },
@@ -1069,8 +1067,7 @@
               "ZPK-53-1",
               "ZPK-53-2",
               "ZPK-53-3",
-              "ZPK-53-4",
-              "VS-826-5931-16"
+              "ZPK-53-4"
             ],
             "nastupnyi_vuzol": "V2"
           },
@@ -1100,8 +1097,7 @@
               "ZPK-53-1",
               "ZPK-53-2",
               "ZPK-53-3",
-              "ZPK-53-4",
-              "VS-826-5931-16"
+              "ZPK-53-4"
             ],
             "nastupnyi_vuzol": "V2"
           }
@@ -1789,10 +1785,6 @@
         "yak_zastosovuietsia": "Protection of employment rights and prevention of retaliation for reporting where statutory conditions are met."
       },
       {
-        "id": "VS-826-5931-16",
-        "yak_zastosovuietsia": "Case law highlights the need to examine allegations of conflicts of interest among selection panel members and circumstances of recusal or self-recusal."
-      },
-      {
         "id": "ZPK-29",
         "yak_zastosovuietsia": "An appropriate external conflict-management measure is chosen in light of specific powers; exclusion from the relevant decision may be necessary rather than a formal promise of objectivity."
       },
@@ -2477,7 +2469,7 @@
       },
       {
         "id": "V7",
-        "tekst": "Stage 7 · Documentary confirmation of discrepancies\n\nExamination of documents and explanations reveals discrepancies of UAH 180,000. Officials' correspondence includes a message to 'adjust the figures'. Authorship, context and significance still need assessment.\n\nYou now have documents confirming systematic food shortages as well as the employee's explanation. Total discrepancies amount to UAH 180,000. Correspondence between the logistics chief and supplier's representative includes: 'adjust the figures so everything matches'. These circumstances may indicate deliberate false entries in documents, but you cannot automatically declare a particular person guilty of a criminal offence.\n\nOn 14 January 2025, in case No. 335/10825/16 (proceedings No. 51-4643km23, court register 124968308), the Supreme Court's Criminal Cassation Court quashed the acquittal and ordered a new trial at first instance, emphasising proper assessment and admissibility of evidence.",
+        "tekst": "Stage 7 · Documentary confirmation of discrepancies\n\nExamination of documents and explanations reveals discrepancies of UAH 180,000. Officials' correspondence includes a message to 'adjust the figures'. Authorship, context and significance still need assessment.\n\nYou now have documents confirming systematic food shortages as well as the employee's explanation. Total discrepancies amount to UAH 180,000. Correspondence between the logistics chief and supplier's representative includes: 'adjust the figures so everything matches'. These circumstances may indicate deliberate false entries in documents, but you cannot automatically declare a particular person guilty of a criminal offence.\n\nIn proceedings under Article 191(3) and Article 366(1) of the Criminal Code, the Criminal Cassation Court explained assessment of witness testimony given before a different court panel under Article 95(4) of the Criminal Procedure Code at a retrial, and obtaining freely available signature samples under Article 160(1). (14.01.2025; 335/10825/16; 124968308).",
         "zapytannia": "Which conclusion is best substantiated legally?",
         "varianty": [
           {
@@ -2788,7 +2780,7 @@
       },
       {
         "id": "VS-335-10825-16",
-        "yak_zastosovuietsia": "On 14 January 2025, in case No. 335/10825/16 (proceedings No. 51-4643km23, court register 124968308), the Supreme Court's Criminal Cassation Court quashed the acquittal and ordered a new trial at first instance, emphasising proper assessment and admissibility of evidence. This illustrates the need to examine evidence rather than automatically infer guilt."
+        "yak_zastosovuietsia": "In proceedings under Article 191(3) and Article 366(1) of the Criminal Code, the Criminal Cassation Court explained assessment of witness testimony given before a different court panel under Article 95(4) of the Criminal Procedure Code at a retrial, and obtaining freely available signature samples under Article 160(1)."
       },
       {
         "id": "KK-191",
