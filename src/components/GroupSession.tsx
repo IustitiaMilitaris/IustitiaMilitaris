@@ -265,7 +265,7 @@ export function GroupSession({
             key={v.id}
           >
             <div className="flex justify-between gap-3">
-              <p className="text-sm">
+              <p className="task-prose text-sm">
                 <strong className="text-justice-gold">
                   {optionLabel(
                     items.findIndex((item) => item.id === v.id),
@@ -351,7 +351,7 @@ export function GroupSession({
     </div>
   );
   return (
-    <section
+    <section lang={lang}
       className={`page-shell projector-session ${host && room?.phase === 'briefing' ? 'host-lobby' : ''} ${projector ? '!max-w-none sm:!px-12 text-lg' : ''}`}
     >
       {message && (
@@ -550,10 +550,10 @@ export function GroupSession({
               <h3 className="im-section-title font-bold">
                 {translations[lang].reflection.applicabilityTitle}
               </h3>
-              <p>{scenario.zastosovnist}</p>
+              <p className="task-prose">{scenario.zastosovnist}</p>
               <ul className="list-disc pl-5 space-y-2">
                 {scenario.porady.map((p) => (
-                  <li key={p}>{p}</li>
+                  <li className="task-prose" key={p}>{p}</li>
                 ))}
               </ul>
             </div>
@@ -564,7 +564,7 @@ export function GroupSession({
                   <h2 className="im-title font-serif text-xl font-bold">
                     {translations[lang].briefing.title}
                   </h2>
-                  <p className="text-steel-300 leading-relaxed">
+                  <p className="task-prose text-steel-300 leading-relaxed">
                     <HighlightedText text={scenario.kontekst} />
                   </p>
                   <Dossier scenario={scenario} lang={lang}>
@@ -576,7 +576,7 @@ export function GroupSession({
                         <h3 className="im-section-title font-bold text-justice-gold">
                           {r.rol}
                         </h3>
-                        <p className="mt-2 text-sm text-steel-300">{r.opys}</p>
+                        <p className="task-prose mt-2 text-sm text-steel-300">{r.opys}</p>
                       </div>
                     ))}
                   </div>
@@ -685,7 +685,7 @@ export function GroupSession({
                               <span className="badge font-mono">
                                 {variantLabel(scenario, node.id, v.id, lang)}
                               </span>
-                              {v.tekst}
+                              <span className="task-prose flex-1">{v.tekst}</span>
                             </button>
                           ))}
                         </div>

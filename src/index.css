@@ -954,7 +954,7 @@ body[data-projector='true'] .projector-session :is(p,li,h2,h3) { font-size: 1rem
  .value-conflict .value-poles { grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); gap: 8px; }
  .value-conflict .value-pole { text-align: center; padding: 8px; font-size: 12px; overflow-wrap: anywhere; }
  .value-conflict .value-poles > svg { width: 20px; height: 20px; color: var(--accent-gold); }
- .value-conflict .value-explanation { padding-top: 8px; border-top: 1px solid var(--border-subtle); font-size: 12px; line-height: 1.625; text-align: left; }
+ .value-conflict .value-explanation { padding-top: 8px; border-top: 1px solid var(--border-subtle); font-size: 12px; line-height: 1.625; text-align: justify; text-align-last: left; hyphens: auto; }
 }
 
 .room-status-header > div { width: 100%; }
@@ -990,3 +990,7 @@ body[data-projector='true'] .projector-session .unified-tracker .tracker-clock {
 .diagram-stage-header { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; text-align: left; }
 .diagram-stage-header > strong, .diagram-stage-header > .diagram-stage-title { width: 100%; text-align: left; }
 .diagram-stage-header .quoted-stage-fragment { text-align: left; margin-inline: 0; }
+
+:root { --graph-header-bg: #162232; --graph-header-border: #334861; }
+:root[data-theme='light'] { --graph-header-bg: #EDF3F7; --graph-header-border: #B8CAD8; }
+.task-prose { text-align: justify; text-align-last: left; hyphens: auto; }

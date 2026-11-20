@@ -295,7 +295,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
   );
 
   return (
-    <div className={`solo-shell mx-auto px-4 sm:px-6 py-8 ${phase === 'decision' || phase === 'feedback' ? 'max-w-6xl' : 'max-w-4xl'}`}>
+    <div lang={lang} className={`solo-shell mx-auto px-4 sm:px-6 py-8 ${phase === 'decision' || phase === 'feedback' ? 'max-w-6xl' : 'max-w-4xl'}`}>
       {phase === 'briefing' && (
         <div
           key={`${scenario.id}:${phase}:${currentNodeId}`}
@@ -314,7 +314,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
               <strong className="text-tactical-ice block mb-1">
                 {ui(lang, 'm214')}{' '}
               </strong>
-              <HighlightedText text={scenario.kontekst} />
+              <div className="task-prose"><HighlightedText text={scenario.kontekst} /></div>
             </div>
             <div className="space-y-2">
               <h2 className="im-title font-serif text-sm font-bold text-steel-300 uppercase tracking-wider">
@@ -349,7 +349,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-steel-300 leading-relaxed">
+                    <p className="task-prose text-xs text-steel-300 leading-relaxed">
                       {role.opys}
                     </p>
                   </div>
@@ -445,7 +445,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
                       >
                         {variantLabel(scenario, currentNodeId, v.id, lang)}
                       </span>
-                      <div className="text-sm sm:text-base leading-relaxed">
+                      <div className="task-prose text-sm sm:text-base leading-relaxed">
                         {v.tekst}
                       </div>
                     </div>
@@ -630,7 +630,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
               <h3 className="im-section-title text-xs font-bold text-tactical-ice uppercase tracking-wider">
                 {t.reflection.applicabilityTitle}
               </h3>
-              <p className="text-steel-300 leading-relaxed">
+              <p className="task-prose text-steel-300 leading-relaxed">
                 {scenario.zastosovnist}
               </p>
             </div>
@@ -645,7 +645,7 @@ export const SoloSimulator: React.FC<SoloSimulatorProps> = ({
                     className="flex items-start gap-2 text-xs sm:text-sm text-steel-100"
                   >
                     <CheckCircle2 className="w-4 h-4 text-justice-gold shrink-0 mt-0.5" />
-                    <span>{advice}</span>
+                    <span className="task-prose">{advice}</span>
                   </li>
                 ))}
               </ul>

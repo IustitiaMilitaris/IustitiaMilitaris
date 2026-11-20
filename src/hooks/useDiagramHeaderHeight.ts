@@ -16,7 +16,7 @@ export function useDiagramHeaderHeight(contentKey: unknown, language: string, st
         const header = title.closest('foreignObject')!;
         return title.getBoundingClientRect().bottom - header.getBoundingClientRect().top;
       });
-      if (heights.length) setHeaderHeight(Math.ceil(Math.max(...heights)) + 16);
+      if (heights.length) setHeaderHeight(Math.ceil(Math.max(...heights)) + 26);
     };
     const observer = new ResizeObserver(measure);
     svg.querySelectorAll('.diagram-stage-title').forEach(title => observer.observe(title));

@@ -14,6 +14,10 @@ const fs=require('node:fs/promises'),os=require('node:os'),path=require('node:pa
  const c=await browser.newContext({viewport:{width,height:900}});
  await c.addInitScript(({lang,theme})=>{localStorage.setItem('eds-language',lang);localStorage.setItem('eds-theme',theme);},{lang,theme});
  const p=await c.newPage(),base='http://127.0.0.1:18575';
+ await p.goto(base+'/scenarios/S02');
+ await p.locator('.solo-shell .task-prose').first().waitFor();
+ const prose=await p.locator('.solo-shell .task-prose').evaluateAll(es=>es.map(e=>({align:getComputedStyle(e).textAlign,last:getComputedStyle(e).textAlignLast,lang:e.closest('[lang]').lang})));
+ assert.ok(prose.length>=3);prose.forEach(e=>{assert.equal(e.align,'justify');assert.equal(e.last,'left');assert.equal(e.lang,lang);});
  await p.goto(base+'/scenarios/S02/play');await p.getByTestId('stepper').waitFor();
  const breadcrumb=p.locator('#breadcrumbs [aria-current="page"]');assert.match(await breadcrumb.textContent(),lang==='uk'?/ЗАДАЧА 2: Недоторканний кандидат/:/CASE 2: The Untouchable Candidate/);
  await p.waitForFunction(expected=>getComputedStyle(document.querySelector('.breadcrumb-current')).color===expected,theme==='light'?'rgb(143, 109, 36)':'rgb(200, 164, 86)');
@@ -47,8 +51,8 @@ const fs=require('node:fs/promises'),os=require('node:os'),path=require('node:pa
  }
  await p.getByTestId('path-stage').first().waitFor();assert.equal(await p.getByTestId('path-stage').count(),8);assert.equal(await p.getByTestId('selected-curve').count(),7);
  const leftEdges=await p.locator('.diagram-stage-title').evaluateAll(es=>es.map(e=>{const label=e.previousElementSibling;return {align:getComputedStyle(e).textAlign,delta:Math.abs(e.getBoundingClientRect().left-label.getBoundingClientRect().left),quotes:[...e.querySelectorAll('.quoted-stage-fragment')].map(q=>Math.abs(q.getBoundingClientRect().left-label.getBoundingClientRect().left))};}));leftEdges.forEach(e=>{assert.equal(e.align,'left');assert.ok(e.delta<=2);e.quotes.forEach(delta=>assert.ok(delta<=2));});
- const headerGaps=await p.locator('[data-testid="path-stage"]').evaluateAll(stages=>stages.map(stage=>stage.querySelector('[data-testid="path-option"] rect').getBoundingClientRect().top-stage.querySelector('.diagram-stage-title').getBoundingClientRect().bottom));
- assert.ok(Math.min(...headerGaps)>=14 && Math.min(...headerGaps)<=20, `Compact header gap: ${headerGaps}`);
+ const headerBoxes=await p.locator('[data-testid="path-stage"]').evaluateAll(stages=>stages.map(stage=>{const header=stage.querySelector('[data-testid="stage-header-box"]').getBoundingClientRect(),option=stage.querySelector('[data-testid="path-option"] rect').getBoundingClientRect(),title=stage.querySelector('.diagram-stage-title').getBoundingClientRect();return {gap:option.top-header.bottom,width:header.width,optionWidth:option.width,height:header.height,contained:title.right<=header.right-10&&title.bottom<=header.bottom-8};}));
+ headerBoxes.forEach(box=>{assert.ok(box.gap>=14&&box.gap<=16);assert.equal(box.width,box.optionWidth);assert.equal(box.height,headerBoxes[0].height);assert.ok(box.contained);});
  const quoteLayout=await p.locator('.diagram-stage-title .quoted-stage-fragment').evaluateAll(es=>es.map(e=>{const c=document.createElement('canvas').getContext('2d');c.font=getComputedStyle(e).font;const range=document.createRange();range.selectNodeContents(e);return {natural:c.measureText(e.textContent).width,available:e.parentElement.clientWidth,lines:range.getClientRects().length,bottom:e.getBoundingClientRect().bottom,option:e.closest('[data-testid="path-stage"]').querySelector('[data-testid="path-option"] rect').getBoundingClientRect().top};}));
  assert.ok(quoteLayout.length>0);quoteLayout.forEach(q=>{if(q.natural<=q.available)assert.equal(q.lines,1);assert.ok(q.bottom<=q.option);});
  const percentages=await p.getByTestId('vote-percentage').allTextContents();assert.deepEqual(percentages,width===1280?['67%','33%']:['100%']);
