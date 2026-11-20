@@ -14,7 +14,7 @@ export function DecisionPathSvg({ scenario, steps, votesByNode }: { scenario: Sc
     const index = node?.varianty.findIndex(v => v.id === step.variantId) ?? -1;
     return node && index >= 0 ? [{ node, index }] : [];
   });
-  const { svgRef, headerHeight } = useDiagramHeaderHeight(scenario, lang, columns.map(column => column.node.id).join(':'));
+  const { svgRef, headerHeight, headerBoxHeights } = useDiagramHeaderHeight(scenario, lang, columns.map(column => column.node.id).join(':'));
   const top = 8;
   const height = top + headerHeight + Math.max(1, ...columns.map(c => c.node.varianty.length)) * diagram.row - diagram.row + diagram.box + diagram.padding;
   const totalWidth = Math.max(300, columns.length * (diagram.width + diagram.gap) - diagram.gap + diagram.padding * 2);
@@ -29,7 +29,7 @@ export function DecisionPathSvg({ scenario, steps, votesByNode }: { scenario: Sc
         return <path key={i} data-testid="selected-curve" data-from-option={previous.index} data-to-option={column.index} d={curve} stroke="#C8A456" strokeWidth="2.5" fill="none" markerEnd={`url(#${arrow})`} />;
       })}
       {columns.map(({ node, index }, col) => <g key={`${col}:${node.id}`} data-testid="path-stage">
-        <DecisionStage scenario={scenario} node={node} lang={lang} x={diagram.padding + col * (diagram.width + diagram.gap)} top={top} headerHeight={headerHeight} selectedIndex={index} votes={votesByNode?.[node.id]} />
+        <DecisionStage scenario={scenario} node={node} lang={lang} x={diagram.padding + col * (diagram.width + diagram.gap)} top={top} headerHeight={headerHeight} headerBoxHeight={headerBoxHeights[node.id]} selectedIndex={index} votes={votesByNode?.[node.id]} />
       </g>)}
     </svg>
   </div>;
