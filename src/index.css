@@ -986,3 +986,7 @@ body[data-projector='true'] .projector-session .unified-tracker .tracker-clock {
 
 .progress-chip.is-current { display: inline-block; }
 .diagram-stage-title { text-align: left; overflow-wrap: break-word; }
+
+.diagram-stage-header { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; text-align: left; }
+.diagram-stage-header > strong, .diagram-stage-header > .diagram-stage-title { width: 100%; text-align: left; }
+.diagram-stage-header .quoted-stage-fragment { text-align: left; margin-inline: 0; }
