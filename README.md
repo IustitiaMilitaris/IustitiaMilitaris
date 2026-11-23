@@ -19,8 +19,7 @@
 
 ## Демонстрація
 
-Відео до 3 хв на YouTube/Google Drive: команда додасть посилання.
-Робоча версія в інтернеті: команда додасть за наявності.
+Відео до 3 хв на YouTube: [Переглянути відео.](https://youtu.be/rUBW6dLR4Yc)
 
 ## Як запустити
 
@@ -60,8 +59,7 @@ React/TypeScript/Tailwind CSS → компоненти `src/components/` → JSO
 | Зловживання та запобіжники | [docs/abuse-and-safeguards.md](docs/abuse-and-safeguards.md) |
 | Як ми використали ШІ | [docs/ai.md](docs/ai.md) |
 | Артефакти процесу команди | [docs/process/README.md](docs/process/README.md) |
-| Відео демонстрації | [Посилання на відео демонстрації (до 3 хв) — буде додано перед фінальною подачею] |
-| Макети Figma / Notion | [Посилання на макети — буде додано командою за наявності] |
+| Відео демонстрації | [Посилання на відео демонстрації (до 3 хв)](https://youtu.be/rUBW6dLR4Yc) |
 | Презентація для фіналу | [presentation/README.md](presentation/README.md) — підготувати до 26.11.2026, 18:00 за Києвом |
 
 - [docs/abuse-and-safeguards.md](docs/abuse-and-safeguards.md) — Зловживання та запобіжники.
