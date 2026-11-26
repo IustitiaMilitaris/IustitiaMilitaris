@@ -60,7 +60,7 @@ React/TypeScript/Tailwind CSS → компоненти `src/components/` → JSO
 | Як ми використали ШІ | [docs/ai.md](docs/ai.md) |
 | Артефакти процесу команди | [docs/process/README.md](docs/process/README.md) |
 | Відео демонстрації | [Посилання на відео демонстрації (до 3 хв)](https://youtu.be/rUBW6dLR4Yc) |
-| Презентація для фіналу | [presentation/ВІЙСЬКО - ЮРИДИЧНИЙ ІНСТИТУТ.pdf](ВІЙСЬКО%20-%20ЮРИДИЧНИЙ%20ІНСТИТУТ.pdf) |
+| Презентація для фіналу | [presentation/ВІЙСЬКО - ЮРИДИЧНИЙ ІНСТИТУТ.pdf](presentation/ВІЙСЬКО%20-%20ЮРИДИЧНИЙ%20ІНСТИТУТ.pdf) |
 
 - [docs/abuse-and-safeguards.md](docs/abuse-and-safeguards.md) — Зловживання та запобіжники.
 - [docs/ai.md](docs/ai.md) — Як ми використали ШІ.
